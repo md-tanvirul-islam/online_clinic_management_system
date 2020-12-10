@@ -31,6 +31,8 @@ class CreateDoctorsTable extends Migration
             $table->string('feeNew')->nullable();
             $table->string('feeInMonth')->nullable();
             $table->string('feeReport')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

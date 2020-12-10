@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DepartmentController;
 
 
 /*
@@ -25,14 +26,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::prefix('admin')->group(function (){
+    Route::get('/departments/bin',[DepartmentController::class,'recycleBin'] )->name('departments.bin');
+    Route::get('/departments/restore',[DepartmentController::class,'restoreAll'] )->name('departments.restore');
+    Route::delete('/departments/{id}/pdelete',[DepartmentController::class,'permanentlyDelete'] )->name('departments.permanently.delete');
     Route::resources([
-        'departments'=>App\Http\Controllers\DepartmentController::class,
-        'doctors'=>\App\Http\Controllers\DoctorController::class,
-        'dayOfWeek'=>\App\Http\Controllers\DaysOfWeekController::class
+        'departments'=>DepartmentController::class,
+        'doctors'=>App\Http\Controllers\DoctorController::class,
+        'dayOfWeek'=>App\Http\Controllers\DaysOfWeekController::class
     ]);
-    Route::get('/',function (){
-       return view('backend.admin.index');
-    });
+    Route::get('/',function (){return view('backend.admin.index');});
+    
+    
 });
 
 Route::get('/test',function()

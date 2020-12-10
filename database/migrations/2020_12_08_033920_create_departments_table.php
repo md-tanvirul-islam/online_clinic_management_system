@@ -18,6 +18,8 @@ class CreateDepartmentsTable extends Migration
             $table->string('name')->unique();
             $table->string('is_active');
             $table->text('description')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

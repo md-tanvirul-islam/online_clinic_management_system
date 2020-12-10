@@ -16,7 +16,7 @@ class DepartmentService
     public function storeOrUpdate($data)
     {
         $user_id = auth()->user()->id;
-
+        // dd($data["id"]);
         if(!empty($data["id"])){
             // update
             $department = Department::whereId($data["id"])->first();

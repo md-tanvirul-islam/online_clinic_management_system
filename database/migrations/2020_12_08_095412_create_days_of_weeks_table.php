@@ -16,6 +16,8 @@ class CreateDaysOfWeeksTable extends Migration
         Schema::create('days_of_weeks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

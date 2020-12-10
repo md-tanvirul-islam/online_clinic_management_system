@@ -39,65 +39,48 @@ class DepartmentController extends Controller
 
     public function store(StoreDepartmentRequest $request)
     {
+        // dd($request->all());
         try{
             $validData = $request->validated();
+            $validData['is_active'] === "yes"?$validData['is_active']:$validData['is_active']="No";
             $department = $this->departmentService->storeOrUpdate($validData);
-
-            if(is_null($department) === false){
-                $message = message("Department has been successfully created");
-                return redirect()->route('departments.index')->with('success','Task was successful!');
-            }else{
-                $message = message("Department has not created", "error");
-                return redirect()->back()->with('success','Task was successful!');
-            }
-            session()->flash("success", $message);
-
+            
+            session()->flash("success", "Department has been successfully created");
+    
             return redirect()->back();
-
-//            return redirect()->route('departments.index')->with('success','Task was successful!');
-
         }catch (QueryException $exception)
         {
             return redirect()->back()->withErrors($exception->getMessage());
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
     public function show(Department $department)
     {
         return view('backend.admin.departments.show',compact('department'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Department $department)
     {
 
         return view('backend.admin.departments.edit',compact('department'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateDepartmentRequest $request, Department $department)
+    public function update(UpdateDepartmentRequest $request, $id)
     {
+
+        $validated = $request->validated();
+        $validated['id'] = $id;
+        // dd($validated['id']);
+
         try{
-            $validData = $request->validate();
-            $this->departmentService->update($validData,$department);
-            return redirect()->route('departments.index')->with('success','Update successful!');
+            $department = $this->departmentService->storeOrUpdate($validated);
+
+            // $department->update($validated); 
+            // dd($department) ;      
+
+            session()->flash("success", "$department->name department info has been successfully updated");
+
+        return back();
 
         }catch (QueryException $exception)
         {
@@ -105,12 +88,6 @@ class DepartmentController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Department $department)
     {
         try {
@@ -120,5 +97,23 @@ class DepartmentController extends Controller
         {
             return redirect()->back()->withErrors($exception->getMessage());
         }
+    }
+
+    public function recycleBin()
+    {
+        $departments = Department::onlyTrashed()->get();
+        return view('backend.admin.departments.recycle',compact('departments'));
+    }
+
+    public function restoreAll()
+    {
+        Department::withTrashed()->restore();
+        return redirect()->route('departments.index')->withSuccess("Restore Successful");
+    }
+
+    public function permanentlyDelete($id)
+    {
+        Department::onlyTrashed()->find($id)->forceDelete();
+        return  redirect()->back();
     }
 }

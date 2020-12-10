@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Route;
 
 class UpdateDepartmentRequest extends FormRequest
 {
@@ -24,14 +25,25 @@ class UpdateDepartmentRequest extends FormRequest
      */
     public function rules()
     {
+
+        // dd(request()->route()->parameters['department']);
+        // $id = Route::current()->parameter('department');
+        // dd(request()->route('department'));
         return [
-            'name'=>[
+            'name'   => [
+                'required',
+                'unique:departments,name,' . request()->route('department'),
+            ],
+
+            // 'name' => 'required|string|unique:departments,name,' . request()->route('department')->id,
+            'is_active'=>[
                 'required',
                 'string',
-                Rule::unique('departments')->ignore($department->id),
-            ],
-            'is_active'=>'required|string',
-            'description'=>'required|string'
+                Rule::in(['yes', 'no']),
+            ]
+
+            'description'=>'required|string',
+            
         ];
     }
 }

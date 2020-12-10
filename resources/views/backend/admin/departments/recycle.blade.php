@@ -4,17 +4,22 @@
 
 @section('content')
 
-    <h1 class="h3 mb-2 text-gray-800" style="text-align:center;">List of departments in this clinic</h1>
+    <h1 class="h3 mb-2 text-gray-800" style="text-align:center;">List of delected departments</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <span   class="m-0 font-weight-bold text-primary"><a href="{{ route('departments.create') }}" style="color:white;" class="btn btn-primary">Add Division</a></span>
-            <span class="text-right"><a class="btn btn-danger" href="{{ route('departments.bin') }}">RecycleBin</a></span>
-        </div>
         @if(count($departments) == 0)
+            <div class="card-header py-3">
+                <span class="text-right"><a class="btn btn-primary " href="{{ route('departments.index') }}">DepartmentList</a></span>
+            </div>
             <h3>No Record Found. Add some records</h3>
         @else
+        <div class="card-header py-3">
+            <span class="text-right"><a class="btn btn-info" href="{{ route('departments.index') }}">DepartmentList</a></span>
+            <span class="text-right"><a class="btn btn-success" href="{{ route('departments.restore') }}">ReStore</a></span>
+        </div>
+
+
         <div class="card-body">
             <div class="table-responsive" style="text-align: center">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -28,10 +33,12 @@
                     </thead>
 
                     <tbody>
-                    
+                    @php
+                    $i = 0
+                    @endphp
                     @foreach($departments as $department)
                     <tr>
-                        <td> {{ $loop->iteration }}</td>
+                        <td> {{++$i}}</td>
                         <td>{{ $department->name }}</td>
                         <td>{{$department->is_active}}</td>
                         <td >
@@ -43,10 +50,10 @@
                                 Edit
                             </a>
 
-                            <form action="{{ route('departments.destroy', [$department->id]) }}" method="post" style="display: inline">
+                            <form action="{{ route('departments.permanently.delete', [$department->id]) }}" method="post" style="display: inline">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">Delete</button>
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">PermanentDelete</button>
                             </form>
 
                         </td>
