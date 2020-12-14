@@ -5,13 +5,13 @@
 
         <div class="container" style="margin-bottom: 20px">
             <div style="text-align: justify">
-                <a class="btn btn-secondary" href="{{route('doctors.index')}}">List of Departments</a>
+                <a class="btn btn-secondary" href="{{route('patients.index')}}">List of patients</a>
             </div>
-            <h1 style="text-align:center;margin-bottom: 40px">Enter the info of a doctor</h1>
+            <h1 style="text-align:center;margin-bottom: 40px">Enter the info of a Patient</h1>
 
-            {!! Form::open(['route'=>'doctors.store','files'=>true]) !!}
+            {!! Form::open(['route'=>'patients.store','files'=>true]) !!}
 
-            @include('backend.admin.doctors.form')
+            @include('backend.admin.patients.form')
 
             <div class="form-row">
                 <div class="col-4 text-right">

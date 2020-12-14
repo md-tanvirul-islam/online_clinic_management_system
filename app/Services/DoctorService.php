@@ -25,15 +25,26 @@ class DoctorService
             {   
                 $doctor = new Doctor();
                 $doctor->created_by = $user_id; 
-                $doctor->image = $this->fileHandelingService->uploadImage($data['image'],"uploads/doctors/images/");
+                if(isset($data['image']))
+                {
+                    $doctor->image = $this->fileHandelingService->uploadImage($data['image'],"uploads/doctors/images/");
+                }
+                else{
+                    $doctor->image =null;
+                }
+                
                 // $doctor->image = $this->fileHandelingService->imageStore($data,$folder);
             }
             else
             {
                 $doctor = Doctor::whereId($data["id"])->first();
                 $oldFile = $doctor->image;
-                $doctor->updated_by = $user_id;  
-                $doctor->image = $this->fileHandelingService->uploadImage($data['image'],"uploads/doctors/images/",$oldFile);
+                $doctor->updated_by = $user_id; 
+                if(isset($data['image']))
+                {
+                    $doctor->image = $this->fileHandelingService->uploadImage($data['image'],"uploads/doctors/images/",$oldFile);
+                } 
+               
                 // $doctor->image = $this->fileHandelingService->imageUpdate($data,$folder,$oldImageName);  
             }
             

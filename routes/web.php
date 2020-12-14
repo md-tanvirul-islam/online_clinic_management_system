@@ -35,10 +35,15 @@ Route::prefix('admin')->group(function (){
     Route::get('/doctors/restore',[DoctorController::class,'restoreAll'] )->name('doctors.restore');
     Route::delete('/doctors/{id}/pdeletebyid',[DoctorController::class,'permanentlyDelete'] )->name('doctors.permanently.delete.by.id');
     // Route::delete('/doctors/pdelete',function(){echo "abc";} )->name('doctors.permanently.delete.all');
+
+    Route::get('/patients/bin',[DepartmentController::class,'recycleBin'] )->name('patients.bin');
+    Route::get('/patients/restore',[DepartmentController::class,'restoreAll'] )->name('patients.restore');
+    Route::delete('/patients/{id}/pdelete',[DepartmentController::class,'permanentlyDelete'] )->name('patients.permanently.delete');
     Route::resources([
         'departments'=>DepartmentController::class,
         'doctors'=>App\Http\Controllers\DoctorController::class,
-        'dayOfWeek'=>App\Http\Controllers\DaysOfWeekController::class
+        'dayOfWeek'=>App\Http\Controllers\DaysOfWeekController::class,
+        'patients'=>App\Http\Controllers\PatientController::class,
     ]);
     Route::get('/',function (){return view('backend.admin.index');});
     

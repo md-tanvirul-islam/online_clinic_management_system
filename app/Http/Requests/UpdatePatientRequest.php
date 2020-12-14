@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateDoctorRequest extends FormRequest
+class UpdatePatientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,28 +24,19 @@ class UpdateDoctorRequest extends FormRequest
      */
     public function rules()
     {
-        // dd(request()->route('doctor')->id);
+        // dd(request()->route('patient')->id);
         return [
         'name'=>'required|string',
-        'email'=>[
-            'required',
-            'email',
-            Rule::unique('doctors')->ignore(request()->route('doctor')->id)
-    ],
-        'department_id'=>'required|int',
+        'email'=>'required|email',
         'address'=>'required|string',
-        'phoneNo'=>'required|string',
-        'mobileNo'=>'required|string',
+        'phone'=>[
+            'required',
+            'string',
+            Rule::unique('patients')->ignore(request()->route('patient')->id)],
         'image'=>'image|nullable',
-        'speciality'=>'required|string',
-        'degree'=>'required|string',
-        'bio'=>'nullable|string',
-        'birthDate'=>'required|date',
+        'birthDate'=>'date|nullable',
         'gender'=>'required|string',
         'bloodGroup'=>'required|string',
-        'feeNew'=>'required|string',
-        'feeInMonth'=>'required|string',
-        'feeReport'=>'required|string',
         ];
     }
 }

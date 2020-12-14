@@ -45,7 +45,7 @@
 
                         <a class="collapse-item" href="{{route('doctors.index')}}">Doctors </a>
 
-                        <a class="collapse-item" href="#">Patients </a>
+                        <a class="collapse-item" href="{{route('patients.index')}}">Patients </a>
 
                         <a class="collapse-item" href="#">Tests </a>
 
@@ -70,7 +70,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('patients.index')}}">
                     <i class="fas fa-bed"></i>
                     <span>Patients</span></a>
             </li>
