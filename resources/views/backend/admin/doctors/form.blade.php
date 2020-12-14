@@ -84,21 +84,25 @@
         <h6> {!! Form::label('bio','Short Bio:') !!} </h6>
     </div>
     <div class="form-group col-4 text-center" >
-        {!! Form::text('bio',null,['class'=>'form-control','required']) !!}
+        {!! Form::textarea('bio',null,['class'=>'form-control','required']) !!}
     </div>
 </div>
-<br>
+
 <div class="form-row">
     <div class="col-4 text-right">
-        <h6> {!! Form::label('gender','Gender:') !!} </h6>
+         Gender: 
     </div>
 
     <div class="col-4">
-        {!! Form::select('gender',['male'=>'Male','female'=>'Female','other'=>'Other'],Null,['placeholder'=>'Select One','class'=>'form-control','required'] )!!}
+        {!! Form::label('gender','Male:') !!}
+        {!! Form::radio('gender','male',['class'=>'form-control','required'] )!!}
+        {!! Form::label('gender','Female:') !!}
+        {!! Form::radio('gender','female',['class'=>'form-control','required'] )!!}
+        {!! Form::label('gender','Other:') !!}
+        {!! Form::radio('gender','other',['class'=>'form-control','required'] )!!}
+     
     </div>
-
 </div>
-<br>
 <div class="form-row">
     <div class="col-4 text-right">
         <h6> {!! Form::label('bloodGroup','Blood Group:') !!} </h6>
@@ -108,37 +112,37 @@
         {!! Form::select('bloodGroup',['A+'=>'A+','A-'=>'A-','B+'=>'B+','B-'=>'B-','AB+'=>'AB+','AB-'=>'AB-','O+'=>'O+','O-'=>'O-'],Null,['placeholder'=>'Select One','class'=>'form-control','required'] )!!}
     </div>
 
-</div>
-<br>
+</div><br>
 <div class="form-row">
     <div class="col-4 text-right">
-        <h6> {!! Form::label('feeNew','New Patient Consultation Fee:') !!} </h6>
+        {!! Form::label('feeNew','New Patient Consultation Fee:') !!} 
     </div>
 
     <div class="col-4">
         {!! Form::text('feeNew',null,['class'=>'form-control','required']) !!}
     </div>
 
-</div>
+</div><br>
 
 <div class="form-row">
     <div class="col-4 text-right">
-        <h6> {!! Form::label('feeInMonth','Consultation Fee(same Month):') !!} </h6>
+        {!! Form::label('feeInMonth','Consultation Fee(same Month):') !!} 
     </div>
 
     <div class="col-4">
         {!! Form::text('feeInMonth',null,['class'=>'form-control','required']) !!}
     </div>
 
-</div>
+</div><br>
 
 <div class="form-row">
     <div class="col-4 text-right">
-        <h6> {!! Form::label('feeReport','Consultation Fee for Report:') !!} </h6>
+        {!! Form::label('feeReport','Consultation Fee for Report:') !!} 
     </div>
 
     <div class="col-4">
         {!! Form::text('feeReport',null,['class'=>'form-control','required']) !!}
     </div>
+</div><br>
 
-</div>
+

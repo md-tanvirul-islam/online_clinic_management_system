@@ -9,9 +9,18 @@
             </div>
             <h1 style="text-align:center;margin-bottom: 40px">Enter a Name of Department</h1>
 
-            {!! Form::open(['route'=>'doctors.store']) !!}
+            {!! Form::open(['route'=>'doctors.store','files'=>true]) !!}
 
             @include('backend.admin.doctors.form')
+
+            <div class="form-row">
+                <div class="col-4 text-right">
+                    {!! Form::label('image','Upload Profile Image:') !!} 
+                </div>
+                <div class="col-4 text-right"> 
+                    {!! Form::file('image') !!}
+                </div>
+            </div>
 
             <br>
             <div class="form-row">

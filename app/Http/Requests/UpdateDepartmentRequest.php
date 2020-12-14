@@ -40,9 +40,10 @@ class UpdateDepartmentRequest extends FormRequest
                 'required',
                 'string',
                 Rule::in(['yes', 'no']),
+                'description'=>'string',
             ]
 
-            'description'=>'required|string',
+            
             
         ];
     }

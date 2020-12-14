@@ -92,7 +92,7 @@ class DepartmentController extends Controller
     {
         try {
             $department->delete();
-            return redirect()->route('departments.index')->withError("Delete Successful"  );
+            return redirect()->route('departments.index')->withSuccess("Delete Successful"  );
         }catch (QueryException $exception)
         {
             return redirect()->back()->withErrors($exception->getMessage());

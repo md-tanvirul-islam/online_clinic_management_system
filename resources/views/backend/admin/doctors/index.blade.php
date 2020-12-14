@@ -9,7 +9,8 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6   class="m-0 font-weight-bold text-primary"><a href="{{ route('doctors.create') }}" style="color:white;" class="btn btn-primary">Add Doctor</a></h6>
+            <span   class="m-0 font-weight-bold text-primary"><a href="{{ route('doctors.create') }}" style="color:white;" class="btn btn-primary">Add Doctor</a></span>
+            <span class="text-right"><a class="btn btn-danger" href="{{ route('doctors.bin') }}">RecycleBin</a></span>
         </div>
         @if(count($doctors) == 0)
             <h3>No Record Found. Add some records</h3>
@@ -46,16 +47,18 @@
                         <td >
 
                             <a href="{{ route('doctors.show', [$doctor->id]) }}" style="color:black;" class="btn btn-info">
-                                Details
+                                <i class="fas fa-eye"></i>
                             </a>
                             <a href="{{ route('doctors.edit', [$doctor->id]) }}" style="color:black;" class="btn btn-warning">
-                                Edit
+                                <i class="fas fa-edit"></i>
                             </a>
 
                             <form action="{{ route('doctors.destroy', [$doctor->id]) }}" method="post" style="display: inline">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">Delete</button>
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </form>
 
                         </td>
