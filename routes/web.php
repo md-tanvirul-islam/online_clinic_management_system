@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DaysOfWeekController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
@@ -40,10 +41,14 @@ Route::prefix('admin')->group(function (){
     Route::get('/patients/bin',[PatientController::class,'recycleBin'] )->name('patients.bin');
     Route::get('/patients/restore',[PatientController::class,'restoreAll'] )->name('patients.restore');
     Route::delete('/patients/{id}/pdelete',[PatientController::class,'permanentlyDelete'] )->name('patients.permanently.delete.by.id');
+    
+    Route::get('/daysOfWeek/bin',[DaysOfWeekController::class,'recycleBin'] )->name('daysOfWeek.bin');
+    Route::get('/daysOfWeek/restore',[DaysOfWeekController::class,'restoreAll'] )->name('daysOfWeek.restore');
+    Route::delete('/daysOfWeek/{id}/pdelete',[DaysOfWeekController::class,'permanentlyDelete'] )->name('daysOfWeek.permanently.delete.by.id');
     Route::resources([
         'departments'=>DepartmentController::class,
         'doctors'=>App\Http\Controllers\DoctorController::class,
-        'dayOfWeek'=>App\Http\Controllers\DaysOfWeekController::class,
+        'daysOfWeek'=>App\Http\Controllers\DaysOfWeekController::class,
         'patients'=>App\Http\Controllers\PatientController::class,
     ]);
     Route::get('/',function (){return view('backend.admin.index');});

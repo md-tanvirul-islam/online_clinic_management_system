@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\DaysOfWeek;
+use App\Services\daysOfWeekService;
 use Illuminate\Http\Request;
 
 class DaysOfWeekController extends Controller
 {
+    protected $daysOfWeekService;
+    public function __construct()
+    {
+        $this->daysOfWeekService = new daysOfWeekService();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class DaysOfWeekController extends Controller
      */
     public function index()
     {
-        //
+        $daysOfWeek = $this->daysOfWeekService->list();
+        return view('backend.admin.dayOfWeek.index',compact('daysOfWeek')); 
     }
 
     /**

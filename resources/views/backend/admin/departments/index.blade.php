@@ -36,17 +36,19 @@
                         <td>{{$department->is_active}}</td>
                         <td >
 
-                            <a href="{{ route('departments.show', [$department->id]) }}" style="color:black;" class="btn btn-info">
-                                Details
+                            <a href="{{ route('departments.show', [$department->id]) }}" title="Details" style="color:black;" class="btn btn-info">
+                                <i class="fas fa-eye"></i>
                             </a>
-                            <a href="{{ route('departments.edit', [$department->id]) }}" style="color:black;" class="btn btn-warning">
-                                Edit
+                            <a href="{{ route('departments.edit', [$department->id]) }}" title="Edit" style="color:black;" class="btn btn-warning">
+                                <i class="fas fa-edit"></i>
                             </a>
 
                             <form action="{{ route('departments.destroy', [$department->id]) }}" method="post" style="display: inline">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">Delete</button>
+                                <button type="submit" class="btn btn-danger" title="Delete" onclick="return confirm('Are you sure want to delete ?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </form>
 
                         </td>
