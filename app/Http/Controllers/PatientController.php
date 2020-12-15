@@ -113,4 +113,31 @@ class PatientController extends Controller
             return redirect()->back()->withErrors($exception->getMessage());
         }
     }
+    public function recycleBin()
+    {
+        $patients = Patient::onlyTrashed()->get();
+        return view('backend.admin.patients.recycle',compact('patients'));
+    }
+
+    public function restoreAll()
+    {
+        Patient::withTrashed()->restore();
+        return redirect()->route('patients.index')->withSuccess("Restore Successful");
+    }
+
+    public function permanentlyDelete($id=null)
+    {
+        // dd($id);
+        if(isset($id))
+        {
+            Patient::onlyTrashed()->find($id)->forceDelete();
+            return  redirect()->back()->withSuccess("Delete Successful"  );
+        }
+        else
+        {
+            Patient::onlyTrashed()->forceDelete();
+            return  redirect()->back()->withSuccess("Delete Successful"  );
+        }
+        
+    }
 }

@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
-
+use App\Http\Controllers\PatientController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +37,9 @@ Route::prefix('admin')->group(function (){
     Route::delete('/doctors/{id}/pdeletebyid',[DoctorController::class,'permanentlyDelete'] )->name('doctors.permanently.delete.by.id');
     // Route::delete('/doctors/pdelete',function(){echo "abc";} )->name('doctors.permanently.delete.all');
 
-    Route::get('/patients/bin',[DepartmentController::class,'recycleBin'] )->name('patients.bin');
-    Route::get('/patients/restore',[DepartmentController::class,'restoreAll'] )->name('patients.restore');
-    Route::delete('/patients/{id}/pdelete',[DepartmentController::class,'permanentlyDelete'] )->name('patients.permanently.delete');
+    Route::get('/patients/bin',[PatientController::class,'recycleBin'] )->name('patients.bin');
+    Route::get('/patients/restore',[PatientController::class,'restoreAll'] )->name('patients.restore');
+    Route::delete('/patients/{id}/pdelete',[PatientController::class,'permanentlyDelete'] )->name('patients.permanently.delete.by.id');
     Route::resources([
         'departments'=>DepartmentController::class,
         'doctors'=>App\Http\Controllers\DoctorController::class,
