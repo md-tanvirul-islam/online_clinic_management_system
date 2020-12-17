@@ -45,15 +45,19 @@
 
                         <a class="collapse-item" href="{{route('doctors.index')}}">Doctors </a>
 
+                        <a class="collapse-item" href="{{ route('doctorSchedules.index') }}">Doctor Schedules </a>
+
+                        <a class="collapse-item" href="{{route('appointments.index')}}">Appointments </a>
+
                         <a class="collapse-item" href="{{route('patients.index')}}">Patients </a>
 
                         <a class="collapse-item" href="#">Tests </a>
 
                         <a class="collapse-item" href="#">Staffs </a>
 
-                        <a class="collapse-item" href="#">Doctor Schedules </a>
+                        
 
-                        <a class="collapse-item" href="{{route('dayOfWeek.index')}}">Days of the Week </a>
+                        {{-- <a class="collapse-item" href="{{route('daysOfWeek.index')}}">Days of the Week </a> --}}
 
 
 
@@ -75,7 +79,7 @@
                     <span>Patients</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('appointments.index') }}">
                     <i class="fas fa-users"></i>
                     <span>Appointments</span></a>
             </li>
