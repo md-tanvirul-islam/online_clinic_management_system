@@ -30,7 +30,7 @@
         <h6> {!! Form::label('address','Address:') !!} </h6>
     </div>
     <div class="form-group col-4 text-center" >
-        {!! Form::text('address',null,['class'=>'form-control','required']) !!}
+        {!! Form::text('address',null,['class'=>'form-control',]) !!}
     </div>
 </div>
 
@@ -39,7 +39,7 @@
         <h6> {!! Form::label('birthDate','Date of Birth:') !!} </h6>
     </div>
     <div class="form-group col-4 text-center" >
-        {!! Form::date('birthDate',null,['class'=>'form-control','required']) !!}
+        {!! Form::date('birthDate',null,['class'=>'form-control',]) !!}
     </div>
 </div>
 
@@ -48,7 +48,7 @@
         <h6> {!! Form::label('mobileNo','Phone Number:') !!} </h6>
     </div>
     <div class="form-group col-4 text-center" >
-        {!! Form::text('mobileNo',null,['class'=>'form-control','required']) !!}
+        {!! Form::text('mobileNo',null,['class'=>'form-control',]) !!}
     </div>
 </div>
 
@@ -57,7 +57,7 @@
         <h6> {!! Form::label('phoneNo','Telephone or Another Phone Number:') !!} </h6>
     </div>
     <div class="form-group col-4 text-center" >
-        {!! Form::text('phoneNo',null,['class'=>'form-control','required']) !!}
+        {!! Form::text('phoneNo',null,['class'=>'form-control']) !!}
     </div>
 </div>
 
@@ -66,7 +66,7 @@
         <h6> {!! Form::label('speciality','Specialities:') !!} </h6>
     </div>
     <div class="form-group col-4 text-center" >
-        {!! Form::text('speciality',null,['class'=>'form-control','required']) !!}
+        {!! Form::text('speciality',null,['class'=>'form-control']) !!}
     </div>
 </div>
 
@@ -75,7 +75,7 @@
         <h6> {!! Form::label('degree','Degrees:') !!} </h6>
     </div>
     <div class="form-group col-4 text-center" >
-        {!! Form::text('degree',null,['class'=>'form-control','required']) !!}
+        {!! Form::text('degree',null,['class'=>'form-control']) !!}
     </div>
 </div>
 
@@ -84,7 +84,7 @@
         <h6> {!! Form::label('bio','Short Bio:') !!} </h6>
     </div>
     <div class="form-group col-4 text-center" >
-        {!! Form::textarea('bio',null,['class'=>'form-control','required']) !!}
+        {!! Form::textarea('bio',null,['class'=>'form-control']) !!}
     </div>
 </div>
 
@@ -95,11 +95,11 @@
 
     <div class="col-4">
         {!! Form::label('gender','Male:') !!}
-        {!! Form::radio('gender','male',['class'=>'form-control','required'] )!!}
+        {!! Form::radio('gender','male',['class'=>'form-control'] )!!}
         {!! Form::label('gender','Female:') !!}
-        {!! Form::radio('gender','female',['class'=>'form-control','required'] )!!}
+        {!! Form::radio('gender','female',['class'=>'form-control'] )!!}
         {!! Form::label('gender','Other:') !!}
-        {!! Form::radio('gender','other',['class'=>'form-control','required'] )!!}
+        {!! Form::radio('gender','other',['class'=>'form-control'] )!!}
      
     </div>
 </div>
@@ -109,7 +109,7 @@
     </div>
 
     <div class="col-4">
-        {!! Form::select('bloodGroup',['A+'=>'A+','A-'=>'A-','B+'=>'B+','B-'=>'B-','AB+'=>'AB+','AB-'=>'AB-','O+'=>'O+','O-'=>'O-'],Null,['placeholder'=>'Select One','class'=>'form-control','required'] )!!}
+        {!! Form::select('bloodGroup',['A+'=>'A+','A-'=>'A-','B+'=>'B+','B-'=>'B-','AB+'=>'AB+','AB-'=>'AB-','O+'=>'O+','O-'=>'O-'],Null,['placeholder'=>'Select One','class'=>'form-control'] )!!}
     </div>
 
 </div><br>
@@ -119,7 +119,7 @@
     </div>
 
     <div class="col-4">
-        {!! Form::text('feeNew',null,['class'=>'form-control','required']) !!}
+        {!! Form::text('feeNew',null,['class'=>'form-control']) !!}
     </div>
 
 </div><br>
@@ -130,7 +130,7 @@
     </div>
 
     <div class="col-4">
-        {!! Form::text('feeInMonth',null,['class'=>'form-control','required']) !!}
+        {!! Form::text('feeInMonth',null,['class'=>'form-control']) !!}
     </div>
 
 </div><br>
@@ -141,7 +141,7 @@
     </div>
 
     <div class="col-4">
-        {!! Form::text('feeReport',null,['class'=>'form-control','required']) !!}
+        {!! Form::text('feeReport',null,['class'=>'form-control']) !!}
     </div>
 </div><br>
 

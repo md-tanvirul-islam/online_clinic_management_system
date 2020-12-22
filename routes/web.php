@@ -6,7 +6,9 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorScheduleController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,9 +53,11 @@ Route::prefix('admin')->group(function (){
     Route::get('/doctorSchedules/restore',[DoctorScheduleController::class,'restoreAll'] )->name('doctorSchedules.restore');
     Route::delete('/doctorSchedules/{id}/pdelete',[DoctorScheduleController::class,'permanentlyDelete'] )->name('doctorSchedules.permanently.delete.by.id');
 
+
     Route::get('/appointments/bin',[AppointmentController::class,'recycleBin'] )->name('appointments.bin');
     Route::get('/appointments/restore',[AppointmentController::class,'restoreAll'] )->name('appointments.restore');
-    Route::delete('/appointments/{id}/pdelete',[AppointmentController::class,'permanentlyDelete'] )->name('appointments.permanently.delete.by.id');
+    Route::delete('/appointments/pdelete/{id}',[AppointmentController::class,'permanentlyDelete'] )->name('appointments.permanently.delete.by.id');
+    Route::get('/appointments/doctorInfo',[AppointmentController::class,'doctorInfo'] )->name('appointments.doctorInfo');
     Route::resources([
         'departments'=>DepartmentController::class,
         'doctors'=>App\Http\Controllers\DoctorController::class,
@@ -67,7 +71,15 @@ Route::prefix('admin')->group(function (){
     
 });
 
+// Route::get('/test',function()
+// {
+// 	return "test";
+// });
+
 Route::get('/test',function()
 {
-	return view('backend.admin.index');
+    $dt = Carbon::createFromFormat('Y-m-d', '2020-12-22')->format('l');
+    // echo "<pre>";
+    // var_dump($dt->toArray());
+    dd($dt);
 });

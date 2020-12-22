@@ -26,7 +26,7 @@ class DoctorScheduleService
         }
 
         $doctorSchedule->doctor_id = $data['doctor_id'];
-        $doctorSchedule->day = $data['day'];
+        $doctorSchedule->day = strtolower($data['day']);
         $doctorSchedule->starting_time = $data['starting_time'];
         $doctorSchedule->ending_time = $data['ending_time'];
         return $doctorSchedule->save() ? $doctorSchedule : null;

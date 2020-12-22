@@ -74,9 +74,22 @@
 
                     </tbody>
                 </table>
+                
             </div>
         </div>
         @endif
+        <p> hello, click me </p>
     </div>
 
+
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function(){
+        $("p").click(function(){
+            alert("The paragraph was clicked.");
+        });
+        });
+    </script>
+@endpush

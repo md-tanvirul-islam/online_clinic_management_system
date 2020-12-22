@@ -9,7 +9,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <span   class="m-0 font-weight-bold text-primary"><a href="{{ route('departments.create') }}" style="color:white;" class="btn btn-primary">Add Division</a></span>
+            <span   class="m-0 font-weight-bold text-primary"><a href="{{ route('departments.create') }}" style="color:white;" class="btn btn-primary">AddDepartment</a></span>
             <span class="text-right"><a class="btn btn-danger" href="{{ route('departments.bin') }}">RecycleBin</a></span>
         </div>
         @if(count($departments) == 0)
