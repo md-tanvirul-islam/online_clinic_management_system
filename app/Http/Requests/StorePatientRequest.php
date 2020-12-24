@@ -25,12 +25,13 @@ class StorePatientRequest extends FormRequest
     {
         return [
         'name'=>'required|string',
-        'email'=>'required|email',
-        'address'=>'required|string',
+        'email'=>'nullable|email',
+        'address'=>'nullable|string',
         'phone'=>'required|string|unique:patients,phone',
         'image'=>'image|nullable',
         'birthDate'=>'date|nullable',
-        'gender'=>'required|string',
+        'gender'=>'nullable|string',
+        'age'=>'nullable|string',
         'bloodGroup'=>'required|string',
         ];
     }

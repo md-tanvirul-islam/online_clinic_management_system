@@ -36,6 +36,7 @@ class UpdatePatientRequest extends FormRequest
         'image'=>'image|nullable',
         'birthDate'=>'date|nullable',
         'gender'=>'required|string',
+        'age'=>'required',
         'bloodGroup'=>'required|string',
         ];
     }

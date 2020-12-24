@@ -11,7 +11,7 @@
                 <a class="btn btn-secondary" href="{{route('appointments.index')}}">List of Doctors' Appointment</a>
             </div>
             <h1 style="text-align:center;margin-bottom: 40px">Make An Appointment</h1>
-            {!! Form::open(['route' => 'appointments.store']) !!}
+            {!! Form::open(['route' => 'appointments.newPatient.store']) !!}
                 <div class="row">
                 
                     <div class="col"> 
@@ -41,46 +41,68 @@
                     </div>
                     <div class="col"> 
                         <div class="row">
-                            <div class="col"><h3>Old Patient</h3></div>
+                            <div class="col"><h3>New Patient</h3></div>
                             <div class="col" style="text-align: right">
-                                <a href=" {{ route('appointments.newPatient.create') }}" class="btn btn-info text-white" type="button">NewPatient</a> 
-                            </div>
+                                <a href=" {{ route('appointments.create') }}" class="btn btn-info text-white" type="button">OldPatient</a> 
+                            </div>                           
                         </div>
                         <div class="row" style="margin-top: 3px" id="old_patient_div">
                             <div class="col" > 
-                                <div class="row">
+                                <div class="row" style="margin-bottom: 10px">
                                     <div class="col">
-                                        {!! Form::select('patient_id',$patients,Null,['placeholder'=>"Select Patient",'class'=>'form-control','required'] )!!}
+                                        {!! Form::label('name', 'Patient Name:')!!}
+                                        {!! Form::text('name',Null,['placeholder'=>"Full Name",'class'=>'form-control','required'] )!!}
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" style="margin-bottom: 10px">
+                                    <div class="col">
+                                        {!! Form::label('phone', 'Patient Phone:')!!}
+                                        {!! Form::text('phone',Null,['placeholder'=>"Phone Number",'class'=>'form-control','required'] )!!}
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 10px">
+                                    <div class="col">
+                                        {!! Form::label('address', 'Patient Address:')!!}
+                                        {!! Form::text('address',Null,['placeholder'=>"Address",'class'=>'form-control'] )!!}
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 10px">
+                                    <div class="col">
+                                        {!! Form::label('age', 'Patient Age:')!!}
+                                        {!! Form::text('age',Null,['placeholder'=>"Age",'class'=>'form-control','required'] )!!}
+                                    </div>
+                                </div>
+                                @php
+                                $gender = config('constant.gender')    
+                                @endphp
+                                <div class="row" style="margin-bottom: 10px">
+                                    <div class="col">
+                                        {!! Form::label('gender', 'Patient Gender:')!!}
+                                        {!! Form::select('gender',$gender,null,['placeholder'=>"Select Gender",'class'=>'form-control','required'] )!!}
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 10px">
                                     <div class="col">
                                         {!! Form::label('date', 'Appointment Date:')!!}
                                         {!! Form::date('date',null,['class'=>'form-control','required']) !!}  
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" >
                                     <div class="col">
-                                        {!! Form::label('patient_status', 'Patient Status')!!}
-                                        {!! Form::select('patient_status',['new'=>'Visit after 30 Days','old'=>'Visit in 30 Days','report'=>'Report'],Null,['placeholder'=>"Select Patient",'class'=>'form-control','required'] )!!} 
+                                        {!! Form::text('patient_status','new',['hidden','placeholder'=>"Select Patient",'class'=>'form-control','required'] )!!} 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row" style="margin-top: 3px" id="new_patient_div">
-                            
-                        </div>
-                        
                     </div>
                 </div>
-                <div class="row" style="margin-top: 20px">
+                <div class="row">
                     <div class="col" style="text-align: center">
                         {!! Form::submit('Submit',['class'=>['btn','btn-primary'] ]) !!}
                     </div> 
                 </div>
             {!! Form::close() !!}
         </div>
-
 @endsection
 
 @push('js')

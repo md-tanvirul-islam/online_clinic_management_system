@@ -86,7 +86,7 @@ class PatientController extends Controller
     {
         try{
             $validatedData = $request->validated();
-            $validatedData['id'] =$patient->id;
+            $validatedData['patient_id'] =$patient->id;
             $patient = $this->patientService->storeOrUpdate($validatedData);
             
             session()->flash("success", "$patient->name (patient) profile has been successfully updated");

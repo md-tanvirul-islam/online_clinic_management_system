@@ -58,6 +58,9 @@ Route::prefix('admin')->group(function (){
     Route::get('/appointments/restore',[AppointmentController::class,'restoreAll'] )->name('appointments.restore');
     Route::delete('/appointments/pdelete/{id}',[AppointmentController::class,'permanentlyDelete'] )->name('appointments.permanently.delete.by.id');
     Route::get('/appointments/doctorInfo',[AppointmentController::class,'doctorInfo'] )->name('appointments.doctorInfo');
+    Route::get('/appointments/newPatientCreate',[AppointmentController::class,'newPatientAppointmentCreate'] )->name('appointments.newPatient.create');
+    Route::post('/appointments/newPatientStore',[AppointmentController::class,'newPatientAppointmentStore'] )->name('appointments.newPatient.store');
+    Route::put('/appointments/pay',[AppointmentController::class,'pay'] )->name('appointments.pay');
     Route::resources([
         'departments'=>DepartmentController::class,
         'doctors'=>App\Http\Controllers\DoctorController::class,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAppointmentRequest;
+use App\Http\Requests\StoreNewPatientAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Models\Appointment;
 use App\Models\Doctor;
@@ -37,11 +38,17 @@ class AppointmentController extends Controller
         return view('backend.admin.appointments.create',compact('departments','patients'));
     }
 
+    public function newPatientAppointmentCreate()
+    {
+        $departments = Department::pluck('name','id');
+        return view('backend.admin.appointments.new_patient_appointment_create',compact('departments'));
+    }
 
     public function store(StoreAppointmentRequest $request)
     {
+       
         $data = $request->all();
-        // dd($data);
+        
         $appointment = $this->appointmentService->storeOrUpdate($data);
         if(isset($appointment))
         {
@@ -50,12 +57,28 @@ class AppointmentController extends Controller
         }
         else{
             $date  = Carbon::createFromFormat('Y-m-d',$request->date )->isoFormat('Do MMMM,YYYY');
-            // dd($date );
+            session()->flash("error", "The Doctor doesn't have Schedule for $date");
+            return redirect()->back();
+        }
+        
+    }
+    
+    public function newPatientAppointmentStore(StoreNewPatientAppointmentRequest $request)
+    {
+        // dd($request->all());
+        $data = $request->all();
+        $appointment = $this->appointmentService->storeOrUpdate($data);
+        if(isset($appointment))
+        {
+            session()->flash("success", "The Appointment has been successfully made");
+            return redirect()->route('appointments.index');
+        }
+        else{
+            $date  = Carbon::createFromFormat('Y-m-d',$request->date )->isoFormat('Do MMMM,YYYY');
             session()->flash("error", "The Doctor doesn't have Schedule for $date");
         }
         
     }
-
    
     public function show(Appointment $appointment)
     {
@@ -65,16 +88,34 @@ class AppointmentController extends Controller
    
     public function edit(Appointment $appointment)
     {
-        return view('backend.admin.appointments.edit',compact('appointment'));
+        $patient = Patient::find($appointment->patient_id);
+        $doctor_schedule = DoctorSchedule::find($appointment->doctor_schedule_id);
+        $doctor = Doctor::find($doctor_schedule->doctor_id);
+        return view('backend.admin.appointments.edit',compact('appointment','patient','doctor'));
     }
 
  
     public function update(UpdateAppointmentRequest $request, Appointment $appointment)
     {
         $data = $request->all();
-        $data['id'] =$appointment->id;
+        // dd($data);
+        $data['appointment_id'] =$appointment->id;
+        $data['patient_id'] =$appointment->patient_id;
         $appointment = $this->appointmentService->storeOrUpdate($data);
         session()->flash("success", "The Appointment has been successfully updated");
+        return redirect()->back();
+    }
+
+    public function pay(Request $request)
+    {
+
+        $validated = $request->validate([
+            'id' => 'required|integer',
+        ]);
+        $appointment = Appointment::find($validated['id']);
+        $appointment->is_paid ="yes";
+        $appointment->save();
+        session()->flash("success", "The payment has been completed successfully");
         return redirect()->back();
     }
 

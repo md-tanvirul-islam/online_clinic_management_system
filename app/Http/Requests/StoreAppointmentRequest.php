@@ -25,7 +25,7 @@ class StoreAppointmentRequest extends FormRequest
     {
         return [
         'doctor_id'=>'required|integer',
-        'patient_id'=>'required|integer',
+        'patient_id'=>'nullable|integer',
         'date'=>'required|date',
         'patient_status'=>'required|string',
         ];

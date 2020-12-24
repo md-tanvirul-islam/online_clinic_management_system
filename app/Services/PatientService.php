@@ -20,7 +20,7 @@ class PatientService
         {
             $user_id = auth()->user()->id;
             $folder = "doctors";
-            if(empty($data['id']))
+            if(empty($data['patient_id']))
             {   
                 $patient = new Patient();
                 $patient->created_by = $user_id; 
@@ -37,7 +37,7 @@ class PatientService
             }
             else
             {
-                $patient = Patient::whereId($data["id"])->first();
+                $patient = Patient::whereId($data["patient_id"])->first();
                 $oldFile = $patient->image;
                 $patient->updated_by = $user_id;  
                 if(isset($data['image']))
@@ -48,12 +48,13 @@ class PatientService
             }
             
             $patient->name = $data['name'];
-            $patient->email = $data['email'];
-            $patient->address = $data['address'];
+            $patient->email = $data['email']??null;
+            $patient->address = $data['address']??null;
             $patient->phone = $data['phone'];
-            $patient->birthDate = $data['birthDate'];
-            $patient->gender = $data['gender'];
-            $patient->bloodGroup = $data['bloodGroup'];
+            $patient->age = $data['age']??null;
+            $patient->birthDate = $data['birthDate']??null;
+            $patient->gender = $data['gender']??null;
+            $patient->bloodGroup = $data['bloodGroup']??null;
             return $patient->save() ? $patient : null;
         
         }

@@ -7,8 +7,11 @@ use App\Models\DoctorSchedule;
 use App\Models\Doctor;
 use Carbon\Carbon;
 
+
 class AppointmentService
 {
+    protected $patientService;
+
 
     public function list()
     {
@@ -19,9 +22,9 @@ class AppointmentService
     {
         $user_id = auth()->user()->id;
         // dd($data["id"]);
-        if(!empty($data["id"])){
+        if(!empty($data["appointment_id"])){
             // update
-            $appointment = Appointment::whereId($data["id"])->first();
+            $appointment = Appointment::whereId($data["appointment_id"])->first();
             $appointment->updated_by = $user_id;
 
         }else{
@@ -30,19 +33,39 @@ class AppointmentService
             $appointment->created_by = $user_id;
         }
          
-        $scheduleDaysWithId = DoctorSchedule::where('doctor_id','=',$data['doctor_id'])->pluck('day','id')->toArray();
+        
         $scheduleDays = DoctorSchedule::where('doctor_id','=',$data['doctor_id'])->pluck('day')->toArray();
-        // dd($scheduleDaysWithId);
+        // dd($scheduleDays);
+        if($scheduleDays)
+        {
+            $scheduleDaysWithId = DoctorSchedule::where('doctor_id','=',$data['doctor_id'])->pluck('day','id')->toArray();
+        
+        // dd($data);   
 
-        $day = strtolower(Carbon::createFromFormat('Y-m-d', $data['date'])->format('l'));
+          $day = strtolower(Carbon::createFromFormat('Y-m-d', $data['date'])->format('l'));
   
         if (in_array($day, $scheduleDays))
             {
-                $appointment->doctor_schedule_id = array_search($day,$scheduleDaysWithId) ;
-                $appointment->patient_id = $data['patient_id'];
-                $appointment->date = $data['date'];
-                $doctor = Doctor::find($data['doctor_id']);
+                if(isset($data['name']) && isset($data['phone']))
+                {
+                    // dd($data);
+                    $keysForFilter = array('name','phone','address','age','gender','patient_id');
+                    $dataForPatientService = array_intersect_key($data,array_flip($keysForFilter));
+                    $this->patientService = new PatientService();
+                    $patient = $this->patientService->storeOrUpdate( $dataForPatientService);
+                    $appointment->patient_id = $patient->id;
+                    
+                }else
+                {
+                    $appointment->patient_id = $data['patient_id'];
+                }
 
+
+                $appointment->doctor_schedule_id = array_search($day,$scheduleDaysWithId) ;
+                $appointment->date = $data['date'];
+                
+                
+                $doctor = Doctor::find($data['doctor_id']);
                 if($data['patient_status'] =="new")
                 {
                     $appointment->fee = $doctor->feeNew; 
@@ -55,6 +78,9 @@ class AppointmentService
                     $appointment->fee = $doctor->feeReport;
                 }
 
+                $appointment->patient_status = $data['patient_status'];
+                $appointment->is_paid = $data['is_paid']??null;
+                
                 return $appointment->save() ? $appointment : null;
             }
             else
@@ -62,6 +88,12 @@ class AppointmentService
                 return $appointment = null;
             }
 
+        }
+        else
+        {
+            return $appointment = null;
+        }
+        
         
         
     }
