@@ -37,6 +37,11 @@ class DepartmentService
         return $department->save() ? $department : null;
     }
 
+    public function getDropdownList()
+        {
+            return Department::pluck('name','id');
+        }
+
     }
 
 ?>

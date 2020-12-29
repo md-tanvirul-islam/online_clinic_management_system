@@ -12,8 +12,7 @@
             <h1 style="text-align:center;margin-bottom: 40px">Edit the info of patient {{ $patient->name }}</h1>
 
 
-            {!! Form::model($patient,[
-                            'route'=>['patients.update',$patient->id],'files'=>true,
+            {!! Form::model($patient,['route'=>['patients.update',$patient->id],'files'=>true,
                             'method' => 'put'
                             ]) !!}
 

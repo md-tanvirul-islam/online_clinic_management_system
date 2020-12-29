@@ -7,8 +7,13 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorScheduleController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\TestBillController;
+use App\Http\Controllers\TestTypeController;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use App\Models\BillForTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +36,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-Route::prefix('admin')->group(function (){
+Route::prefix('admin')->middleware('auth')->group(function (){
+
+    Route::get('/',function (){return view('backend.admin.index');});
+
     Route::get('/departments/bin',[DepartmentController::class,'recycleBin'] )->name('departments.bin');
     Route::get('/departments/restore',[DepartmentController::class,'restoreAll'] )->name('departments.restore');
     Route::delete('/departments/{id}/pdelete',[DepartmentController::class,'permanentlyDelete'] )->name('departments.permanently.delete');
@@ -61,6 +69,13 @@ Route::prefix('admin')->group(function (){
     Route::get('/appointments/newPatientCreate',[AppointmentController::class,'newPatientAppointmentCreate'] )->name('appointments.newPatient.create');
     Route::post('/appointments/newPatientStore',[AppointmentController::class,'newPatientAppointmentStore'] )->name('appointments.newPatient.store');
     Route::put('/appointments/pay',[AppointmentController::class,'pay'] )->name('appointments.pay');
+  
+
+    Route::get('/tests/testListByTestType/',[TestController::class,'testListByTestType'] )->name('tests.testListByTestType');
+
+    Route::get('testBills/removeTest/{id}',[TestBillController::class,'removeTest'])->name('testBills.remove.test');
+
+
     Route::resources([
         'departments'=>DepartmentController::class,
         'doctors'=>App\Http\Controllers\DoctorController::class,
@@ -68,10 +83,10 @@ Route::prefix('admin')->group(function (){
         'patients'=>App\Http\Controllers\PatientController::class,
         'doctorSchedules'=>App\Http\Controllers\DoctorScheduleController::class,
         'appointments'=>App\Http\Controllers\AppointmentController::class,
-    ]);
-    Route::get('/',function (){return view('backend.admin.index');});
-    
-    
+        'testTypes'=>App\Http\Controllers\TestTypeController::class,
+        'tests' => App\Http\Controllers\TestController::class,
+        'testBills'=>App\Http\Controllers\TestBillController::class,
+    ]);  
 });
 
 // Route::get('/test',function()
@@ -79,10 +94,15 @@ Route::prefix('admin')->group(function (){
 // 	return "test";
 // });
 
-Route::get('/test',function()
+Route::get('test',function(Request $request)
 {
-    $dt = Carbon::createFromFormat('Y-m-d', '2020-12-22')->format('l');
+    // $data = (float)Test::where('id',1)->pluck('price')->first();
     // echo "<pre>";
-    // var_dump($dt->toArray());
-    dd($dt);
+    // dd(var_dump($data));
+
+    // dd(BillForTest::find(7)->patientTest->first()->patient_id);
+
+    $request->session()->flush();
+    dd($request->session()->all());
+
 });

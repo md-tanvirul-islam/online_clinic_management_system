@@ -51,16 +51,11 @@
 
                         <a class="collapse-item" href="{{route('patients.index')}}">Patients </a>
 
-                        <a class="collapse-item" href="#">Tests </a>
+                        <a class="collapse-item" href="{{ route('testTypes.index') }}">Test Types </a>
 
-                        <a class="collapse-item" href="#">Staffs </a>
+                        <a class="collapse-item" href="{{ route('tests.index') }}">Tests </a>
 
-                        
-
-                        {{-- <a class="collapse-item" href="{{route('daysOfWeek.index')}}">Days of the Week </a> --}}
-
-
-
+                        <a class="collapse-item" href="{{ route('testBills.index') }}">TestBill </a>
             </div>
         </div>
     </li>
@@ -85,15 +80,15 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('tests.index') }}">
                     <i class="fas fa-registered"></i>
                     <span>Tests</span></a>
             </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-save"></i>
-            <span>Staffs</span></a>
-    </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('testBills.index') }}">
+                    <i class="fas fa-save"></i>
+                    <span>TestBill</span></a>
+            </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

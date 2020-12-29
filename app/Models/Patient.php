@@ -21,4 +21,10 @@ class Patient extends Model
         'gender',
         'bloodGroup',
     ];
+
+    public function tests()
+    {
+        return $this->hasMany(Test::class);
+    }
+
 }

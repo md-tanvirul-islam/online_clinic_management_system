@@ -66,5 +66,10 @@ class DoctorService
             return $doctor->save() ? $doctor : null;
         
         }
+
+        public function getDropdownList()
+            {
+                return Doctor::pluck('name','id');
+            }
     }
 ?>

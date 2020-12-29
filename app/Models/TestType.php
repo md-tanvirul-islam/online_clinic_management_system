@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Appointment extends Model
+class TestType extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'doctor_schedule_id',
-        'patient_id',
-        'date',
-        'patient_status',
+        'name',
     ];
+
+    public function tests()
+    {
+        return $this->hasMany(Test::class);
+    }
 }
