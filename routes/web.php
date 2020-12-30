@@ -74,6 +74,8 @@ Route::prefix('admin')->middleware('auth')->group(function (){
     Route::get('/tests/testListByTestType/',[TestController::class,'testListByTestType'] )->name('tests.testListByTestType');
 
     Route::get('testBills/removeTest/{id}',[TestBillController::class,'removeTest'])->name('testBills.remove.test');
+    Route::put('testBills/removeTest/{id}/update',[TestBillController::class,'update'])->name('testBills.update.remove.test');
+    Route::put('testBills/addTest/{id}/update',[TestBillController::class,'update'])->name('testBills.update.add.test');
 
 
     Route::resources([
@@ -100,9 +102,9 @@ Route::get('test',function(Request $request)
     // echo "<pre>";
     // dd(var_dump($data));
 
-    // dd(BillForTest::find(7)->patientTest->first()->patient_id);
+    dd(BillForTest::find(9));
 
-    $request->session()->flush();
-    dd($request->session()->all());
+    // $request->session()->flush();
+    // dd($request->session()->all());
 
 });

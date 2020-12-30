@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTestBillRequest;
 use App\Models\BillForTest;
+use App\Models\PatientTest;
+use App\Models\Test;
 use App\Services\TestBillService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Prophecy\Call\Call;
+
 
 class TestBillController extends Controller
 {
@@ -48,26 +53,30 @@ class TestBillController extends Controller
     {
         if($request->do_submit == "yes")
         {
-        //    dd($request->session()->all());
-        //    dd($data = $request->all());
+            // dd('yes submit');
             $data = $request->all();
-           $data['test_ids'] = $request->session()->get('test_ids');
-        //    dd($data);
-           $testBill = $this->testBillService->store($data);
-           $request->session()->forget(['test_ids', 'patient_id','date']);
-           return redirect()->route('testBills.index')->withSuccess('The Bill for the test has created successfully');
+            // dd($data);
+            $data['test_ids'] = $request->session()->get('test_ids');
+            //  dd($data);
+            $testBill = $this->testBillService->store($data);
+            $request->session()->forget(['test_ids', 'patient_id','date']);
+            return redirect()->route('testBills.index')->withSuccess('The Bill for the test has created successfully');
         }
         else
         {
-            if ($request->session()->has('test_ids')) {
+            if ($request->session()->has('test_ids'))
+            {
+                $data = array();
                 $data = $request->session()->get('test_ids');
                 $request->session()->forget('test_ids');
+                // dd($request->session()->all());
                 $data[] = $request->test_id;
                 session(['test_ids' =>$data]);
                 return redirect()->route('testBills.create');
             }
             else
             {
+                // dd($request->session()->all());
                 $data = array();
                 $data[] = $request->test_id;
                 session([
@@ -75,6 +84,7 @@ class TestBillController extends Controller
                     'patient_id'=>$request->patient_id,
                     'date'=>$request->date,
                 ]);
+                // dd($request->session()->get('test_ids'));
                 return redirect()->route('testBills.create');
             }
         }
@@ -101,7 +111,8 @@ class TestBillController extends Controller
     public function edit($id)
     {
         $testBill = BillForTest::find($id);
-        return view('backend.admin.testBills.edit',compact('testBill'));
+        $patient_tests = PatientTest::where('bill_for_test_id','=',$testBill->id)->get();
+        return view('backend.admin.testBills.edit',compact('testBill','patient_tests'));
     }
 
     /**
@@ -113,7 +124,9 @@ class TestBillController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+       $data = $request->all();
+       $data['bill_for_test_id']  = $id;
+       $this->testBillService->update($data);  
     }
 
     /**
@@ -124,6 +137,14 @@ class TestBillController extends Controller
      */
     public function destroy($id)
     {
+        // first delete all rows in the patient_tests table related with this bill 
+        $patient_test_ids = PatientTest::where('bill_for_test_id','=',$id)->pluck('id')->toarray();
+        foreach($patient_test_ids as $patient_test_id)
+        {
+            $patient_test = PatientTest::find($patient_test_id);
+            $patient_test->delete();
+        }
+        // now delete the bill for Bill_for_test table
         $testBill = BillForTest::find($id);
         $testBill->delete();
         return redirect()->route('testBills.index')->withSuccess('Delete Successfull');

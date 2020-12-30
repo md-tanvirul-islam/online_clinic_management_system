@@ -20,23 +20,27 @@
             
            
             <h1 style="text-align:center;margin-bottom: 40px">Update Bill info for Test</h1>
-            {!! Form::model($testBill,['route' => ['testBills.update',$testBill->id],'id'=>'form1','method' => 'put' ]) !!}
+            {!! Form::model($testBill,['route' => ['testBills.update.add.test',$testBill->id],'id'=>'form1','method' => 'put' ]) !!}
 
                 <div class="row">
                 
                     <div class="col"> 
                         <div class="row">
-                            <div class="col"><h3>Old Patient</h3></div>
+                            <div><h3> Patient Info</h3> </div> 
                         </div>
                         <div class="row">                           
                             <div class=" col-6" >
-                                {!! Form::selectPatient('patient_id',$patient_id,['placeholder'=>"Select Patient",'class'=>'form-control','required'] )!!}
+                                <b> Patient Name </b><br>
+                                @php
+                                    $patient = App\Models\Patient::find($patient_id);
+                                @endphp
+                                {{  $patient->name }}
                             </div>
                         </div>
                         <div class="row">                           
                             <div class=" col-6" >
-                                {!! Form::label('date', 'Date:')!!}
-                                {!! Form::date('date', $date ,['class'=>'form-control','required']) !!}  
+                                <b> Bill Date </b><br>
+                                {{ $date  }}
                             </div>
                         </div>
                         
@@ -55,17 +59,13 @@
                         <div class="row" style="margin-top: 5px">                           
                             <div class=" col-6" >
                                 {!! Form::submit('Add Test',['class'=>['btn','btn-info'] ]) !!}
+                                {!! Form::close() !!}
                             </div>
                         </div>
                     </div>
 
-
-                     @php 
-                        $test_ids = App\Models\PatientTest::where('bill_for_test_id','=',$testBill->id)->pluck('test_id');
-                    @endphp 
-
                     <div class="col"> 
-                        @if ( $test_ids)
+                        @if ( $patient_tests)
                             
                             <div class="table-responsive" style="text-align: center">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -84,9 +84,9 @@
                                         $i = 0
                                     @endphp
 
-                                    @foreach($test_ids as $test_id)
-
+                                    @foreach($patient_tests as $patient_test)
                                         @php
+                                            $test_id = $patient_test->test_id;
                                             $test = App\Models\Test::find($test_id);
                                         @endphp
                                         <tr>
@@ -95,8 +95,10 @@
                                             <td>{{ $test->testType->name }}</td>
                                             <td>{{ $test->price }}</td>
                                             <td>
-                                                <a class="btn btn-warning" href="{{ route('testBills.remove.test',[$test->id]) }}" title="Remove" style="color:black;"><i class="fas fa-trash"></i>
-                                                </a>
+                                               {!! Form::open(['route' => ['testBills.update.remove.test',$testBill->id],'method' => 'put' ]) !!}
+                                                    <input type="text" name="patient_test_id" value="{{ $patient_test->id }}" hidden>
+                                                    <button class="btn btn-warning" title="Remove" style="color:black;"><i class="fas fa-trash"></i></button>
+                                                {!! Form::close() !!}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -110,9 +112,9 @@
                     </div>
                 </div>
                 <div class="row" style="margin-top: 20px">
-                    <div class="col" style="text-align: center">
+                    {{-- <div class="col" style="text-align: center">
                         {!! Form::submit('Update',['class'=>['btn','btn-primary'],'onclick'=>'finalSubmit()' ]) !!}
-                    </div> 
+                    </div>  --}}
                 </div>
             {!! Form::close() !!}
         </div>

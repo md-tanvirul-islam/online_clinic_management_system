@@ -10,7 +10,7 @@ class PatientTest extends Model
     use HasFactory;
 
     protected $fillable = [
-        'patient_id','test_id','testType_id','billForTest_id','invoice'
+        'patient_id','test_id','testType_id','bill_for_test_id','invoice','created_by'
     ];
 
     public function testBill()

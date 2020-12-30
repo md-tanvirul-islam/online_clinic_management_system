@@ -37,14 +37,15 @@
                     <tr>
                         <td> {{++$i}}</td>
                         @php
-                            // dd($testBill->patientTest->first());
-                            $patient_id = $testBill->patientTest->first()->patient_id;
-                            $patient = App\models\Patient::find( $patient_id );
+                            //  dd($testBill->patientTest->first()->patient_id);
+                            $patient_id = $testBill->patientTest->first()->patient_id??null;
+                            $patient = App\models\Patient::find($patient_id)??null;
+                            // dd($patient->name);
                         @endphp
-                        <td>{{ $patient->name  }}</td>
-                        <td>{{ $testBill->date }}</td>
-                        <td>{{ $testBill->amount }}</td>
-                        <td>{{ $testBill->paid }}</td>
+                        <td>{{ $patient->name??null  }}</td>
+                        <td>{{ $testBill->date??null}}</td>
+                        <td>{{ $testBill->amount??null }}</td>
+                        <td>{{ $testBill->paid??null}}</td>
                         <td >
                             <a href="{{ route('testBills.show', [$testBill->id]) }}" title="Details" style="color:black;" class="btn btn-info">
                                 <i class="fas fa-eye"></i>
