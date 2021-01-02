@@ -53,6 +53,9 @@
                             <a href="{{ route('testBills.edit', [$testBill->id]) }}" title="Edit" style="color:black;" class="btn btn-warning">
                                 <i class="fas fa-edit"></i>
                             </a>
+                            <a href="{{ route('testBills.print',[$testBill->id]) }}" title="Print" style="color:black;" class="btn btn-success">
+                                <i class="fa fa-print"></i>
+                              </a>
 
                             <form action="{{ route('testBills.destroy', [$testBill->id]) }}" method="post" style="display: inline">
                                 @csrf

@@ -6,12 +6,17 @@
                 <div class="col" style="text-align: left">
                     <a class="btn btn-secondary" href="{{route('testBills.index')}}">TestBillList</a>
                 </div>
+                <div class="col" style="text-align: right">
+                    <a href="{{ route('testBills.print',[$bill_for_test->id]) }}" title="Print" style="color:black;" class="btn btn-success">Print
+                        <i class="fa fa-print"></i>
+                      </a>
+                </div>
             </div>
             @php
                 use Illuminate\Support\Carbon; 
-                 $datetime = new Carbon($testBill->date);
+                 $datetime = new Carbon($bill_for_test->date);
                  $date = $datetime->toDateString();
-                 $patient_id = App\Models\PatientTest::where('bill_for_test_id','=',$testBill->id)->pluck('patient_id')->first();
+                 $patient_id = App\Models\PatientTest::where('bill_for_test_id','=',$bill_for_test->id)->pluck('patient_id')->first();
             @endphp
             
            
@@ -43,14 +48,14 @@
                                 <table class="table table-bordered" width="50%" cellspacing="0">
                                     <tr>
                                         <td colspan="3">Total</td>
-                                        <td>{{ $testBill->amount }}</td>
+                                        <td>{{ $bill_for_test->amount }}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3">Paid</td>
-                                        <td>{{ $testBill->paid }}</td>
+                                        <td>{{ $bill_for_test->paid }}</td>
                                     </tr>
                                     @php
-                                        $due = ((float)$testBill->amount) - ((float)$testBill->paid);
+                                        $due = ((float)$bill_for_test->amount) - ((float)$bill_for_test->paid);
                                     @endphp
                                     <tr>
                                         <td colspan="3" class="text-danger"><b>Due</b></td>
@@ -62,7 +67,7 @@
                         </div>
                     </div>
                     @php 
-                        $test_ids = App\Models\PatientTest::where('bill_for_test_id','=',$testBill->id)->pluck('test_id');
+                        $test_ids = App\Models\PatientTest::where('bill_for_test_id','=',$bill_for_test->id)->pluck('test_id');
                     @endphp 
 
                     <div class="col"> 
@@ -98,7 +103,7 @@
                                     @endforeach
                                     <tr>
                                         <td colspan="3">Total</td>
-                                        <td>{{ $testBill->amount }}</td>
+                                        <td>{{ $bill_for_test->amount }}</td>
                                     </tr>
                 
                                     </tbody>

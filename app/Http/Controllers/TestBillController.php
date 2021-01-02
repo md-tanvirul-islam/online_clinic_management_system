@@ -98,8 +98,8 @@ class TestBillController extends Controller
      */
     public function show($id)
     {
-        $testBill = BillForTest::find($id);
-        return view('backend.admin.testBills.show',compact('testBill'));
+        $bill_for_test = BillForTest::find($id);
+        return view('backend.admin.testBills.show',compact('bill_for_test'));
     }
 
     /**
@@ -165,5 +165,11 @@ class TestBillController extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function print($id)
+    {
+        $bill_for_test = BillForTest::find($id);
+        return view('backend.admin.print.billForTest.page',compact('bill_for_test'));
     }
 }

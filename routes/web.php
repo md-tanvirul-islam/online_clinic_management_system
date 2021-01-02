@@ -27,7 +27,8 @@ use App\Models\BillForTest;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return view('frontend.general.index');
 });
 
 Auth::routes();
@@ -76,6 +77,7 @@ Route::prefix('admin')->middleware('auth')->group(function (){
     Route::get('testBills/removeTest/{id}',[TestBillController::class,'removeTest'])->name('testBills.remove.test');
     Route::put('testBills/removeTest/{id}/update',[TestBillController::class,'update'])->name('testBills.update.remove.test');
     Route::put('testBills/addTest/{id}/update',[TestBillController::class,'update'])->name('testBills.update.add.test');
+    Route::get('testBills/print/{id}',[TestBillController::class,'print'])->name('testBills.print');
 
 
     Route::resources([
@@ -102,9 +104,11 @@ Route::get('test',function(Request $request)
     // echo "<pre>";
     // dd(var_dump($data));
 
-    dd(BillForTest::find(9));
+    // dd(BillForTest::find(9));
 
     // $request->session()->flush();
     // dd($request->session()->all());
+    // $bill_for_test = BillForTest::find(7);
+    return view('frontend.general.index');
 
 });
