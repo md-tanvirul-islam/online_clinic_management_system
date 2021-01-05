@@ -100,15 +100,8 @@ Route::prefix('admin')->middleware('auth')->group(function (){
 
 Route::get('test',function(Request $request)
 {
-    // $data = (float)Test::where('id',1)->pluck('price')->first();
-    // echo "<pre>";
-    // dd(var_dump($data));
-
-    // dd(BillForTest::find(9));
-
-    // $request->session()->flush();
-    // dd($request->session()->all());
-    // $bill_for_test = BillForTest::find(7);
-    return view('frontend.general.index');
+    $p = App\Models\Patient::find(1);
+    dd($p);    
+   // return view('frontend.general.index');
 
 });

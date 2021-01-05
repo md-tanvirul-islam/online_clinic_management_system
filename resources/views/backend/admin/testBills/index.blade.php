@@ -39,11 +39,11 @@
                         @php
                             //  dd($testBill->patientTest->first()->patient_id);
                             $patient_id = $testBill->patientTest->first()->patient_id??null;
-                            $patient = App\models\Patient::find($patient_id)??null;
+                            $patient = App\Models\Patient::find($patient_id)??null;
                             // dd($patient->name);
                         @endphp
                         <td>{{ $patient->name??null  }}</td>
-                        <td>{{ $testBill->date??null}}</td>
+                        <td>{{ date("d F,Y", strtotime($testBill->date))??null}}</td>
                         <td>{{ $testBill->amount??null }}</td>
                         <td>{{ $testBill->paid??null}}</td>
                         <td >
