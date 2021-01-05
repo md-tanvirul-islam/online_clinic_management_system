@@ -78,6 +78,7 @@ Route::prefix('admin')->middleware('auth')->group(function (){
     Route::put('testBills/removeTest/{id}/update',[TestBillController::class,'update'])->name('testBills.update.remove.test');
     Route::put('testBills/addTest/{id}/update',[TestBillController::class,'update'])->name('testBills.update.add.test');
     Route::get('testBills/print/{id}',[TestBillController::class,'print'])->name('testBills.print');
+    Route::get('testBills/pdf/{id}',[TestBillController::class,'pdf'])->name('testBills.pdf');
 
 
     Route::resources([

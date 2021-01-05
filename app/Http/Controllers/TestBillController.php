@@ -10,6 +10,7 @@ use App\Services\TestBillService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Prophecy\Call\Call;
+use PDF;
 
 
 class TestBillController extends Controller
@@ -170,6 +171,15 @@ class TestBillController extends Controller
     public function print($id)
     {
         $bill_for_test = BillForTest::find($id);
-        return view('backend.admin.print.billForTest.page',compact('bill_for_test'));
+        return view('backend.admin.testBills.printBill',compact('bill_for_test'));
+    }
+
+
+    public function pdf($id)
+    {
+        $bill_for_test = BillForTest::find($id);
+        $html = view('backend.admin.print.billForTest.page',compact('bill_for_test'));
+        $pdf = PDF::loadHTML($html);
+        return $pdf->stream("TestBill.pdf");
     }
 }

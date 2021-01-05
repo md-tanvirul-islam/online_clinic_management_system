@@ -6,10 +6,18 @@
                 <div class="col" style="text-align: left">
                     <a class="btn btn-secondary" href="{{route('testBills.index')}}">TestBillList</a>
                 </div>
-                <div class="col" style="text-align: right">
-                    <a href="{{ route('testBills.print',[$bill_for_test->id]) }}" title="Print" style="color:black;" class="btn btn-success">Print
-                        <i class="fa fa-print"></i>
-                      </a>
+                <div class="col" style="text-align: right" >
+                    <div style="display:inline-block;">
+                        <a href="{{ route('testBills.print',[$bill_for_test->id]) }}" title="Print" style="color:black;" class="btn btn-success">Print
+                            <i class="fa fa-print"></i>
+                        </a>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a href="{{ route('testBills.pdf',[$bill_for_test->id]) }}" title="PDF" style="color:black;" class="btn btn-info">PDF
+                            <i class="fas fa-file-pdf"></i>
+                        </a>
+                    </div>
+                    
                 </div>
             </div>
             @php
