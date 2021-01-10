@@ -20,6 +20,7 @@ class AppointmentService
 
     public function storeOrUpdate($data)
     {
+       
         $user_id = auth()->user()->id;
         // dd($data["id"]);
         if(!empty($data["appointment_id"])){
@@ -37,56 +38,57 @@ class AppointmentService
         $scheduleDays = DoctorSchedule::where('doctor_id','=',$data['doctor_id'])->pluck('day')->toArray();
         // dd($scheduleDays);
         if($scheduleDays)
-        {
-            $scheduleDaysWithId = DoctorSchedule::where('doctor_id','=',$data['doctor_id'])->pluck('day','id')->toArray();
-        
-        // dd($data);   
-
-          $day = strtolower(Carbon::createFromFormat('Y-m-d', $data['date'])->format('l'));
-  
-        if (in_array($day, $scheduleDays))
             {
-                if(isset($data['name']) && isset($data['phone']))
+                $scheduleDaysWithId = DoctorSchedule::where('doctor_id','=',$data['doctor_id'])->pluck('day','id')->toArray();
+            
+            // dd($data);   
+            $date = new \DateTime($data['date']);
+			$stdDate = $date->format('Y-m-d');
+            $day = strtolower($date->format('l'));
+    
+            if (in_array($day, $scheduleDays))
                 {
-                    // dd($data);
-                    $keysForFilter = array('name','phone','address','age','gender','patient_id');
-                    $dataForPatientService = array_intersect_key($data,array_flip($keysForFilter));
-                    $this->patientService = new PatientService();
-                    $patient = $this->patientService->storeOrUpdate( $dataForPatientService);
-                    $appointment->patient_id = $patient->id;
+                    if(isset($data['name']) && isset($data['phone']))
+                    {
+                        // dd($data);
+                        $keysForFilter = array('name','phone','address','age','gender','patient_id');
+                        $dataForPatientService = array_intersect_key($data,array_flip($keysForFilter));
+                        $this->patientService = new PatientService();
+                        $patient = $this->patientService->storeOrUpdate( $dataForPatientService);
+                        $appointment->patient_id = $patient->id;
+                        
+                    }else
+                    {
+                        $appointment->patient_id = $data['patient_id'];
+                    }
+
+
+                    $appointment->doctor_schedule_id = array_search($day,$scheduleDaysWithId) ;
+                    $appointment->date = $stdDate;
                     
-                }else
-                {
-                    $appointment->patient_id = $data['patient_id'];
-                }
+                    
+                    $doctor = Doctor::find($data['doctor_id']);
+                    if($data['patient_status'] =="new")
+                    {
+                        $appointment->fee = $doctor->feeNew; 
+                    }
+                    elseif($data['patient_status'] =="old")
+                    {
+                        $appointment->fee = $doctor->feeInMonth; 
+                    }
+                    else{
+                        $appointment->fee = $doctor->feeReport;
+                    }
 
-
-                $appointment->doctor_schedule_id = array_search($day,$scheduleDaysWithId) ;
-                $appointment->date = $data['date'];
-                
-                
-                $doctor = Doctor::find($data['doctor_id']);
-                if($data['patient_status'] =="new")
-                {
-                    $appointment->fee = $doctor->feeNew; 
+                    $appointment->patient_status = $data['patient_status'];
+                    $appointment->is_paid = $data['is_paid']??null;
+                    
+                    return $appointment->save() ? $appointment : null;
                 }
-                elseif($data['patient_status'] =="old")
-                {
-                    $appointment->fee = $doctor->feeInMonth; 
-                }
-                else{
-                    $appointment->fee = $doctor->feeReport;
-                }
-
-                $appointment->patient_status = $data['patient_status'];
-                $appointment->is_paid = $data['is_paid']??null;
-                
-                return $appointment->save() ? $appointment : null;
-            }
             else
-            {
-                return $appointment = null;
-            }
+                {
+                    return $appointment = null;
+                }
 
         }
         else

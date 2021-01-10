@@ -62,7 +62,7 @@
                                 <div class="row">
                                     <div class="col">
                                         {!! Form::label('patient_status', 'Patient Status')!!}
-                                        {!! Form::select('patient_status',['new'=>'Visit after 30 Days','old'=>'Visit in 30 Days','report'=>'Report'],Null,['placeholder'=>"Select Patient",'class'=>'form-control','required'] )!!} 
+                                        {!! Form::select('patient_status',['new'=>'Visit after 30 Days','old'=>'Visit in 30 Days','report'=>'Report'],Null,['placeholder'=>"Select Patient Status",'class'=>'form-control','required'] )!!} 
                                     </div>
                                 </div>
                             </div>

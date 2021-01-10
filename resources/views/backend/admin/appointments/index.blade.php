@@ -4,6 +4,7 @@
 
 @section('content')
 
+
     <h1 class="h3 mb-2 text-gray-800" style="text-align:center;">List of Doctors' Appointment of the Clinic</h1>
 
     <!-- DataTales Example -->
@@ -41,13 +42,13 @@
                         <td> {{++$i}}</td>
                         <td>{{ $appointment->id }} </td>
                         @php
-                        $schedule = App\Models\doctorSchedule::find($appointment->doctor_schedule_id); 
+                        $schedule = App\Models\DoctorSchedule::find($appointment->doctor_schedule_id); 
                         $doctor = App\Models\Doctor::find($schedule->doctor_id); 
 
-                        $patient = App\Models\Patient::find($appointment->patient_id) 
+                        // $patient = App\Models\Patient::find($appointment->patient_id) 
                         @endphp
-                        <td>{{ $doctor->name }}</td>
-                        <td>{{$patient->name}}</td>
+                        <td>{{ $doctor->user->name }}</td>
+                        <td>{{$appointment->patientProfile->name}}</td>
                         <td>{{ $appointment->date }}</td>
                         <td>{{$schedule->day}}|{{$schedule->starting_time}} to {{$schedule->ending_time}} </td>
                         <td>{{$appointment->fee}}</td>

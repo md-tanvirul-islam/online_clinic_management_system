@@ -178,7 +178,7 @@ class TestBillController extends Controller
     public function pdf($id)
     {
         $bill_for_test = BillForTest::find($id);
-        $html = view('backend.admin.print.billForTest.page',compact('bill_for_test'));
+        $html = view('backend.admin.testBills.printBill',compact('bill_for_test'));
         $pdf = PDF::loadHTML($html);
         return $pdf->stream("TestBill.pdf");
     }

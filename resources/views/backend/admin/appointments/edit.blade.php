@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col">
                             <b>Appointment Schedule </b><br>
-                            Doctor : {{ $doctor->name }} {!! Form::text('doctor_id',$doctor->id,['hidden','required']) !!}<br>
+                            Doctor : <b>{{ $doctor->user->name }}</b> {!! Form::text('doctor_id',$doctor->id,['hidden','required']) !!}<br>
                             Day : Monday <br>
                             Starting Time : 08:00 PM <br>
                             Ending TIme : 10:00 PM <br><br>
@@ -31,7 +31,7 @@
                     <div class="row">
                         <div class="col">
                            <b> Patient Info </b> <br>
-                           Name : {!! Form::text('name',$patient->name,['placeholder'=>"Enter Patient Name",'class'=>'form-control','required']) !!}<br>
+                           Name : {!! Form::text('name',$patient->user->name,['placeholder'=>"Enter Patient Name",'class'=>'form-control','required']) !!}<br>
                            Phone : {!! Form::text('phone',$patient->phone,['placeholder'=>"Enter Patient Phone Number",'class'=>'form-control','required']) !!} <br>
                            Age : {!! Form::text('age',$patient->age,['placeholder'=>"Enter Patient Age",'class'=>'form-control']) !!} <br>
                            Gender : {!! Form::select('gender',$gender,$patient->gender,['placeholder'=>"Select Gender",'class'=>'form-control','required'] )!!} <br><br>

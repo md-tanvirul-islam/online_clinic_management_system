@@ -3,6 +3,7 @@
 use App\Http\Controllers\DaysOfWeekController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorScheduleController;
 use App\Http\Controllers\PatientController;
@@ -26,10 +27,7 @@ use App\Models\BillForTest;
 |
 */
 
-Route::get('/', function () {
-    // return view('welcome');
-    return view('frontend.general.index');
-});
+
 
 Auth::routes();
 
@@ -37,6 +35,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
+// Routes for general users
+Route::get('/', [GeneralController::class,'index'])->name('indexPage');
+Route::get('/doctor_search', [GeneralController::class,'doctorSearch'])->name('doctorSearch');
+Route::post('/doctor_search', [GeneralController::class,'doctorSearchResult'])->name('doctorSearchResult');
+Route::middleware(['auth'])->group(function(){
+    Route::get('/create_appointment/{id}', [GeneralController::class,'createAppointment'])->name('createAppointment');
+    Route::post('/store_appointment', [GeneralController::class,'storeAppointment'])->name('StoreAppointment');
+});
+
+
+// Routes for Admin Users
 Route::prefix('admin')->middleware('auth')->group(function (){
 
     Route::get('/',function (){return view('backend.admin.index');});
@@ -94,15 +103,17 @@ Route::prefix('admin')->middleware('auth')->group(function (){
     ]);  
 });
 
+
+
 // Route::get('/test',function()
 // {
 // 	return "test";
 // });
 
-Route::get('test',function(Request $request)
+// Route::get('test',[GeneralController::class,'infoXchange']);
+
+Route::get('test1',function(Request $request)
 {
-    $p = App\Models\Patient::find(1);
-    dd($p);    
-   // return view('frontend.general.index');
+   return view('frontend.general.search_doctor');
 
 });

@@ -1,4 +1,5 @@
 <header class="header">
+    @extends('backend.layouts.flash-message')
     <nav class="navbar navbar-expand-lg header-nav">
         <div class="navbar-header">
             <a id="mobile_btn" href="javascript:void(0);">
@@ -8,7 +9,7 @@
                     <span></span>
                 </span>
             </a>
-            <a href="index-2.html" class="navbar-brand logo">
+            <a href="{{ route('indexPage') }}" class="navbar-brand logo">
                 <img src="{{ asset('ui/frontend/img/logo.png') }}" class="img-fluid" alt="Logo">
             </a>
         </div>
@@ -23,7 +24,7 @@
             </div>
             <ul class="main-nav">
                 <li class="active">
-                    <a href="#">Home</a>
+                    <a href="{{ route('indexPage') }}">Home</a>
                 </li>
                 {{-- <li class="has-submenu">
                     <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
@@ -43,9 +44,9 @@
                 <li class="has-submenu">
                     <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
-                        <li><a href="search.html">Search Doctor</a></li>
-                        <li><a href="doctor-profile.html">Doctor Profile</a></li>
-                        <li><a href="booking.html">Booking</a></li>
+                        <li><a href="{{ route('doctorSearch') }}">Search Doctor</a></li>
+                        {{-- <li><a href="doctor-profile.html">Doctor Profile</a></li> --}}
+                        <li><a href="{{ route('doctorSearch') }}">Booking</a></li>
                         {{-- <li><a href="checkout.html">Checkout</a></li>
                         <li><a href="booking-success.html">Booking Success</a></li>
                         <li><a href="patient-dashboard.html">Patient Dashboard</a></li>
@@ -80,7 +81,7 @@
                     <a href="admin/index.html" target="_blank">Admin</a>
                 </li> --}}
                 <li class="login-link">
-                    <a href="#">Login / Signup</a>
+                    <a href={{ route('login') }}>Login / Signup</a>
                 </li>
             </ul>		 
         </div>		 
@@ -95,7 +96,24 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link header-login" href="login.html">login / Signup </a>
+                @guest
+                    <a class="nav-link header-login" href="{{ route('login') }}" style="margin: 5px">LogIn </a>
+                    <a class="nav-link header-login" href="{{ route('register') }}">Signup </a>
+                @endguest
+                @auth
+                <a class="nav-link header-login" disabled style="margin: 5px">{{ auth()->user()->name }} </a>
+                <a class="nav-link header-login" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+                @endauth
+                
+
             </li>
         </ul>
     </nav>

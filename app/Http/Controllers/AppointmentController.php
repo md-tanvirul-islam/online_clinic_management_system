@@ -26,8 +26,8 @@ class AppointmentController extends Controller
 
     public function index()
     {
-        $appointments = $this->appointmentService->list();
-       return view('backend.admin.appointments.index',compact('appointments'));
+        $appointments = $this->appointmentService->list(); 
+        return view('backend.admin.appointments.index',compact('appointments'));
     }
 
  
