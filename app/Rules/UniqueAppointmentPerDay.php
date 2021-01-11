@@ -29,18 +29,17 @@ class UniqueAppointmentPerDay implements Rule
      */
     public function passes($attribute, $value)
     {
-        
         $is_exist = Appointment::where('patient_id','=',$this->formData['patient_id'])->
                                  where('date','=',$this->formData['date'])->
                                  where('doctor_schedule_id','=',$this->formData['schedule_id'])->exists();
         if($is_exist)
         {
-            return true;
+            return false;
         }
-        $this->doctor = Doctor::find($this->formData['doctor_id']);
-        return false;
+        return true;
     }
 
+    // if passes() method retrun false , the message() will be called. condtion pass kortay parayna, tai message dakhao.
     /**
      * Get the validation error message.
      *
@@ -49,6 +48,7 @@ class UniqueAppointmentPerDay implements Rule
     public function message()
     {
         $date = new \DateTime($this->formData['date']);
-        return "You already have an appointment with Doctor ".$this->doctor->name." in ".$date->format('d F,Y');
+        $this->doctor = Doctor::find($this->formData['doctor_id']);
+        return "You already have an appointment with Doctor ".$this->doctor->name." on ".$date->format('d F,Y');
     }
 }
