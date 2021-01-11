@@ -33,7 +33,7 @@
 
 							<!-- Appointment Notice -->
 							<div class="container text-center"> 
-								<h3> Doctor {{ $doctor->name }} takes maximum 20 appointments daily</h3>
+								<h3> Doctor {{ $doctor->name }} takes maximum {{ $doctor->max_appointment }} appointments daily</h3>
 							</div>
 							
 							
@@ -54,16 +54,18 @@
 											@php
 												$dayAfterToday = \Carbon\Carbon::now()->addDays($i);
 												$date = new DateTime($dayAfterToday);
-												$stdDate = $date->format('d-m-Y');
+												$stdDate = $date->format('Y-m-d');
 											@endphp
 											<div class="row" style="margin-top:10px; margin-bottom:10px">
 												<div class="col ">{{ $date->format('d M,Y') }}</div> 
 												<div class="col ">{{ $date->format('l') }} </div> 
 													@php
                                                         $day = strtolower($date->format('l'));
-                                                        $schedule = App\Models\DoctorSchedule::where('doctor_id','=',"$doctor->id")->where('day','=',"$day")->first(); 
+														$schedule = App\Models\DoctorSchedule::where('doctor_id','=',"$doctor->id")->where('day','=',"$day")->first(); 
                                                         $sTime = $schedule->starting_time??null;
-                                                        $eTime =  $schedule->ending_time??null;
+														$eTime =  $schedule->ending_time??null;
+														$noOfBookings = App\Models\Appointment::where('date','=',"$stdDate")->count();
+														$remain_booking = $doctor->max_appointment - $noOfBookings;
                                                     @endphp
 												<div class="col ">
 													<?php
@@ -93,17 +95,16 @@
 													<?php
 														if ($sTime) 
 														{
-															echo 15;
-														}
+															echo $remain_booking ;															}
 														else 
 														{
 															echo "<span style='color: brown'>NA</span>";
 														}
 													?>
 												</div>
-												<div>
+												<div class="col">
 													{!! Form::open(['route'=>'StoreAppointment']) !!}
-													{!! Form::select('patient_status',['new'=>'Visit after 30 Days','old'=>'Visit in 30 Days','report'=>'Report'],Null,['placeholder'=>"Choose Appointment Type",'class'=>'form-control','required'] )!!} 
+													{!! Form::select('patient_status',['new'=>'Visit after 30 Days','old'=>'Visit in 30 Days','report'=>'Report'],Null,['placeholder'=>"Select",'class'=>'form-control','required'] )!!} 
 												</div>
 												<div class="col ">
 													@if ($sTime)

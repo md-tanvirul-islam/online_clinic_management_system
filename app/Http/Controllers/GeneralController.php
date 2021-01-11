@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use App\Services\AppointmentService;
+use App\Http\Requests\StoreAppointmentFrontend;
 
 
 class GeneralController extends Controller
@@ -43,7 +44,7 @@ class GeneralController extends Controller
         return view('frontend.general.book_appointment',compact('doctor'));
     }
 
-    public function storeAppointment(Request $request)
+    public function storeAppointment(StoreAppointmentFrontend $request)
     {
        $data = $request->all();
        $this->appointmentService->storeOrUpdate($data);

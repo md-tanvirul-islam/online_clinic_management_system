@@ -9,6 +9,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Services\DepartmentService;
 use Illuminate\Validation\Rule;
+use App\Imports\DepartmentsImport;
 
 
 
@@ -115,5 +116,17 @@ class DepartmentController extends Controller
     {
         Department::onlyTrashed()->find($id)->forceDelete();
         return  redirect()->back();
+    }
+
+    public function importCreate()
+    {
+        return view('backend.admin.departments.excel_import');
+    }
+
+    public function importStore(Request $request)
+    {
+        $file = $request->file('departmentExcelFile');
+        \Excel::import(new DepartmentsImport,$file);
+        return redirect()->route('departments.index')->with('success','The data has uploaded successfully');
     }
 }

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\BillForTest;
+use App\Imports\DepartmentsImport;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,8 @@ Route::prefix('admin')->middleware('auth')->group(function (){
     Route::get('/departments/bin',[DepartmentController::class,'recycleBin'] )->name('departments.bin');
     Route::get('/departments/restore',[DepartmentController::class,'restoreAll'] )->name('departments.restore');
     Route::delete('/departments/{id}/pdelete',[DepartmentController::class,'permanentlyDelete'] )->name('departments.permanently.delete');
+    Route::get('/excel/import/show',[DepartmentController::class,'importCreate'])->name('department.import.create');
+    Route::post('/excel/import/store',[DepartmentController::class,'importStore'])->name('department.import.store');
 
     Route::get('/doctors/bin',[DoctorController::class,'recycleBin'] )->name('doctors.bin');
     Route::get('/doctors/restore',[DoctorController::class,'restoreAll'] )->name('doctors.restore');
@@ -104,11 +107,11 @@ Route::prefix('admin')->middleware('auth')->group(function (){
 });
 
 
+// **** route for import
 
-// Route::get('/test',function()
-// {
-// 	return "test";
-// });
+//Route::get('/test/show',[DepartmentController::class,'importCreate'])->name('department.import.create');
+//Route::get('/test/store',[DepartmentController::class,'importStore'])->name('department.import.store');
+// ***** route for impot finish.
 
 // Route::get('test',[GeneralController::class,'infoXchange']);
 
