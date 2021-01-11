@@ -37,10 +37,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-//****** For Redirect according to the user type
+//****** For Redirection according to the user type
 
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
-
 // ******* Finsih
 
 // Routes for general users
