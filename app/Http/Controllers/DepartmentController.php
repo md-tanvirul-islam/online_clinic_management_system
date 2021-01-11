@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use App\Services\DepartmentService;
 use Illuminate\Validation\Rule;
 use App\Imports\DepartmentsImport;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Response;
+
 
 
 
@@ -23,6 +26,10 @@ class DepartmentController extends Controller
 
     public function index()
     {
+        
+        if (Gate::denies('list', Department::class)) {
+            return abort(403, 'Unauthorized action.');
+        }
         $departments = $this->departmentService->allDepartments();
         return view('backend.admin.departments.index',compact('departments'));
     }

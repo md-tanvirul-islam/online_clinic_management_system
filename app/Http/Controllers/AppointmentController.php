@@ -11,10 +11,10 @@ use App\Models\DoctorSchedule;
 use App\Models\Department;
 use App\Models\Patient;
 use Carbon\Carbon;
-
 use App\Services\AppointmentService;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Gate;
 
 class AppointmentController extends Controller
 {
@@ -26,6 +26,9 @@ class AppointmentController extends Controller
 
     public function index()
     {
+        // if (Gate::denies('list', Appointment::class)) {
+        //     return view("errors.403");
+        // }
         $appointments = $this->appointmentService->list(); 
         return view('backend.admin.appointments.index',compact('appointments'));
     }
@@ -88,6 +91,9 @@ class AppointmentController extends Controller
    
     public function edit(Appointment $appointment)
     {
+        // if (Gate::denies('edit', $patient)) {
+        //     return view("errors.403");
+        // }
         $patient = Patient::find($appointment->patient_id);
         $doctor_schedule = DoctorSchedule::find($appointment->doctor_schedule_id);
         $doctor = Doctor::find($doctor_schedule->doctor_id);
