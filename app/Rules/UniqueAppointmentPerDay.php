@@ -9,6 +9,7 @@ use App\Models\Doctor;
 class UniqueAppointmentPerDay implements Rule
 {
     protected $formData;
+    protected $doctor;
     /**
      * Create a new rule instance.
      *
@@ -29,20 +30,15 @@ class UniqueAppointmentPerDay implements Rule
     public function passes($attribute, $value)
     {
         
-        $is_empty = Appointment::where('patient_id','=',$this->formData['patient_id'])->where('date','=',$this->formData['date'])->where('doctor_schedule_id','=',$this->formData['schedule_id'])->get()->isEmpty();
-       
-        // dd( $is_empty);
-        if( $is_empty)
+        $is_exist = Appointment::where('patient_id','=',$this->formData['patient_id'])->
+                                 where('date','=',$this->formData['date'])->
+                                 where('doctor_schedule_id','=',$this->formData['schedule_id'])->exists();
+        if($is_exist)
         {
             return true;
         }
-        else{
-           
-            global $doctor;
-            $doctor = Doctor::find($this->formData['doctor_id']);
-            return false;
-        }
-        // dd($this->formData,'form rule class');
+        $this->doctor = Doctor::find($this->formData['doctor_id']);
+        return false;
     }
 
     /**
@@ -52,9 +48,7 @@ class UniqueAppointmentPerDay implements Rule
      */
     public function message()
     {
-        $doctor = $GLOBALS['doctor'];
         $date = new \DateTime($this->formData['date']);
-
-        return "You already have an appointment with Doctor ".$doctor->name." in ".$date->format('d F,Y');
+        return "You already have an appointment with Doctor ".$this->doctor->name." in ".$date->format('d F,Y');
     }
 }
