@@ -11,6 +11,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestBillController;
 use App\Http\Controllers\TestTypeController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -36,6 +37,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
+//****** For Redirect according to the user type
+
+Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+
+// ******* Finsih
+
 // Routes for general users
 Route::get('/', [GeneralController::class,'index'])->name('indexPage');
 Route::get('/doctor_search', [GeneralController::class,'doctorSearch'])->name('doctorSearch');
@@ -49,7 +56,7 @@ Route::middleware(['auth'])->group(function(){
 // Routes for Admin Users
 Route::prefix('admin')->middleware('auth')->group(function (){
 
-    Route::get('/',function (){return view('backend.admin.index');});
+    Route::get('/',function (){return view('backend.admin.index');})->name('admin.index');
 
     Route::get('/departments/bin',[DepartmentController::class,'recycleBin'] )->name('departments.bin');
     Route::get('/departments/restore',[DepartmentController::class,'restoreAll'] )->name('departments.restore');

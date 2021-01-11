@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DaysOfWeek;
-use App\Services\daysOfWeekService;
+use App\Services\DaysOfWeekService;
 use Illuminate\Http\Request;
 
 class DaysOfWeekController extends Controller
@@ -11,7 +11,7 @@ class DaysOfWeekController extends Controller
     protected $daysOfWeekService;
     public function __construct()
     {
-        $this->daysOfWeekService = new daysOfWeekService();
+        $this->daysOfWeekService = new DaysOfWeekService();
     }
     /**
      * Display a listing of the resource.
