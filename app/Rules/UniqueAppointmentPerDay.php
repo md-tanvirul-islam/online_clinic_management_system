@@ -5,6 +5,7 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use App\Models\Appointment;
 use App\Models\Doctor;
+use Carbon\Carbon;
 
 class UniqueAppointmentPerDay implements Rule
 {
@@ -47,7 +48,7 @@ class UniqueAppointmentPerDay implements Rule
      */
     public function message()
     {
-        $date = new \DateTime($this->formData['date']);
+        $date = Carbon::parse($this->formData['date']);
         $this->doctor = Doctor::find($this->formData['doctor_id']);
         return "You already have an appointment with Doctor ".$this->doctor->name." on ".$date->format('d F,Y');
     }

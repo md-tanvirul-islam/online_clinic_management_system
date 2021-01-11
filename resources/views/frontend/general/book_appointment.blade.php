@@ -95,23 +95,28 @@
 													<?php
 														if ($sTime) 
 														{
-															echo $remain_booking ;															}
+															echo $remain_booking ;															
+														}
 														else 
 														{
 															echo "<span style='color: brown'>NA</span>";
 														}
 													?>
 												</div>
-												<div class="col">
+												<div class="col" style="padding-bottom:5px">
 													{!! Form::open(['route'=>'StoreAppointment']) !!}
-													{!! Form::select('patient_status',['new'=>'Visit after 30 Days','old'=>'Visit in 30 Days','report'=>'Report'],Null,['placeholder'=>"Select",'class'=>'form-control','required'] )!!} 
+													@if ($sTime)
+														{!! Form::select('patient_status',['new'=>'Visit after 30 Days','old'=>'Visit in 30 Days','report'=>'Report'],Null,['placeholder'=>"Select",'class'=>'form-control','required']) !!}	
+													@else
+													{!! Form::select('patient_status',['new'=>'Visit after 30 Days','old'=>'Visit in 30 Days','report'=>'Report'],Null,['placeholder'=>"Select",'class'=>'form-control','disabled']) !!}	
+													@endif
 												</div>
 												<div class="col ">
 													@if ($sTime)
-														{!! Form::text('schedule_id',$schedule->id,['class'=>'form-control','required','hidden']) !!}
-														{!! Form::text('doctor_id',$doctor->id,['class'=>'form-control','required','hidden']) !!}
-														{!! Form::text('patient_id',auth()->user()->patientProfile->id,['class'=>'form-control','required','hidden']) !!}
-														{!! Form::text('date',$stdDate,['class'=>'form-control','required','hidden']) !!}
+														<input type="text" name="schedule_id" value="{{ $schedule->id }}" required hidden>
+														<input type="text" name="doctor_id" value="{{ $doctor->id }}" required hidden>
+														<input type="text" name="patient_id" value="{{ auth()->user()->patientProfile->id }}" required hidden>
+														<input type="text" name="date" value="{{ $stdDate }}" required hidden>										
 														{!! Form::submit('Book',['class'=>['btn','btn-primary','text-dark'] ]) !!}
 													
 													@else
