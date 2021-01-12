@@ -18,46 +18,42 @@ class AppointmentPolicy
         }
     }
 
-
-
-
-
-
-    public function viewAny(User $user)
+    public function access(User $user)
     {
-        //
+        return false;
+    }
+    public function list(User $user)
+    {
+        return false;
     }
 
-    public function view(User $user, Appointment $appointment)
-    {
-        //
-    }
-
-   
     public function create(User $user)
     {
-        //
+        return false;
     }
 
-   
-    public function update(User $user, Appointment $appointment)
+    public function edit(User $user,$ability)
+    {
+        return false;
+    }
+    public function update(User $user)
+    {
+        return false;
+    }
+    public function show(User $user,$ability)
+    {
+        return false;
+    }
+    public function delete(User $user,$ability)
+    {
+        return false;
+    }
+    public function restore(User $user, $ability)
     {
         //
     }
 
-   
-    public function delete(User $user, Appointment $appointment)
-    {
-        //
-    }
-
-   
-    public function restore(User $user, Appointment $appointment)
-    {
-        //
-    }
-
-    public function forceDelete(User $user, Appointment $appointment)
+    public function forceDelete(User $user, $ability)
     {
         //
     }

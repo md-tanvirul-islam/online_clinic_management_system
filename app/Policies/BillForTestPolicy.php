@@ -2,15 +2,15 @@
 
 namespace App\Policies;
 
-use App\Models\Department;
+use App\Models\BillForTest;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class DepartmentPolicy
+class BillForTestPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user,Department $department)
+    public function before(User $user,$ability)
     {
         if($user->type === 'admin')
         {
@@ -32,7 +32,7 @@ class DepartmentPolicy
         return false;
     }
 
-    public function edit(User $user,Department $department)
+    public function edit(User $user,$ability)
     {
         return false;
     }
@@ -40,20 +40,20 @@ class DepartmentPolicy
     {
         return false;
     }
-    public function show(User $user,Department $department)
+    public function show(User $user,$ability)
     {
         return false;
     }
-    public function delete(User $user,Department $department)
+    public function delete(User $user,$ability)
     {
         return false;
     }
-    public function restore(User $user, Department $department)
+    public function restore(User $user, $ability)
     {
         //
     }
 
-    public function forceDelete(User $user, Department $department)
+    public function forceDelete(User $user, $ability)
     {
         //
     }
