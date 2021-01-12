@@ -27,7 +27,7 @@
                     <a href="{{ route('indexPage') }}">Home</a>
                 </li>
                 {{-- <li class="has-submenu">
-                    <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
+                    <a href="#">Patient <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
                         <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
                         <li><a href="appointments.html">Appointments</a></li>
@@ -42,10 +42,15 @@
                     </ul>
                 </li>	 --}}
                 <li class="has-submenu">
-                    <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
+                    <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
+                        @auth
+                            @if (auth()->user()->type === 'doctor')
+                            <li><a href="{{ route('doctor.own.index') }}">Doctor Dashboard</a></li>
+                            <li><a href="#">Doctor Profile</a></li>
+                            @endif
+                        @endauth
                         <li><a href="{{ route('doctorSearch') }}">Search Doctor</a></li>
-                        {{-- <li><a href="doctor-profile.html">Doctor Profile</a></li> --}}
                         <li><a href="{{ route('doctorSearch') }}">Booking</a></li>
                         {{-- <li><a href="checkout.html">Checkout</a></li>
                         <li><a href="booking-success.html">Booking Success</a></li>

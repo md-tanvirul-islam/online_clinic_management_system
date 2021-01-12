@@ -23,7 +23,7 @@ class DashboardController extends Controller
         }
         else {
             // return view('backend.admin.doctors.index');
-            return redirect()->route('doctors.index');
+            return redirect()->route('doctor.own.index');
         }
     }
 }

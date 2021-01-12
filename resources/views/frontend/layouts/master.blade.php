@@ -21,6 +21,8 @@
 		<!-- Main CSS -->
 		<link rel="stylesheet" href="{{ asset('ui/frontend/css/style.css') }}">
 
+		@stack('css')
+
 		<!-- jQuery -->
 		<script src="{{ asset('ui/frontend/js/jquery.min.js') }}"></script>
 		
@@ -60,6 +62,7 @@
 		
 		<!-- Custom JS -->
 		<script src="{{ asset('ui/frontend/js/script.js') }}"></script>
+		@stack('js')
 		
 	</body>
 

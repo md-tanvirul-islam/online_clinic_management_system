@@ -12,6 +12,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestBillController;
 use App\Http\Controllers\TestTypeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DoctorOwnController;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -52,9 +53,14 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/store_appointment', [GeneralController::class,'storeAppointment'])->name('StoreAppointment');
 });
 
+//******** Routes for Doctor
+Route::prefix('doctor')->middleware(['auth','routesForAdminAndDoctor'])->group(function(){
+    Route::get('/dashboard',[DoctorOwnController::class,'index'])->name('doctor.own.index');
+});
+//******** Finish
 
 // Routes for Admin Users
-Route::prefix('admin')->middleware('auth')->group(function (){
+Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function (){
 
     Route::get('/',function (){return view('backend.admin.index');})->name('admin.index');
 
