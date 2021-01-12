@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(\App\Interfaces\PaymentGatewayInterface::class, function ($app) {
+            // return new \App\PaymentGateways\Paypal();
+            return new \App\PaymentGateways\Stripe();
+        });
     }
 
     /**

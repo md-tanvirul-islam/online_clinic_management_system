@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\BillForTest;
 use App\Imports\DepartmentsImport;
+use App\Interfaces\PaymentGatewayInterface;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,3 +127,10 @@ Route::get('test1',function(Request $request)
    return view('frontend.general.search_doctor');
 
 });
+
+//testing interfaces
+Route::get('/testing/interfaces', function(PaymentGatewayInterface $paymentGatewayInterface)
+{
+    dd($paymentGatewayInterface->payment());
+});
+//finsish
