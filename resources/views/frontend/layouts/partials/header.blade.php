@@ -45,9 +45,9 @@
                     <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
                         @auth
-                            @if (auth()->user()->type === 'doctor')
-                            <li><a href="{{ route('doctor.own.index') }}">Doctor Dashboard</a></li>
-                            <li><a href="#">Doctor Profile</a></li>
+                            @if (auth()->user()->type === 'doctor' || 'admin')
+                                <li><a href="{{ route('doctor.own.index') }}">Doctor Dashboard</a></li>
+                                <li><a href="#">Doctor Profile</a></li>
                             @endif
                         @endauth
                         <li><a href="{{ route('doctorSearch') }}">Search Doctor</a></li>

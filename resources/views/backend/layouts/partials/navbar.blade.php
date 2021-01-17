@@ -41,8 +41,14 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Tables</h6>
-                        <a class="collapse-item" href="{{route('departments.index')}}">Department </a>
+                        <a class="collapse-item" href="{{route('authorization.roles.list')}}">Roles </a>
 
+                        <a class="collapse-item" href="{{route('authorization.permission.list')}}">Permission </a>
+                       
+                        <a class="collapse-item" href="{{route('authorization.assignRole.index')}}">AssignRole </a>
+
+                        <a class="collapse-item" href="{{route('departments.index')}}">Department </a>
+                        
                         <a class="collapse-item" href="{{route('doctors.index')}}">Doctors </a>
 
                         <a class="collapse-item" href="{{ route('doctorSchedules.index') }}">Doctor Schedules </a>

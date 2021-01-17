@@ -12,7 +12,7 @@ use Illuminate\Validation\Rule;
 use App\Imports\DepartmentsImport;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Response;
-
+use Maatwebsite\Excel\Excel;
 
 
 
@@ -133,7 +133,7 @@ class DepartmentController extends Controller
     public function importStore(Request $request)
     {
         $file = $request->file('departmentExcelFile');
-        \Excel::import(new DepartmentsImport,$file);
+        Excel::import(new DepartmentsImport,$file);
         return redirect()->route('departments.index')->with('success','The data has uploaded successfully');
     }
 }

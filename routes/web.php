@@ -8,6 +8,9 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorScheduleController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AssignRoleForUser;
+use App\Http\Controllers\AuthorizationRoleController;
+use App\Http\Controllers\AuthorizationPermissionController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestBillController;
 use App\Http\Controllers\TestTypeController;
@@ -19,6 +22,7 @@ use Illuminate\Http\Request;
 use App\Models\BillForTest;
 use App\Imports\DepartmentsImport;
 use App\Interfaces\PaymentGatewayInterface;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +67,31 @@ Route::prefix('doctor')->middleware(['auth','routesForAdminAndDoctor'])->group(f
 Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function (){
 
     Route::get('/',function (){return view('backend.admin.index');})->name('admin.index');
+
+    Route::get('/auth/roles/list',[AuthorizationRoleController::class,'roleList'])->name('authorization.roles.list');
+    Route::get('/auth/roles/create',[AuthorizationRoleController::class,'roleCreate'])->name('authorization.roles.create');
+    Route::post('/auth/roles/create',[AuthorizationRoleController::class,'roleStore'])->name('authorization.roles.store');
+    Route::get('/auth/roles/edit/{role}',[AuthorizationRoleController::class,'roleEdit'])->name('authorization.roles.edit');
+    Route::put('/auth/roles/edit/{role}',[AuthorizationRoleController::class,'roleUpdate'])->name('authorization.roles.update');
+    Route::delete('/auth/roles/{role}',[AuthorizationRoleController::class,'roleDestroy'])->name('authorization.roles.destroy');
+    Route::get('/auth/roles/bin',[AuthorizationRoleController::class,'roleBin'])->name('authorization.roles.bin');
+    Route::get('/auth/roles/restore',[AuthorizationRoleController::class,'roleRestore'])->name('authorization.roles.restore');
+    
+    Route::get('/auth/permissions/list',[AuthorizationPermissionController::class,'list'])->name('authorization.permission.list');
+    Route::get('/auth/permissions/create',[AuthorizationPermissionController::class,'create'])->name('authorization.permission.create');
+    Route::post('/auth/permissions/create',[AuthorizationPermissionController::class,'store'])->name('authorization.permission.store');
+    Route::get('/auth/permissions/edit/{permission}',[AuthorizationPermissionController::class,'edit'])->name('authorization.permission.edit');
+    Route::put('/auth/permissions/edit/{permission}',[AuthorizationPermissionController::class,'update'])->name('authorization.permission.update');
+    Route::delete('/auth/permissions/{permission}',[AuthorizationPermissionController::class,'destroy'])->name('authorization.permission.destroy');
+    Route::get('/auth/permissions/bin',[AuthorizationPermissionController::class,'bin'])->name('authorization.permission.bin');
+    Route::get('/auth/permissions/restore',[AuthorizationPermissionController::class,'restore'])->name('authorization.permission.restore');
+    
+    Route::get('/auth/assignRole/index',[AssignRoleForUser::class,'index'])->name('authorization.assignRole.index');
+    Route::get('/auth/assignRole/edit/{model_id}',[AssignRoleForUser::class,'edit'])->name('authorization.assignRole.edit');
+    Route::put('/auth/assignRole/add/{model_id}',[AssignRoleForUser::class,'add'])->name('authorization.assignRole.add');
+    Route::delete('/auth/assignRole/remove/{model_id}',[AssignRoleForUser::class,'remove'])->name('authorization.assignRole.remove');
+    
+
 
     Route::get('/departments/bin',[DepartmentController::class,'recycleBin'] )->name('departments.bin');
     Route::get('/departments/restore',[DepartmentController::class,'restoreAll'] )->name('departments.restore');
@@ -128,15 +157,17 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
 
 // Route::get('test',[GeneralController::class,'infoXchange']);
 
-Route::get('test1',function(Request $request)
+Route::get('test',function(Request $request)
 {
-   return view('frontend.general.search_doctor');
+    $user = User::find(1);
+    $user->assignRole('patient');
+    return 'work done';
 
 });
 
 //testing interfaces
-Route::get('/testing/interfaces', function(PaymentGatewayInterface $paymentGatewayInterface)
-{
-    dd($paymentGatewayInterface->payment());
-});
+// Route::get('/testing/interfaces', function(PaymentGatewayInterface $paymentGatewayInterface)
+// {
+//     dd($paymentGatewayInterface->payment());
+// });
 //finsish
