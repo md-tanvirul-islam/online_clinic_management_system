@@ -3,7 +3,7 @@
 <div class="container ">
     <h3>Upload a Excel file to import the department Information </h3>
     <div class="row"> 
-        {!! Form::open(['route'=>'department.import.store','files'=>true]) !!}
+        {!! Form::open(['route'=>'department.excel.import.store','files'=>true]) !!}
         <div class="col"> 
             {!! Form::label('departmentExcelFile','Upload A Excel File') !!}
         </div>

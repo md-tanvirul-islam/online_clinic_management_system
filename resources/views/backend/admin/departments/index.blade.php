@@ -11,7 +11,8 @@
         <div class="card-header py-3">
             <span   class="m-0 font-weight-bold text-primary"><a href="{{ route('departments.create') }}" style="color:white;" class="btn btn-primary">AddDepartment</a></span>
             <span class="text-right"><a class="btn btn-danger" href="{{ route('departments.bin') }}">RecycleBin</a></span>
-            <span ><a class="btn btn-success" class="text-dark" href="{{ route('department.import.create') }}">ExcelUpload</a></span>
+            <span ><a class="btn btn-success"  href="{{ route('department.excelimport.create') }}">UploadExcelData</a></span>
+            <span ><a class="btn btn-secondary"  href="{{ route('department.excel.export') }}">ExportExcelData</a></span>
         </div>
         @if(count($departments) == 0)
             <h3>No Record Found. Add some records</h3>

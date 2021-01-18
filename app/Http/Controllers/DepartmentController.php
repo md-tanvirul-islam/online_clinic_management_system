@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DepartmentExport;
 use App\Http\Requests\StoreDepartmentRequest;
 use App\Http\Requests\UpdateDepartmentRequest;
 use App\Models\Department;
@@ -12,7 +13,7 @@ use Illuminate\Validation\Rule;
 use App\Imports\DepartmentsImport;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Response;
-use Maatwebsite\Excel\Excel;
+use Excel;
 
 
 
@@ -125,15 +126,21 @@ class DepartmentController extends Controller
         return  redirect()->back();
     }
 
-    public function importCreate()
+    public function excelImportCreate()
     {
         return view('backend.admin.departments.excel_import');
     }
 
-    public function importStore(Request $request)
+    public function excelImportStore(Request $request)
     {
         $file = $request->file('departmentExcelFile');
         Excel::import(new DepartmentsImport,$file);
         return redirect()->route('departments.index')->with('success','The data has uploaded successfully');
+    }
+
+    public function excelExport()
+    {
+        return Excel::download(new DepartmentExport, 'departmentList.xlsx');
+        // return redirect()->back();
     }
 }

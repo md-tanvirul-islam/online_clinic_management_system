@@ -99,8 +99,9 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
     Route::get('/departments/bin',[DepartmentController::class,'recycleBin'] )->name('departments.bin');
     Route::get('/departments/restore',[DepartmentController::class,'restoreAll'] )->name('departments.restore');
     Route::delete('/departments/{id}/pdelete',[DepartmentController::class,'permanentlyDelete'] )->name('departments.permanently.delete');
-    Route::get('/excel/import/show',[DepartmentController::class,'importCreate'])->name('department.import.create');
-    Route::post('/excel/import/store',[DepartmentController::class,'importStore'])->name('department.import.store');
+    Route::get('/excel/import/show',[DepartmentController::class,'excelImportCreate'])->name('department.excelimport.create');
+    Route::post('/excel/import/store',[DepartmentController::class,'excelImportStore'])->name('department.excel.import.store');
+    Route::get('/excel/export',[DepartmentController::class,'excelExport'])->name('department.excel.export');
 
     Route::get('/doctors/bin',[DoctorController::class,'recycleBin'] )->name('doctors.bin');
     Route::get('/doctors/restore',[DoctorController::class,'restoreAll'] )->name('doctors.restore');
