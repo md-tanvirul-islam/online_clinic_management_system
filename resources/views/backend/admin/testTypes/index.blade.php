@@ -51,7 +51,8 @@
                             </td>
                         </tr>
                     @empty
-                        <p class="text-danger">No Record Found. Add some records</p>
+                        <tr><td colspan="3" class="text-danger">No Record Found. Add some records
+                            </td></tr>
                     @endforelse
 
                     </tbody>
