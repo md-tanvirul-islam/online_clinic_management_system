@@ -153,21 +153,17 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
 });
 
 
-// **** route for import
 
-//Route::get('/test/show',[DepartmentController::class,'importCreate'])->name('department.import.create');
-//Route::get('/test/store',[DepartmentController::class,'importStore'])->name('department.import.store');
-// ***** route for impot finish.
 
 // Route::get('test',[GeneralController::class,'infoXchange']);
 
-Route::get('test',function(Request $request)
-{
-    $user = User::find(1);
-    $user->assignRole('patient');
-    return 'work done';
+// Route::get('test',function(Request $request)
+// {
+//     $user = User::find(1);
+//     $user->assignRole('patient');
+//     return 'work done';
 
-});
+// });
 
 //testing interfaces
 // Route::get('/testing/interfaces', function(PaymentGatewayInterface $paymentGatewayInterface)
@@ -175,3 +171,9 @@ Route::get('test',function(Request $request)
 //     dd($paymentGatewayInterface->payment());
 // });
 //finsish
+
+
+Route::get('test',function(Request $request)
+{
+
+});

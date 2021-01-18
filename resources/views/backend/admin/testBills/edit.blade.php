@@ -8,7 +8,9 @@
         <div class="container" style="margin-bottom: 20px">
             <div class="row">
                 <div class="col" style="text-align: left">
-                    <a class="btn btn-secondary" href="{{route('testBills.index')}}">TestBillList</a>
+                    <a class="btn btn-warning" style="color: black" href="{{route('testBills.index')}}" title="List of all Test Bills ">
+                        <i class="fa fa-list-ol"></i> List
+                    </a>
                 </div>
             </div>
             @php
@@ -43,7 +45,7 @@
                                 {{ $date  }}
                             </div>
                         </div>
-                        
+                        <br>
                         <div class="row">
                             <div class="col-6" >
                                 <h3 >Test </h3>
@@ -58,8 +60,7 @@
                         </div>
                         <div class="row" style="margin-top: 5px">                           
                             <div class=" col-6" >
-                                {!! Form::submit('Add Test',['class'=>['btn','btn-info'] ]) !!}
-                                {!! Form::close() !!}
+                                <button type="submit" title="Add Test to the Bill" style="color: black" class="btn btn-info"> <i class="fa fa-plus" aria-hidden="true"> Add</i> </button>
                             </div>
                         </div>
                     </div>
@@ -68,7 +69,7 @@
                         @if ( $patient_tests)
                             
                             <div class="table-responsive" style="text-align: center">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" style="color: black" width="100%" cellspacing="0">
                                     <thead>
                                     <tr>
                                         <th>No.</th>
@@ -80,17 +81,13 @@
                                     </thead>
                 
                                     <tbody>
-                                    @php
-                                        $i = 0
-                                    @endphp
-
                                     @foreach($patient_tests as $patient_test)
                                         @php
                                             $test_id = $patient_test->test_id;
                                             $test = App\Models\Test::find($test_id);
                                         @endphp
                                         <tr>
-                                            <td> {{++$i}}</td>
+                                            <td> {{$loop->iteration}}</td>
                                             <td>{{ $test->name }}</td>
                                             <td>{{ $test->testType->name }}</td>
                                             <td>{{ $test->price }}</td>

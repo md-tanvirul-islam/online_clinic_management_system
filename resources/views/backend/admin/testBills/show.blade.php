@@ -1,10 +1,12 @@
 @extends('backend.layouts.master_tem')
 
 @section('content')
-        <div class="container" style="margin-bottom: 20px">
+        <div class="container" style="margin-bottom: 20px ;">
             <div class="row">
                 <div class="col" style="text-align: left">
-                    <a class="btn btn-secondary" href="{{route('testBills.index')}}">TestBillList</a>
+                    <a class="btn btn-warning" style="color: black" href="{{route('testBills.index')}}" title="List of all Test Bills ">
+                        <i class="fa fa-list-ol"></i> List
+                    </a>
                 </div>
                 <div class="col" style="text-align: right" >
                     <div style="display:inline-block;">
@@ -28,7 +30,7 @@
             @endphp
             
            
-            <h1 style="text-align:center;margin-bottom: 40px">Details of the Bill</h1>
+            <h3 style="text-align:center;margin-bottom: 40px">Details of the Bill</h3>
                 <div class="row">               
                     <div class="col" > 
                         <div class="row">
@@ -49,11 +51,11 @@
                                 {{ $date  }}
                             </div>
                         </div>
-
+                        <br> 
                         <div class="row">
                             <div><h3> Bill Summary</h3> </div> 
                             <div class="table-responsive" style="text-align: center">
-                                <table class="table table-bordered" width="50%" cellspacing="0">
+                                <table style="color: black" class="table table-bordered" width="50%" cellspacing="0">
                                     <tr>
                                         <td colspan="3">Total</td>
                                         <td>{{ $bill_for_test->amount }}</td>
@@ -82,38 +84,32 @@
                         @if ( $test_ids)   
                         <div><h3> List of Tests</h3> </div>                         
                             <div class="table-responsive" style="text-align: center">
-                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                <table class="table table-bordered" style="color:black" width="100%" cellspacing="0">
                                     <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Price</th>
-                                    </tr>
-                                    </thead>
-                
-                                    <tbody>
-                                    @php
-                                        $i = 0
-                                    @endphp
-
-                                    @foreach($test_ids as $test_id)
-
-                                        @php
-                                            $test = App\Models\Test::find($test_id);
-                                        @endphp
                                         <tr>
-                                            <td> {{++$i}}</td>
-                                            <td>{{ $test->name }}</td>
-                                            <td>{{ $test->testType->name }}</td>
-                                            <td>{{ $test->price }}</td>
+                                            <th>No.</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
                                         </tr>
-                                    @endforeach
-                                    <tr>
-                                        <td colspan="3">Total</td>
-                                        <td>{{ $bill_for_test->amount }}</td>
-                                    </tr>
-                
+                                    </thead>
+                                    <tbody>
+                                        @foreach($test_ids as $test_id)
+
+                                            @php
+                                                $test = App\Models\Test::find($test_id);
+                                            @endphp
+                                            <tr>
+                                                <td> {{$loop->iteration}} </td>
+                                                <td>{{ $test->name }}</td>
+                                                <td>{{ $test->testType->name }}</td>
+                                                <td>{{ $test->price }}</td>
+                                            </tr>
+                                        @endforeach
+                                        <tr>
+                                            <td colspan="3"><b>Total</b></td>
+                                            <td>{{ $bill_for_test->amount }}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 

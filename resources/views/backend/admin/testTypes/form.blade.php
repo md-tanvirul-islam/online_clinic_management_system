@@ -1,8 +1,8 @@
-<div class="row">
-    <div class="col-6 text-right">
-        <b> {!! Form::label('name','Enter a Name of the Test Category:') !!} </b>
+<div class="form-row">
+    <div class="col-md-4 mb-3">
+        <label for="name">Enter a Name of the Test Category:</label>
+        {!! Form::text('name',null,['class'=>'form-control','required','placeholder' => 'Test Type Name']) !!}
     </div>
-    <div class="col-3">
-        {!! Form::text('name',null,['class'=>'form-control','required']) !!}
-    </div> 
+    <div class="col-md-4 mb-3"></div>
+    <div class="col-md-4 mb-3"></div>
 </div>

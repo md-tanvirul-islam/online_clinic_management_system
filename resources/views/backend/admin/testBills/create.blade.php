@@ -8,14 +8,16 @@
         <div class="container" style="margin-bottom: 20px">
             <div class="row">
                 <div class="col" style="text-align: left">
-                    <a class="btn btn-secondary" href="{{route('testBills.index')}}">TestBillList</a>
+                    <a class="btn btn-warning" style="color: black" href="{{route('testBills.index')}}" title="List of all Test Bills ">
+                        <i class="fa fa-list-ol"></i> List
+                    </a>
                 </div>
-                <div class="col" style="text-align: right">
+                {{-- <div class="col" style="text-align: right">
                     <a href=" #" class="btn btn-info text-white" type="button">ForNewPatient</a> 
-                </div>
+                </div> --}}
             </div>
             
-            <h1 style="text-align:center;margin-bottom: 40px">Make Bill for Test</h1>
+            <h3 style="text-align:center;margin-bottom: 40px">Make Bill for Test</h3>
             {!! Form::open(['route' => 'testBills.store','id'=>'form1' ]) !!}
                 <div class="row">
                 
@@ -35,7 +37,7 @@
                             </div>
                         </div>
                         
-                        <div class="row">
+                        <div class="row" style="margin-top: 20px">
                             <div class="col-6" >
                                 <h3 >Test </h3>
                                 {!! Form::label('testType_id', 'Choose Test')!!}<br>
@@ -49,7 +51,7 @@
                         </div>
                         <div class="row" style="margin-top: 5px">                           
                             <div class=" col-6" >
-                                {!! Form::submit('Add Test',['class'=>['btn','btn-info'] ]) !!}
+                                <button type="submit" title="Add Test to the Bill" style="color: black" class="btn btn-info"> <i class="fa fa-plus" aria-hidden="true"> Add</i> </button>
                             </div>
                         </div>
                     </div>
@@ -60,55 +62,52 @@
                     @endphp  --}}
 
                     <div class="col"> 
-                        @if ($request->session()->has('test_ids'))
-                            @php
-                                $test_ids = $request->session()->get('test_ids'); 
-                            @endphp
+                        
                             <div class="table-responsive" style="text-align: center">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table style="color: black" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Price</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                
-                                    <tbody>
-                                    @php
-                                        $i = 0
-                                    @endphp
-
-                                    @foreach($test_ids as $test_id)
-
-                                        @php
-                                            $test = App\Models\Test::find($test_id);
-                                        @endphp
                                         <tr>
-                                            <td> {{++$i}}</td>
-                                            <td>{{ $test->name }}</td>
-                                            <td>{{ $test->testType->name }}</td>
-                                            <td>{{ $test->price }}</td>
-                                            <td>
-                                                <a class="btn btn-warning" href="{{ route('testBills.remove.test',[$test->id]) }}" title="Remove" style="color:black;"><i class="fas fa-trash"></i>
-                                                </a>
-                                            </td>
+                                            <th>No.</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                            <th>Actions</th>
                                         </tr>
-                                    @endforeach
-                
+                                    </thead>                                   
+                                    <tbody>
+                                        @if ($request->session()->has('test_ids'))
+                                            @php
+                                                    $test_ids = $request->session()->get('test_ids'); 
+                                            @endphp
+                                            @forelse($test_ids as $test_id)
+                                                @php
+                                                    $test  = App\Models\Test::find($test_id);
+                                                @endphp
+                                                <tr>
+                                                    <td> {{$loop->iteration}}</td>
+                                                    <td>{{ $test->name }}</td>
+                                                    <td>{{ $test->testType->name }}</td>
+                                                    <td>{{ $test->price }}</td>
+                                                    <td>
+                                                        <a class="btn btn-warning" href="{{ route('testBills.remove.test',[$test->id]) }}" title="Remove" style="color:black;"><i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                            @endforelse
+                                        @endif
                                     </tbody>
+                                
                                 </table>
                                 
                             </div>
                             
-                        @endif
+                        
                     </div>
                 </div>
                 <div class="row" style="margin-top: 20px">
                     <div class="col" style="text-align: center">
-                        {!! Form::submit('Submit',['class'=>['btn','btn-primary'],'onclick'=>'finalSubmit()' ]) !!}
+                        <button  style= "color:white" class="btn btn-primary" onclick="finalSubmit()"> <i class="fa fa-paper-plane" aria-hidden="true"></i> Submit </button>
                     </div> 
                 </div>
             {!! Form::close() !!}
