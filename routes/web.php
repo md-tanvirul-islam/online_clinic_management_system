@@ -8,6 +8,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorScheduleController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AssignPermissionForRole;
 use App\Http\Controllers\AssignRoleForUser;
 use App\Http\Controllers\AuthorizationRoleController;
 use App\Http\Controllers\AuthorizationPermissionController;
@@ -74,6 +75,7 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
     Route::get('/auth/roles/edit/{role}',[AuthorizationRoleController::class,'roleEdit'])->name('authorization.roles.edit');
     Route::put('/auth/roles/edit/{role}',[AuthorizationRoleController::class,'roleUpdate'])->name('authorization.roles.update');
     Route::delete('/auth/roles/{role}',[AuthorizationRoleController::class,'roleDestroy'])->name('authorization.roles.destroy');
+    Route::get('/auth/roles/{role}/permission',[AuthorizationRoleController::class,'rolePermissionList'])->name('authorization.roles.permissions.list');
     Route::get('/auth/roles/bin',[AuthorizationRoleController::class,'roleBin'])->name('authorization.roles.bin');
     Route::get('/auth/roles/restore',[AuthorizationRoleController::class,'roleRestore'])->name('authorization.roles.restore');
     
@@ -91,6 +93,7 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
     Route::put('/auth/assignRole/add/{model_id}',[AssignRoleForUser::class,'add'])->name('authorization.assignRole.add');
     Route::delete('/auth/assignRole/remove/{model_id}',[AssignRoleForUser::class,'remove'])->name('authorization.assignRole.remove');
     
+    Route::post('/auth/assignPermissionRole/store',[AssignPermissionForRole::class,'store'])->name('authorization.assignPermission.role.store');
 
 
     Route::get('/departments/bin',[DepartmentController::class,'recycleBin'] )->name('departments.bin');

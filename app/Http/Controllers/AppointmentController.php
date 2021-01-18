@@ -26,9 +26,9 @@ class AppointmentController extends Controller
 
     public function index()
     {
-        // if (Gate::denies('list', Appointment::class)) {
-        //     return view("errors.403");
-        // }
+        if (Gate::denies('list', Appointment::class)) {
+            return view("errors.403");
+        }
         $appointments = $this->appointmentService->list(); 
         return view('backend.admin.appointments.index',compact('appointments'));
     }

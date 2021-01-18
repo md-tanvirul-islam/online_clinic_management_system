@@ -10,14 +10,6 @@ class DepartmentPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user,Department $department)
-    {
-        if($user->type === 'admin')
-        {
-            return true;
-        }
-    }
-
     public function access(User $user)
     {
         return false;

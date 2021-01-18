@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Spatie\Permission\Models\Role;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
 
 class AuthorizationRoleController extends Controller
 {
@@ -77,4 +79,18 @@ class AuthorizationRoleController extends Controller
         }
     }
     
+    public function rolePermissionList(Role $role)
+    {
+        try{
+            $permissions = Permission::all(); 
+            $permissionIdsForThisRole = DB::table('role_has_permissions')
+                                ->where('role_id','=',$role->id)
+                                ->pluck('permission_id')->toArray();
+            // dd($permissionIdsForThisRole);
+            return view('backend.admin.authorization.roles.PermissionsAssociatedWithRole.list',compact('role','permissions','permissionIdsForThisRole'));
+        }catch (QueryException $exception)
+        {
+            return redirect()->back()->withErrors($exception->getMessage());
+        }
+    }
 }

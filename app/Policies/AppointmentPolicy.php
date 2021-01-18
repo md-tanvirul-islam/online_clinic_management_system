@@ -10,14 +10,6 @@ class AppointmentPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user,$ability)
-    {
-        if($user->type === 'admin')
-        {
-            return true;
-        }
-    }
-
     public function access(User $user)
     {
         return false;

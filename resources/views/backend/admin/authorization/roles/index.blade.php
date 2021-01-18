@@ -28,6 +28,10 @@
                             <i class="fas fa-edit"></i>
                         </a>
 
+                        <a href="{{ route('authorization.roles.permissions.list', [$role->id]) }}" title="Permission" style="color:black;" class="btn btn-success">
+                            <i class="fas fa-lock-open"></i>
+                        </a>
+
                         <form action="{{ route('authorization.roles.destroy', [$role->id]) }}" method="post" style="display: inline">
                             @csrf
                             @method('delete')
