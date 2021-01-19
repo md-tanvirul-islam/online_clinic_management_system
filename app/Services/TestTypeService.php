@@ -1,6 +1,7 @@
 <?php
     namespace App\Services;
     use App\Models\TestType;
+    use Illuminate\Support\Str;
 
     class TestTypeService
         {
@@ -25,6 +26,9 @@
                     $testType->created_by = $user_id ;
                 }
                 $testType->name = $data['name'];
+                $testType->description = $data['description'];
+                $testType->status = $data['status'];
+                $testType->slug = Str::slug($data['name']);
                 return $testType->save()? $testType : null ;      
             }
 

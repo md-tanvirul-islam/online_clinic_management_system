@@ -4,8 +4,8 @@
 
 @section('content')
 
-<div class="container-fluid">
-            <div class="card" style="color: black; margin-top:10px">
+<div class="container">
+            <div class="card"  style="color: black; margin-top:10px; margin-left:25%; width: 50%;" >
                 <div class="card-header">
                     <div class="row">
                         <div class="col-9">
@@ -41,6 +41,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 </div>
    
 

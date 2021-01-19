@@ -19,7 +19,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('ui/backend') }}/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link href="{{ asset('ui/backend') }}/css/style.css" rel="stylesheet">
+    {{-- <link href="{{ asset('ui/backend') }}/css/style.css" rel="stylesheet"> --}}
 
     @stack('css')
 </head>
@@ -93,8 +93,8 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('ui/backend') }}/js/sb-admin-2.min.js"></script>
-<script src="{{ asset('ui/backend') }}/js/script.js"></script>
-<script src="{{ asset('ui/backend') }}/js/form-validator.js"></script>
+{{-- <script src="{{ asset('ui/backend') }}/js/script.js"></script>
+<script src="{{ asset('ui/backend') }}/js/form-validator.js"></script> --}}
 
 @stack('js')
 

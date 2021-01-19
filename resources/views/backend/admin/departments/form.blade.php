@@ -1,34 +1,18 @@
 <div class="form-row">
-    <div class="col-4 text-right ">
-        <h4> {!! Form::label('name','Department Name:') !!} </h4>
-    </div>
-    <div class="form-group col-4 text-center" >
-        {!! Form::text('name',null,['class'=>'form-control','required']) !!}
+    <div class="col-md-12 mb-3">
+        <label for="name">Enter a Department Name::</label>
+        {!! Form::text('name',null,['class'=>'form-control','required','placeholder' => 'Department Name']) !!}
     </div>
 </div>
-
 <div class="form-row">
-    <div class="col-4 text-right">
-        <h4> Is Active: </h4>
+    <div class="col-md-12 mb-3">
+        <label for="description">Description of Department:</label>
+        {!! Form::textarea('description',null,['class'=>'form-control','rows'=>'4','cols'=>'50','placeholder' => 'Test Type Description']) !!}
     </div>
-
-    <div class="col-4">
-        {!! Form::label('is_active','Yes:') !!}
-        {!! Form::radio('is_active','yes',['class'=>'form-control','required'] )!!}
-        {!! Form::label('is_active','No:') !!}
-        {!! Form::radio('is_active','no',['class'=>'form-control','required'] )!!}
-     
-    </div>
-
 </div>
-
 <div class="form-row">
-    <div class="col-4 text-right">
-        <h4> {!! Form::label('description','Description:') !!} </h4>
+    <div class="col-md-12 mb-3">
+        <label for="is_active">Status:</label>
+        {!! Form::select('is_active',['yes'=>'Active','no'=>'Inactive'],null,['class'=>'form-control','required','placeholder' => 'Please Select Status']) !!}
     </div>
-
-    <div class="col-4">
-        {!! Form::textarea('description',null,['class'=>'form-control',]) !!}
-    </div>
-
 </div>

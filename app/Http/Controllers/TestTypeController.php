@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TestType;
 use App\Services\TestTypeService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TestTypeController extends Controller
 {
@@ -31,11 +32,16 @@ class TestTypeController extends Controller
     {
         $validateData = $request->validate(
             [
-                'name' => 'required|string|unique:test_types,name'
+                'name' => 'required|string|unique:test_types,name',
+                'description'=>'nullable|string|max:250',
+                'status' => [
+                    'required',
+                    Rule::in(['inactive', 'active']),
+                ],
             ]
         );
         $testType = $this->testTypeService->storeOrUpdate($validateData);
-        return redirect()->route('testTypes.index')->withSuccess("Test type has succesfully added"); 
+        return redirect()->route('testTypes.index')->withSuccess("Test type has successfully added"); 
     }
 
     
@@ -56,11 +62,16 @@ class TestTypeController extends Controller
         $data = $request->validate(
             [
                 'name' => 'required|string|unique:test_types,name,'.$testType->id,
+                'description'=>'nullable|string|max:250',
+                'status' => [
+                    'required',
+                    Rule::in(['inactive', 'active']),
+                ],
             ]
         );
         $data['testType_id'] = $testType->id;
         $testType = $this->testTypeService->storeOrUpdate($data);
-        return redirect()->route('testTypes.index')->withSuccess("Test type has succesfully update");
+        return redirect()->route('testTypes.index')->withSuccess("Test type has successfully update");
     }
 
    
