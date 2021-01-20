@@ -46,7 +46,7 @@
                     <tr>
                         <th>No.</th>
                         <th>name</th>
-                        <th>Is Active</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -56,7 +56,7 @@
                         <tr>
                             <td> {{ $loop->iteration }}</td>
                             <td>{{ $department->name }}</td>
-                            <td>{{$department->is_active}}</td>
+                            <td>{{$department->status}}</td>
                             <td >
 
                                 <a href="{{ route('departments.show', [$department->id]) }}" title="Details" style="color:black;" class="btn btn-info">

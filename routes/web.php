@@ -106,6 +106,7 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
     Route::get('/doctors/bin',[DoctorController::class,'recycleBin'] )->name('doctors.bin');
     Route::get('/doctors/restore',[DoctorController::class,'restoreAll'] )->name('doctors.restore');
     Route::delete('/doctors/{id}/pdeletebyid',[DoctorController::class,'permanentlyDelete'] )->name('doctors.permanently.delete.by.id');
+    Route::post('/doctors/search',[DoctorController::class,'searchDoctor'] )->name('doctors.search');
     // Route::delete('/doctors/pdelete',function(){echo "abc";} )->name('doctors.permanently.delete.all');
 
     Route::get('/patients/bin',[PatientController::class,'recycleBin'] )->name('patients.bin');

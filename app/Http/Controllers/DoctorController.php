@@ -7,7 +7,7 @@ use App\Models\Doctor;
 use App\Services\DoctorService;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreDoctorRequest;
-use App\Http\Requests\ UpdateDoctorRequest;
+use App\Http\Requests\UpdateDoctorRequest;
 use Illuminate\Database\QueryException;
 
 class DoctorController extends Controller
@@ -120,5 +120,12 @@ class DoctorController extends Controller
             return  redirect()->back();
         }
         
+    }
+
+    public function searchDoctor(Request $request)
+    {
+        $data = $request->all();
+        $doctors = $this->doctorService->searchDoctor($data);
+        return view('backend.admin.doctors.index',compact('doctors'));
     }
 }

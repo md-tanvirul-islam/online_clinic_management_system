@@ -71,5 +71,15 @@ class DoctorService
             {
                 return Doctor::pluck('name','id');
             }
+
+        public function searchDoctor($data)
+        {
+            $doctors = Doctor::where('name','=',$data['searchData'])
+                            ->orWhere('phoneNo','=',$data['searchData'])
+                            ->orWhere('feeNew','=',$data['searchData'])
+                            ->orWhere('feeInMonth','=',$data['searchData'])
+                            ->orWhere('feeReport','=',$data['searchData'])->get();
+            return $doctors;
+        }
     }
 ?>
