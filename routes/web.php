@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DaysOfWeekController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\GeneralController;
@@ -17,13 +16,14 @@ use App\Http\Controllers\TestBillController;
 use App\Http\Controllers\TestTypeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorOwnController;
-use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Models\BillForTest;
-use App\Imports\DepartmentsImport;
-use App\Interfaces\PaymentGatewayInterface;
+use App\Models\Department;
+use App\Models\Doctor;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -175,5 +175,24 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
 
 Route::get('test',function(Request $request)
 {
+    $faker = \Faker\Factory::create();
 
+//     $user = new User();
+//     $user->name = 'Dr.'.$faker->name;
+//     $user->email = $faker->safeEmail;
+//     $user->type = 'doctor';
+//     $user->password = Hash::make('password');
+//     $user->save();
+//     dd($user);
+
+    $departmentIds  = Department::pluck('id')->toArray();
+    dd($faker->text(100)) ;
+
+    // DB::table('users')->insert([
+    //     'name' =>'Dr.'.$faker->name ,
+    //     'email' => $faker->safeEmail,
+    //     'type' => 'doctor',
+    //     'password' => Hash::make('password'),
+    // ]);
+    
 });

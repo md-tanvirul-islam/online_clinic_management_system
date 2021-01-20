@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\AdminUserSeeder;
+use Database\Seeders\DoctorUserSeeder;
 use Database\Seeders\TestTypeSeeder;
+use Database\Seeders\DepartmentSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +22,7 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             DepartmentSeeder::class,
             TestTypeSeeder::class,
+            DoctorUserSeeder::class,
         ]);
     }
 }
