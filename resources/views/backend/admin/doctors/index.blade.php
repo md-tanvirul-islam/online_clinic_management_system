@@ -101,8 +101,8 @@
                         <tr>
                             <td>{{$loop->iteration }}</td>
                             <td>{{ $doctor->name }}</td>
-                            <td>{{$doctor->phoneNo}}</td>
-                            <td>{{$doctor->speciality}}</td>
+                            <td>{{$doctor->phoneNo ?? "--"}}</td>
+                            <td>{{$doctor->speciality ??"--"}}</td>
                             <td>{{$doctor->feeNew}}</td>
                             <td>{{$doctor->feeInMonth}}</td>
                             <td>{{$doctor->feeReport}}</td>
@@ -131,7 +131,7 @@
 
                     </tbody>
                 </table>
-                
+                {{ $doctors->links() }}
             </div>
         </div>
 

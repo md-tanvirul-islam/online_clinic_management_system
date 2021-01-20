@@ -14,7 +14,7 @@ class DoctorService
     
         public function allDoctors()
         {
-            return Doctor::all();
+            return Doctor::simplePaginate(5);
         }
 
         public function storeOrUpdate($data)
@@ -82,7 +82,7 @@ class DoctorService
 
                             ->orWhereHas('department' , function ($query) use($data) {
                                 $query->Where("name", "LIKE", "%".$data["searchData"]."%");
-                            })->get();
+                            })->simplePaginate(5);
             return $doctors;
         }
     }
