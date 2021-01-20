@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDeletedAtToDaysOfWeeksTable extends Migration
+class AddSlugColumnIntoDepartmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddDeletedAtToDaysOfWeeksTable extends Migration
      */
     public function up()
     {
-        Schema::table('days_of_weeks', function (Blueprint $table) {
-            $table->softDeletes();
+        Schema::table('departments', function (Blueprint $table) {
+            $table->string('slug')->nullable()->after('name');
         });
     }
 
@@ -25,8 +25,8 @@ class AddDeletedAtToDaysOfWeeksTable extends Migration
      */
     public function down()
     {
-        Schema::table('days_of_weeks', function (Blueprint $table) {
-            $table->dropSoftDeletes();
+        Schema::table('departments', function (Blueprint $table) {
+            $table->dropColumn('slug');
         });
     }
 }

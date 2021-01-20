@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class TestTypeSeeder extends Seeder
 {
@@ -14,13 +15,17 @@ class TestTypeSeeder extends Seeder
      */
     public function run()
     {
-        for($i=1;$i<=5;$i++)
+      
+        $testTypeNames = ['Blood Analysis','Gastric Fluid','Kidney Function Test','Liver Function Test','Lumbar Puncture','Malabsorption Tests' ,'Pregnancy Test','Prenatal Testing','Thyroid Function Test','Urinalysis'];
+        foreach($testTypeNames as $testTypeName)
         {
             DB::table('test_types')->insert([
-                'name' => 'Test Type '.rand(10,500),
+                'name' => $testTypeName,
                 'description' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-                'is_active' => 'yes',
+                'slug'=> Str::slug($testTypeName),
             ]);
         }
+            
+        
     }
 }
