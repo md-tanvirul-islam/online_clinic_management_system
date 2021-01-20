@@ -1,5 +1,33 @@
 @extends('backend.layouts.master_tem')
-
+@push('css')
+<style>
+    table,thead, th, td {
+            border: 2px solid #696969  !important; 
+            }
+    table {
+            border-collapse: collapse !important;
+            }
+    td {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    input, select, option, textarea{
+        color: #000000 !important;
+        font-weight: bold !important;
+        border-color: #000000  !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+    }
+    textarea:focus, input:focus {
+        color: #000000c5 !important;
+        font-weight: bold !important;
+    }
+    input::placeholder, textarea::placeholder{
+        color: #000000b2 !important;
+        /* font-weight: bold !important; */
+    }
+</style>
+@endpush
 @section('content')
     
 <!-- Default Browser Validation -->

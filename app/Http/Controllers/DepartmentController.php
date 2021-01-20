@@ -28,9 +28,9 @@ class DepartmentController extends Controller
     public function index()
     {
         
-        if (Gate::denies('list', Department::class)) {
-            return abort(403, 'Unauthorized action.');
-        }
+        // if (Gate::denies('list', Department::class)) {
+        //     return abort(403, 'Unauthorized action.');
+        // }
         $departments = $this->departmentService->allDepartments();
         return view('backend.admin.departments.index',compact('departments'));
     }
@@ -76,11 +76,9 @@ class DepartmentController extends Controller
 
     public function update(UpdateDepartmentRequest $request, $id)
     {
-
+        
         $validated = $request->validated();
-        $validated['id'] = $id;
-        // dd($validated['id']);
-
+        $validated['department_id'] = $id;
         try{
             $department = $this->departmentService->storeOrUpdate($validated);
 

@@ -16,10 +16,9 @@ class DepartmentService
     public function storeOrUpdate($data)
     {
         $user_id = auth()->user()->id;
-        // dd($data["id"]);
-        if(!empty($data["id"])){
+        if(!empty($data["department_id"])){
             // update
-            $department = Department::whereId($data["id"])->first();
+            $department = Department::whereId($data["department_id"])->first();
             $department->updated_by = $user_id;
 
         }else{
@@ -27,13 +26,10 @@ class DepartmentService
             $department = new Department();
             $department->created_by = $user_id;
         }
-
         $department->name = $data['name'];
         $department->is_active = $data['is_active'];
         $department->description = isset($data['description'])?$data['description']:null;
-//        $department->description = $data['description']??null;
-
-
+        
         return $department->save() ? $department : null;
     }
 

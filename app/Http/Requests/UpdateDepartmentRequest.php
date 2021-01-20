@@ -26,21 +26,22 @@ class UpdateDepartmentRequest extends FormRequest
     public function rules()
     {
 
-        // dd(request()->route()->parameters['department']);
-        // $id = Route::current()->parameter('department');
-        // dd(request()->route('department'));
+
         return [
             'name'   => [
                 'required',
                 'unique:departments,name,' . request()->route('department'),
             ],
 
-            // 'name' => 'required|string|unique:departments,name,' . request()->route('department')->id,
+            'description'=> [
+                'string',
+                'max:300'
+            ],
             'is_active'=>[
                 'required',
                 'string',
                 Rule::in(['yes', 'no']),
-                'description'=>'string',
+                
             ]
 
             

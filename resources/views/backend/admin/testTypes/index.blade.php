@@ -2,6 +2,21 @@
 
 @section('title', "Test Type List")
 
+@push('css')
+<style>
+    table,thead, th, td {
+            border: 2px solid #696969  !important; 
+            }
+    table {
+            border-collapse: collapse !important;
+            }
+    td {
+        font-size: 20px;
+        font-weight: bold;
+    }
+</style>
+@endpush
+
 @section('content')
 
     <h1 class="h3 mb-2 text-gray-800" style="text-align:center;">List of the categories of offered test in the Clinic</h1>
