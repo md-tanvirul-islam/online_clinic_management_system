@@ -74,11 +74,15 @@ class DoctorService
 
         public function searchDoctor($data)
         {
-            $doctors = Doctor::where('name','=',$data['searchData'])
+            $doctors = Doctor::where('name','LIKE',"%".$data["searchData"]."%")
                             ->orWhere('phoneNo','=',$data['searchData'])
                             ->orWhere('feeNew','=',$data['searchData'])
                             ->orWhere('feeInMonth','=',$data['searchData'])
-                            ->orWhere('feeReport','=',$data['searchData'])->get();
+                            ->orWhere('feeReport','=',$data['searchData'])
+
+                            ->orWhereHas('department' , function ($query) use($data) {
+                                $query->Where("name", "LIKE", "%".$data["searchData"]."%");
+                            })->get();
             return $doctors;
         }
     }
