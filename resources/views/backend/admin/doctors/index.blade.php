@@ -5,35 +5,30 @@
 @push('css')
 <style>
     table,thead, th, td {
-            border: 1px solid #696969  !important; 
+            border: 1px solid #696969  !important;
+            padding: 2px !important; 
             }
     table {
             border-collapse: collapse !important;
-            font-family: 'Courier New', Courier, monospace
             }
     td {
-        font-size: 20px;
-        
+        font-size: 20px;    
     }
-    th, td {
-        padding: 2px !important;
-    }
-    input, select, option, textarea{
+    input{
         color: #000000 !important;
         font-weight: bold !important;
         border-color: #000000  !important;
         border-style: solid !important;
         border-width: 1px !important;
     }
-    textarea:focus, input:focus {
+    input:focus {
         color: #000000c5 !important;
         font-weight: bold !important;
     }
-    input::placeholder, textarea::placeholder{
+    input::placeholder{
         color: #000000b2 !important;
         /* font-weight: bold !important; */
     }
-    
 </style>
 @endpush
 
@@ -43,9 +38,9 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
+        <div class="card-header" style="padding: 5px !important">
             <div class="row"> 
-                <div class="col">
+                <div class="col" style="padding-left: 0 !important">
                     <!-- table  Search  Bar-->
                     <form  method="POST" action="{{ route('doctors.search') }}" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         @csrf
