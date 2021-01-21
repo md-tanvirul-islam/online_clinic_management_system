@@ -72,7 +72,7 @@
                         <th>No.</th>
                         <th>Patient</th>
                         <th>Date</th>
-                        <th>TOtalBill</th>
+                        <th>TotalBill</th>
                         <th>Paid</th>
                         <th>Actions</th>
                     </tr>
