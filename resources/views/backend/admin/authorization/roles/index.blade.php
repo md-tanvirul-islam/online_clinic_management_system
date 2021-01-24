@@ -81,18 +81,18 @@
                             <td>{{ $role->name }}</td>
                             <td>{{ $role->guard_name }}</td>
                             <td >
-                                <a href="{{ route('authorization.roles.edit', [$role->id]) }}" title="Edit" style="color:black;" class="btn btn-warning">
-                                    <i class="fas fa-edit"></i>
+                                <a href="{{ route('authorization.roles.edit', [$role->id]) }}" title="Edit" style="color:black;" class="btn btn-sm btn-warning">
+                                    <i class="fas  fa-edit"></i>
                                 </a>
         
-                                <a href="{{ route('authorization.roles.permissions.list', [$role->id]) }}" title="Permission" style="color:black;" class="btn btn-success">
+                                <a href="{{ route('authorization.roles.permissions.list', [$role->id]) }}" title="Permission" style="color:black;" class="btn btn-sm btn-success">
                                     <i class="fas fa-lock-open"></i>
                                 </a>
         
                                 <form action="{{ route('authorization.roles.destroy', [$role->id]) }}" method="post" style="display: inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">
+                                    <button type="submit" title="Delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete ?')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

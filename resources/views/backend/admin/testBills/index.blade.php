@@ -72,7 +72,7 @@
                         <th>No.</th>
                         <th>Patient</th>
                         <th>Date</th>
-                        <th>TOtalBill</th>
+                        <th>TotalBill</th>
                         <th>Paid</th>
                         <th>Actions</th>
                     </tr>
@@ -91,20 +91,20 @@
                             <td>{{ $testBill->amount??null }}</td>
                             <td>{{ $testBill->paid??null}}</td>
                             <td >
-                                <a href="{{ route('testBills.show', [$testBill->id]) }}" title="Details" style="color:black;" class="btn btn-info">
+                                <a href="{{ route('testBills.show', [$testBill->id]) }}" title="Details" style="color:black;" class="btn btn-sm btn-info">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('testBills.edit', [$testBill->id]) }}" title="Edit" style="color:black;" class="btn btn-warning">
+                                <a href="{{ route('testBills.edit', [$testBill->id]) }}" title="Edit" style="color:black;" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{{ route('testBills.print',[$testBill->id]) }}" title="Print" style="color:black;" class="btn btn-success">
+                                <a href="{{ route('testBills.print',[$testBill->id]) }}" title="Print" style="color:black;" class="btn btn-sm btn-success">
                                     <i class="fa fa-print"></i>
                                 </a>
 
                                 <form action="{{ route('testBills.destroy', [$testBill->id]) }}" method="post" style="display: inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">
+                                    <button type="submit" title="Delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete ?')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

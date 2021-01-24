@@ -46,7 +46,7 @@
                         <div class="input-group">
                             <input type="text" name="searchData" class="form-control small" placeholder="Search for Appointment..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
+                                <button class="btn btn-sm btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -55,10 +55,10 @@
                 </div>
                 <div class="col text-right">
                      <!-- table  Upper Section Buttons-->
-                     <span   class="m-0 font-weight-bold text-primary"><a href="{{ route('appointments.create') }}" style="color:white;" class="btn btn-primary">
+                     <span   class="m-0 font-weight-bold text-primary"><a href="{{ route('appointments.create') }}" style="color:white;" class="btn btn-sm btn-primary">
                         <i class="fas fa-plus-square"></i> Create
                     </a></span>
-                     {{-- <span class="text-right"><a class="btn btn-success" href="{{ route('appointments.bin') }}">
+                     {{-- <span class="text-right"><a class="btn btn-sm btn-success" href="{{ route('appointments.bin') }}">
                     <i class="fas fa-trash-restore-alt"> </i> Restore     
                     </a></span> --}}
 
@@ -112,22 +112,22 @@
                                         @csrf
                                         @method('put')
                                         <input type="text" name="id" value="{{ $appointment->id }}" hidden>
-                                        <button type="submit" class="btn btn-success" title="Make Payment" style="color:black" >
+                                        <button type="submit" class="btn btn-sm btn-success" title="Make Payment" style="color:black" >
                                             <i class="fas fa-hand-holding-usd"></i>
                                         </button>
                                     </form>
                                 @endif
-                                <a href="{{ route('appointments.show', [$appointment->id]) }}" title="Details" style="color:black;" class="btn btn-info">
+                                <a href="{{ route('appointments.show', [$appointment->id]) }}" title="Details" style="color:black;" class="btn btn-sm btn-info">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('appointments.edit', [$appointment->id]) }}" title="Edit" style="color:black;" class="btn btn-warning">
+                                <a href="{{ route('appointments.edit', [$appointment->id]) }}" title="Edit" style="color:black;" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
 
                                 <form action="{{ route('appointments.destroy', [$appointment->id]) }}" method="post" style="display: inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">
+                                    <button type="submit" title="Delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete ?')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

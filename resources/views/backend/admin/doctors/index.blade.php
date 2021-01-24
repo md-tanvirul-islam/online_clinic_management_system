@@ -61,13 +61,13 @@
                             <i class="fas fa-plus-square"></i> Create
                         </a>
                     </span>
-                    <span class="text-right"><a class="btn btn-success" title="Restore the deleted Doctor Profile" href="{{ route('doctors.bin') }}">
+                    <span class="text-right"><a class="btn btn-sm btn-success" title="Restore the deleted Doctor Profile" href="{{ route('doctors.bin') }}">
                         <i class="fas fa-trash-restore-alt"> </i>Restore
                     </a></span>
-                    {{-- <span ><a class="btn btn-success"  title="Excel Upload" href="#">
+                    {{-- <span ><a class="btn btn-sm btn-success"  title="Excel Upload" href="#">
                         <i class='fas fa-file-excel'></i> Upload
                     </a></span>
-                    <span ><a class="btn btn-dark" title="Excel Download" href="#">
+                    <span ><a class="btn btn-sm btn-dark" title="Excel Download" href="#">
                         <i class='fas fa-file-excel'></i> Download
                     </a></span> --}}
 

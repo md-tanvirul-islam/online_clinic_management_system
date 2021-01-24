@@ -81,14 +81,14 @@
                             <td>{{ $permission->name }}</td>
                             <td>{{ $permission->guard_name }}</td>
                             <td >
-                                <a href="{{ route('authorization.permission.edit', [$permission->id]) }}" title="Edit" style="color:black;" class="btn btn-warning">
+                                <a href="{{ route('authorization.permission.edit', [$permission->id]) }}" title="Edit" style="color:black;" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
         
                                 <form action="{{ route('authorization.permission.destroy', [$permission->id]) }}" method="post" style="display: inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">
+                                    <button type="submit" title="Delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete ?')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

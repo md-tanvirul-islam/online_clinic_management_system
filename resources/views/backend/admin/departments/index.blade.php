@@ -33,7 +33,7 @@
 @endpush
 
 @section('content')
-    <h1 class="h3 mb-2 text-gray-800" style="text-align:center;">List of departments in this clinic</h1>
+    <h1 class="h3 mb-2 text-gray-800" style="text-align:center;">List of Departments in this clinic</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -92,17 +92,17 @@
                             <td>{{$department->status}}</td>
                             <td >
 
-                                <a href="{{ route('departments.show', [$department->id]) }}" title="Details" style="color:black;" class="btn btn-info">
+                                <a href="{{ route('departments.show', [$department->id]) }}" title="Details" style="color:black;" class="btn btn-sm btn-info">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('departments.edit', [$department->id]) }}" title="Edit" style="color:black;" class="btn btn-warning">
+                                <a href="{{ route('departments.edit', [$department->id]) }}" title="Edit" style="color:black;" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
 
                                 <form action="{{ route('departments.destroy', [$department->id]) }}" method="post" style="display: inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="btn btn-danger" title="Delete" onclick="return confirm('Are you sure want to delete ?')">
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete" onclick="return confirm('Are you sure want to delete ?')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

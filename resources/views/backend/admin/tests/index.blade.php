@@ -84,17 +84,17 @@
                             <td>{{ $test->price }}</td>
                             <td>{{ $test->testType->name }}</td>
                             <td >
-                                {{-- <a href="{{ route('tests.show', [$test->id]) }}" title="Details" style="color:black;" class="btn btn-info">
+                                {{-- <a href="{{ route('tests.show', [$test->id]) }}" title="Details" style="color:black;" class="btn btn-sm btn-info">
                                     <i class="fas fa-eye"></i>
                                 </a> --}}
-                                <a href="{{ route('tests.edit', [$test->id]) }}" title="Edit" style="color:black;" class="btn btn-warning">
+                                <a href="{{ route('tests.edit', [$test->id]) }}" title="Edit" style="color:black;" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
 
                                 <form action="{{ route('tests.destroy', [$test->id]) }}" method="post" style="display: inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">
+                                    <button type="submit" title="Delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete ?')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

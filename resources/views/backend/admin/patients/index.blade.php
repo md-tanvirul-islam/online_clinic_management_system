@@ -88,17 +88,17 @@
                         <td>{{$patient->birthDate}}</td>
                         <td >
 
-                            <a href="{{ route('patients.show', [$patient->id]) }}" title="Details" style="color:black;" class="btn btn-info">
+                            <a href="{{ route('patients.show', [$patient->id]) }}" title="Details" style="color:black;" class="btn btn-sm btn-info">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="{{ route('patients.edit', [$patient->id]) }}" title="Edit" style="color:black;" class="btn btn-warning">
+                            <a href="{{ route('patients.edit', [$patient->id]) }}" title="Edit" style="color:black;" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i>
                             </a>
 
                             <form action="{{ route('patients.destroy', [$patient->id]) }}" method="post" style="display: inline">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">
+                                <button type="submit" title="Delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete ?')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

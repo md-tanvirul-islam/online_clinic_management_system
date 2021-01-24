@@ -34,7 +34,7 @@
 
 @section('content')
 
-    <h1 class="h3 mb-2 text-gray-800" style="text-align:center;">List of the categories of offered test in the Clinic</h1>
+    <h1 class="h3 mb-2 text-gray-800" style="text-align:center;">List of the Categories of offered test in the Clinic</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -81,17 +81,17 @@
                             <td> {{$loop->iteration}}</td>
                             <td>{{ $testType->name }}</td>
                             <td >
-                                {{-- <a href="{{ route('testTypes.show', [$testType->id]) }}" title="Details" style="color:black;" class="btn btn-info">
+                                {{-- <a href="{{ route('testTypes.show', [$testType->id]) }}" title="Details" style="color:black;" class="btn btn-sm btn-info">
                                     <i class="fas fa-eye"></i>
                                 </a> --}}
-                                <a href="{{ route('testTypes.edit', [$testType->id]) }}" title="Edit" style="color:black;" class="btn btn-warning">
+                                <a href="{{ route('testTypes.edit', [$testType->id]) }}" title="Edit" style="color:black;" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
 
                                 <form action="{{ route('testTypes.destroy', [$testType->id]) }}" method="post" style="display: inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" title="Delete" class="btn btn-danger" onclick="return confirm('Are you sure want to delete ?')">
+                                    <button type="submit" title="Delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete ?')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
