@@ -150,6 +150,8 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
         'testTypes'=>App\Http\Controllers\TestTypeController::class,
         'tests' => App\Http\Controllers\TestController::class,
         'testBills'=>App\Http\Controllers\TestBillController::class,
+        'medicineGenerics'=>App\Http\Controllers\MedicineGenericController::class,
+        'medicines'=>App\Http\Controllers\MedicineController::class,
     ]);  
 });
 

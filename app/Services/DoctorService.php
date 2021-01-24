@@ -14,7 +14,7 @@ class DoctorService
     
         public function allDoctors()
         {
-            return Doctor::simplePaginate(5);
+            return Doctor::simplePaginate(10);
         }
 
         public function storeOrUpdate($data)

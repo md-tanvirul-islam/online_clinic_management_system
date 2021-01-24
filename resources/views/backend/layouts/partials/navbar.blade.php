@@ -61,7 +61,11 @@
 
                         <a class="collapse-item" href="{{ route('tests.index') }}">Tests </a>
 
-                        <a class="collapse-item" href="{{ route('testBills.index') }}">TestBill </a>
+                        <a class="collapse-item" href="{{ route('testBills.index') }}">Test Bill </a>
+
+                        <a class="collapse-item" href="{{ route('medicineGenerics.index') }}">Medicine Generic </a>
+
+                        <a class="collapse-item" href="{{ route('medicines.index') }}">Medicine </a>
             </div>
         </div>
     </li>

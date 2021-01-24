@@ -55,7 +55,7 @@
                 </div>
                 <div class="col text-right">
                      <!-- table  Upper Section Buttons-->
-                     <span   class="m-0 font-weight-bold text-primary"><a href="{{ route('appointments.create') }}" style="color:white;" class="btn btn-sm btn-primary">
+                     <span   class="m-0 font-weight-bold text-primary"><a href="{{ route('appointments.create') }}" style="color:white;" class="btn btn-primary">
                         <i class="fas fa-plus-square"></i> Create
                     </a></span>
                      {{-- <span class="text-right"><a class="btn btn-sm btn-success" href="{{ route('appointments.bin') }}">

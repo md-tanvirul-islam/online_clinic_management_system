@@ -9,6 +9,7 @@ use App\Services\DoctorService;
 use App\Services\PatientService;
 use App\Services\TestService;
 use App\Services\TestTypeService;
+use App\Services\MedicineGenericService;
 use Illuminate\Support\ServiceProvider;
 use Form;
 
@@ -66,6 +67,12 @@ class MacroServiceProvider extends ServiceProvider
 
         Form::macro('selectUser', function ($name, $selected = null, $options = []) {
             $data = User::pluck('name','id');
+            return Form::select($name, $data, $selected, $options);
+        });
+
+        Form::macro('selectMedicineGeneric', function ($name, $selected = null, $options = []) {
+            $medicineGenericService = new MedicineGenericService();
+            $data = $medicineGenericService->getDropdownList();
             return Form::select($name, $data, $selected, $options);
         });
     }

@@ -7,6 +7,7 @@ use Database\Seeders\AdminUserSeeder;
 use Database\Seeders\DoctorUserSeeder;
 use Database\Seeders\TestTypeSeeder;
 use Database\Seeders\DepartmentSeeder;
+use Database\Seeders\MedicineGenericSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             TestTypeSeeder::class,
             DoctorUserSeeder::class,
+            MedicineGenericSeeder::class,
         ]);
     }
 }
