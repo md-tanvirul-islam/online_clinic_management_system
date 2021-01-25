@@ -64,6 +64,7 @@ class AppointmentService
 
 
                     $appointment->doctor_schedule_id = array_search($day,$scheduleDaysWithId) ;
+                    $appointment->doctor_id = $data['doctor_id'] ;
                     $appointment->date = $stdDate;
                     
                     

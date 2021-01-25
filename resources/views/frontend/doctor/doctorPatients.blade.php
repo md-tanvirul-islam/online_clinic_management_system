@@ -56,15 +56,14 @@
 												<div class="card card-table mb-0">
 													<div class="card-body">
 														<div class="table-responsive">
-															<table class="table table-hover table-center mb-0 text-center">
+															<table class="table table-hover table-center mb-0">
 																<thead>
 																	<tr>
 																		<th>Patient Name</th>
 																		<th>Appt Date</th>
 																		<th>Type</th>
 																		<th>Fee</th>
-																		<th class="text-center">Payment Status</th>
-																		<th >Action</th>
+																		<th class="text-center">Is Paid?</th>
 																		
 																	</tr>
 																</thead>
@@ -93,7 +92,7 @@
 																		<tr>
 																			<td>
 																				<h2 class="table-avatar">
-																					<a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src=" {{ $photo }}" alt="User Image"></a>
+																					<a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src=" {{ asset('ui/frontend/img/patients/patient.jpg') }}" alt="User Image"></a>
 																					<a href="#">{{ $patient->name }} <span>#PT{{ $patient->id }}</span></a>
 																				</h2>
 																			</td>
@@ -102,29 +101,16 @@
 																			<td class="text-center">BDT{{ $appointment->fee }}</td>
 																			<td class="text-center">
 																				@if($appointment->is_paid =="yes")
-																					<i class="far fa-check-square" style="font-size:25px;color:lawngreen" aria-hidden="true"></i>
+																					<i class="far fa-check-square" style="font-size:48px;color:lawngreen" aria-hidden="true"></i>
 																				@else
-																					<i class="fa fa-times" style="font-size:25px;color:red" aria-hidden="true"></i>
+																					<i class="fa fa-times" style="font-size:48px;color:red" aria-hidden="true"></i>
 																				@endif
 																			</td>
-																			<td >
+																			<td class="text-right">
 																				<div class="table-action">
-																					<a href="{{ route('doctor.own.patient.profile',[$patient->id]) }}" class="btn btn-sm bg-info-light">
+																					<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
 																						<i class="far fa-eye"></i> Profile
 																					</a>
-																					<a href="#" class="btn btn-sm bg-success-light" title="Make Prescription For This Patient">
-																						<i class="fas fa-notes-medical"></i> Make
-																					</a>
-																					@if($appointment->is_paid !== "yes")
-																						<form action="{{ route('doctor.own.pay') }}" method="post" style="display: inline">
-																							@csrf
-																							@method('put')
-																							<input type="text" name="id" value="{{ $appointment->id }}" hidden>
-																							<button type="submit" class="btn btn-sm bg-warning-light" title="Pay Bill For This Appointment" style="color:black" >
-																								<i class="fas fa-hand-holding-usd"></i> Pay
-																							</button>
-																						</form>
-																					@endif
 																				</div>
 																			</td>
 																		</tr>

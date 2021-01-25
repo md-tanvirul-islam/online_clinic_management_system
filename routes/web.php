@@ -61,6 +61,11 @@ Route::middleware(['auth'])->group(function(){
 //******** Routes for Doctor
 Route::prefix('doctor')->middleware(['auth','routesForAdminAndDoctor'])->group(function(){
     Route::get('/dashboard',[DoctorOwnController::class,'index'])->name('doctor.own.index');
+    Route::get('/schedule',[DoctorOwnController::class,'schedules'])->name('doctor.own.schedule');
+    Route::get('/appointments',[DoctorOwnController::class,'appointments'])->name('doctor.own.appointment');
+    Route::get('/appointments/today',[DoctorOwnController::class,'appointmentsToday'])->name('doctor.own.appointment.today');
+    Route::get('/appointments/patient/{patientId}',[DoctorOwnController::class,'patientProfile'])->name('doctor.own.patient.profile');
+    Route::put('/appointments/pay',[DoctorOwnController::class,'pay'])->name('doctor.own.pay');
 });
 //******** Finish
 
@@ -178,24 +183,6 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
 
 Route::get('test',function(Request $request)
 {
-    $faker = \Faker\Factory::create();
-
-//     $user = new User();
-//     $user->name = 'Dr.'.$faker->name;
-//     $user->email = $faker->safeEmail;
-//     $user->type = 'doctor';
-//     $user->password = Hash::make('password');
-//     $user->save();
-//     dd($user);
-
-    $departmentIds  = Department::pluck('id')->toArray();
-    dd($faker->text(100)) ;
-
-    // DB::table('users')->insert([
-    //     'name' =>'Dr.'.$faker->name ,
-    //     'email' => $faker->safeEmail,
-    //     'type' => 'doctor',
-    //     'password' => Hash::make('password'),
-    // ]);
+    return view('frontend.doctor.doctorAppointment');
     
 });
