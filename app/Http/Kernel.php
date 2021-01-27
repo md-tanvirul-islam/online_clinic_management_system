@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\RoutesForPatient;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -63,6 +64,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'routesForAdmin' => \App\Http\Middleware\RoutesForAdmin::class,
-        'routesForAdminAndDoctor' => \App\Http\Middleware\RoutesForAdminAndDoctor::class,
+        'routesForDoctor' => \App\Http\Middleware\RoutesForDoctor::class,
+        'routesForPatient' => \App\Http\Middleware\RoutesForPatient::class,
     ];
 }

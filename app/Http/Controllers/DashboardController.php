@@ -12,16 +12,16 @@ class DashboardController extends Controller
     }
     public function index()
     {
-        if(auth()->user()->type == 'admin'){
+        if(auth()->user()->type === 'admin'){
             // return view('backend.admin.index');
             return redirect()->route('admin.index');
         }
-        elseif(auth()->user()->type == 'patient')
+        elseif(auth()->user()->type === 'patient')
         {
             // return view('frontend.general.index');
             return redirect()->route('indexPage');
         }
-        else {
+        elseif(auth()->user()->type === 'doctor') {
             // return view('backend.admin.doctors.index');
             return redirect()->route('doctor.own.index');
         }

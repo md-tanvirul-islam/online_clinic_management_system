@@ -16,6 +16,7 @@ use App\Http\Controllers\TestBillController;
 use App\Http\Controllers\TestTypeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorOwnController;
+use App\Http\Controllers\PatientOwnController;
 use App\Models\Department;
 use App\Models\Doctor;
 use App\Models\User;
@@ -47,7 +48,7 @@ Auth::routes();
 //****** For Redirection according to the user type
 
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
-// ******* Finsih
+// ******* Finish
 
 // Routes for general users
 Route::get('/', [GeneralController::class,'index'])->name('indexPage');
@@ -59,7 +60,7 @@ Route::middleware(['auth'])->group(function(){
 });
 
 //******** Routes for Doctor
-Route::prefix('doctor')->middleware(['auth','routesForAdminAndDoctor'])->group(function(){
+Route::prefix('doctor')->middleware(['auth','routesForDoctor'])->group(function(){
     Route::get('/dashboard',[DoctorOwnController::class,'index'])->name('doctor.own.index');
     Route::get('/schedule',[DoctorOwnController::class,'schedules'])->name('doctor.own.schedule');
     Route::get('/appointments',[DoctorOwnController::class,'appointments'])->name('doctor.own.appointment');
@@ -71,6 +72,14 @@ Route::prefix('doctor')->middleware(['auth','routesForAdminAndDoctor'])->group(f
     Route::get('/appointments/patient/printPrescription/{prescriptionId}',[DoctorOwnController::class,'printPrescription'])->name('doctor.own.patient.printPrescription');
     Route::get('/appointments/patient/pdfPrescription/{prescriptionId}',[DoctorOwnController::class,'pdfPrescription'])->name('doctor.own.patient.pdfPrescription');
     Route::put('/appointments/pay',[DoctorOwnController::class,'pay'])->name('doctor.own.pay');
+});
+//******** Finish
+
+//******** Routes for Patient
+Route::prefix('patient')->middleware(['auth','routesForPatient'])->group(function(){
+    Route::get('/dashboard',[PatientOwnController::class,'patientDashboard'])->name('patient.own.dashboard');
+    Route::get('/prescriptions',[PatientOwnController::class,'patientPrescriptions'])->name('patient.own.prescriptions');
+    
 });
 //******** Finish
 
@@ -188,6 +197,6 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
 
 Route::get('test',function(Request $request)
 {
-    return view('frontend.doctor.doctorPrescriptionPDF');
+    return view('errors.403');
     
 });

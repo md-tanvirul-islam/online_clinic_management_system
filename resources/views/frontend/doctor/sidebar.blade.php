@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="my-patients.html">
+                    <a href="#">
                         <i class="fas fa-user-injured"></i>
                         <span>My Patients</span>
                     </a>

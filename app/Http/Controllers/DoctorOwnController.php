@@ -129,7 +129,7 @@ class DoctorOwnController extends Controller
        
         $doctor = Doctor::find($prescription->doctor_id);
         $patient = Patient::find($prescription->patient_id);
-        $html = view('frontend.doctor.doctorPrescriptionPrint',compact('patient','doctor','prescription','prescription_medicines','prescription_tests'));
+        $html = view('frontend.doctor.doctorPrescriptionPDF',compact('patient','doctor','prescription','prescription_medicines','prescription_tests'));
         $pdf = PDF::loadHTML($html);
         return $pdf->stream("Prescription.pdf");
     }

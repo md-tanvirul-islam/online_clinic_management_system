@@ -144,8 +144,9 @@
                     if(auth()->user()->type === 'doctor')
                     {
                         $dashboardLink = route('doctor.own.index');
-                    }elseif (auth()->user()->type === 'patient') {
-                       
+                    }
+                    elseif(auth()->user()->type === 'patient') {
+                        $dashboardLink = route('patient.own.dashboard');
                     }
 
 

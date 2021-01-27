@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class RoutesForAdminAndDoctor
+class RoutesForPatient
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class RoutesForAdminAndDoctor
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->type == 'doctor' || 'admin')
+        if(auth()->user()->type === 'patient')
         {
             return $next($request);
         }

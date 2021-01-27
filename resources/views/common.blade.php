@@ -17,7 +17,7 @@
 
 
 
-<div class="row" id="parientDivOfbasicMedicineDiv">
+{{-- <div class="row" id="parientDivOfbasicMedicineDiv">
     <div class="col">
         <div class="row" id="basicMedicineDiv" style="border: 1px solid black; padding : 5px !important ; margin-bottom:5px">
             <div class="col">
@@ -41,7 +41,7 @@
 
         </div>
     </div>	
-</div>
+</div> --}}
 
 <div class="row">
     <div class="col text-right" >
