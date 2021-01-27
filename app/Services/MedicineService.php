@@ -36,7 +36,7 @@ class MedicineService
 
     public function getDropdownList()
         {
-            return Medicine::pluck('name','id');
+            return Medicine::pluck('brand_name','id');
         }
 
     }

@@ -64,7 +64,12 @@ Route::prefix('doctor')->middleware(['auth','routesForAdminAndDoctor'])->group(f
     Route::get('/schedule',[DoctorOwnController::class,'schedules'])->name('doctor.own.schedule');
     Route::get('/appointments',[DoctorOwnController::class,'appointments'])->name('doctor.own.appointment');
     Route::get('/appointments/today',[DoctorOwnController::class,'appointmentsToday'])->name('doctor.own.appointment.today');
-    Route::get('/appointments/patient/{patientId}',[DoctorOwnController::class,'patientProfile'])->name('doctor.own.patient.profile');
+    Route::get('/appointments/patient/profile/{patientId}',[DoctorOwnController::class,'patientProfile'])->name('doctor.own.patient.profile');
+    Route::get('/appointments/patient/createPrescription/appointment/{appointmentId}/patient/{patientId}',[DoctorOwnController::class,'createPrescription'])->name('doctor.own.patient.createPrescription');
+    Route::post('/appointments/patient/storePrescription/{patientId}',[DoctorOwnController::class,'storePrescription'])->name('doctor.own.patient.storePrescription');
+    Route::get('/appointments/patient/showPrescription/{prescriptionId}',[DoctorOwnController::class,'showPrescription'])->name('doctor.own.patient.showPrescription');
+    Route::get('/appointments/patient/printPrescription/{prescriptionId}',[DoctorOwnController::class,'printPrescription'])->name('doctor.own.patient.printPrescription');
+    Route::get('/appointments/patient/pdfPrescription/{prescriptionId}',[DoctorOwnController::class,'pdfPrescription'])->name('doctor.own.patient.pdfPrescription');
     Route::put('/appointments/pay',[DoctorOwnController::class,'pay'])->name('doctor.own.pay');
 });
 //******** Finish
@@ -183,6 +188,6 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
 
 Route::get('test',function(Request $request)
 {
-    return view('frontend.doctor.doctorAppointment');
+    return view('frontend.doctor.doctorPrescriptionPDF');
     
 });

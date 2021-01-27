@@ -108,19 +108,29 @@
 																				@endif
 																			</td>
 																			<td >
-																				<div class="table-action">
+																				<div class="table-action text-left">
 																					<a href="{{ route('doctor.own.patient.profile',[$patient->id]) }}" class="btn btn-sm bg-info-light">
 																						<i class="far fa-eye"></i> Profile
 																					</a>
-																					<a href="#" class="btn btn-sm bg-success-light" title="Make Prescription For This Patient">
-																						<i class="fas fa-notes-medical"></i> Make
-																					</a>
+																					@php
+																						$appointment = App\Models\Appointment::find($appointment->id);
+																					@endphp
+																					@if ($appointment->prescription)
+																						<a href="{{ route('doctor.own.patient.showPrescription',[$appointment->prescription->id]) }}" class="btn btn-sm bg-warning-light" title="Show Prescription For This Appointment">
+																							<i class="fas fa-eye"></i></i> Show
+																						</a>
+																					@else
+																						<a href="{{ route('doctor.own.patient.createPrescription',[$appointment->id,$patient->id]) }}" class="btn btn-sm bg-success-light" title="Make Prescription For This Patient">
+																							<i class="fas fa-notes-medical"></i> Make
+																						</a>
+																					@endif
+																					
 																					@if($appointment->is_paid !== "yes")
 																						<form action="{{ route('doctor.own.pay') }}" method="post" style="display: inline">
 																							@csrf
 																							@method('put')
-																							<input type="text" name="id" value="{{ $appointment->id }}" hidden>
-																							<button type="submit" class="btn btn-sm bg-warning-light" title="Pay Bill For This Appointment" style="color:black" >
+																							<input type="text" name="appointment_id" value="{{ $appointment->id }}" hidden>
+																							<button type="submit" class="btn btn-sm bg-primary-light" title="Pay Bill For This Appointment" style="color:black" >
 																								<i class="fas fa-hand-holding-usd"></i> Pay
 																							</button>
 																						</form>
@@ -133,7 +143,7 @@
 																			<td colspan="5">
 																				<p class="text-danger  text-center"> You don't have any appointment </p>
 																			</td>
-																		</tr>																		</tr>
+																		</tr>																		
 																	@endforelse
 																	
 																</tbody>

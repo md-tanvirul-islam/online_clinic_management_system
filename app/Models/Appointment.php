@@ -21,4 +21,9 @@ class Appointment extends Model
     {
         return $this->belongsTo(Patient::class,'patient_id','id');
     }
+
+    public function prescription()
+    {
+        return $this->hasOne(Prescription::class);
+    }
 }

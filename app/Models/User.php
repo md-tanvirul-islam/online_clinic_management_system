@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Patient;
-use APp\Models\Doctor;
+use App\Models\Doctor;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 

@@ -7,9 +7,7 @@ use App\Models\BillForTest;
 use App\Models\PatientTest;
 use App\Models\Test;
 use App\Services\TestBillService;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Prophecy\Call\Call;
 use PDF;
 
 
@@ -116,13 +114,7 @@ class TestBillController extends Controller
         return view('backend.admin.testBills.edit',compact('testBill','patient_tests'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, $id)
     {
        $data = $request->all();
@@ -130,12 +122,6 @@ class TestBillController extends Controller
        $this->testBillService->update($data);  
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         // first delete all rows in the patient_tests table related with this bill 

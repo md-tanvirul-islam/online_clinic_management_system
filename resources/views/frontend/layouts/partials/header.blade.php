@@ -97,16 +97,99 @@
                 </div>
                 <div class="header-contact-detail">
                     <p class="contact-header">Contact</p>
-                    <p class="contact-info-header"> +1 315 369 5943</p>
+                    <p class="contact-info-header"> +88 017 134 479 20</p>
                 </div>
             </li>
-            <li class="nav-item">
+
+            @auth
+                @php      
+                    if(auth()->user()->type === 'doctor')
+                    {
+                        if(isset(auth()->user()->doctorProfile->image))
+                        {
+                            $photo = asset(auth()->user()->doctorProfile->image);
+                        }
+                        else 
+                        {
+                            if(auth()->user()->doctorProfile->gender === "male")
+                            {
+                                $photo = asset('ui/frontend/img/doctors/doctor_male.png');
+                            }
+                            else
+                            {
+                                $photo = asset('ui/frontend/img/doctors/doctor_female.png');
+                            }
+                        }
+                    }
+
+                    if(auth()->user()->type === 'patient')
+                    {
+                        if(isset(auth()->user()->patientProfile->image))
+                        {
+                            $photo = asset(auth()->user()->patientProfile->image);
+                        }
+                        else 
+                        {
+                            if(auth()->user()->patientProfile->gender === "male")
+                            {
+                                $photo = asset('ui/frontend/img/patients/patient_male.png');
+                            }
+                            else
+                            {
+                                $photo = asset('ui/frontend/img/patients/patient_female.png');
+                            }
+                        }
+                    }
+
+                    if(auth()->user()->type === 'doctor')
+                    {
+                        $dashboardLink = route('doctor.own.index');
+                    }elseif (auth()->user()->type === 'patient') {
+                       
+                    }
+
+
+                @endphp
+            @endauth
+                
+           
                 @guest
+                <li class="nav-item">
                     <a class="nav-link header-login" href="{{ route('login') }}" style="margin: 5px">LogIn </a>
                     <a class="nav-link header-login" href="{{ route('register') }}">Signup </a>
+                </li>
                 @endguest
                 @auth
-                <a class="nav-link header-login" disabled style="margin: 5px">{{ auth()->user()->name }} </a>
+                <!-- User Menu -->
+						<li class="nav-item dropdown has-arrow logged-item">
+							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+								<span class="user-img">
+									<img class="rounded-circle" src="{{ $photo }}" width="31" alt=" login User Image">
+								</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right">
+								<div class="user-header">
+									<div class="avatar avatar-sm">
+										<img src="{{$photo }}" alt="User Image" class="avatar-img rounded-circle">
+									</div>
+									<div class="user-text">
+										<h6>{{ auth()->user()->name }}</h6>
+										<p class="text-muted mb-0">{{ auth()->user()->type }}</p>
+									</div>
+								</div>
+								<a class="dropdown-item" href="{{$dashboardLink}}">Dashboard</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form> 
+							</div>
+						</li>
+						<!-- /User Menu -->
+                {{-- <a class="nav-link header-login" disabled style="margin: 5px"> </a>
                 <a class="nav-link header-login" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -115,11 +198,8 @@
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
-                </form>
-                @endauth
-                
-
-            </li>
+                </form> --}}
+                @endauth            
         </ul>
     </nav>
 </header>
