@@ -22,4 +22,9 @@ class Prescription extends Model
         return  $this->belongsTo(Appointment::class,'appointment_id','id');
     }
 
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class,'doctor_id','id');
+    }
+
 }

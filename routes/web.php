@@ -78,7 +78,11 @@ Route::prefix('doctor')->middleware(['auth','routesForDoctor'])->group(function(
 //******** Routes for Patient
 Route::prefix('patient')->middleware(['auth','routesForPatient'])->group(function(){
     Route::get('/dashboard',[PatientOwnController::class,'patientDashboard'])->name('patient.own.dashboard');
+    Route::get('/appointments',[PatientOwnController::class,'patientAppointments'])->name('patient.own.appointments');
     Route::get('/prescriptions',[PatientOwnController::class,'patientPrescriptions'])->name('patient.own.prescriptions');
+    Route::get('/prescription/view/{prescriptionId}',[PatientOwnController::class,'patientPrescriptionView'])->name('patient.own.prescription.view');
+    Route::get('/prescription/print/{prescriptionId}',[PatientOwnController::class,'patientPrescriptionPrint'])->name('patient.own.prescription.print');
+    Route::get('/prescription/pdf/{prescriptionId}',[PatientOwnController::class,'patientPrescriptionPDF'])->name('patient.own.prescription.PDF');
     
 });
 //******** Finish

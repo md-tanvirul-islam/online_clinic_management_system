@@ -19,7 +19,7 @@ class DashboardController extends Controller
         elseif(auth()->user()->type === 'patient')
         {
             // return view('frontend.general.index');
-            return redirect()->route('indexPage');
+            return redirect()->route('patient.own.dashboard');
         }
         elseif(auth()->user()->type === 'doctor') {
             // return view('backend.admin.doctors.index');

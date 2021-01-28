@@ -43,15 +43,15 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('patient.own.dashboard') }}">
+                        <a href="{{ route('patient.own.appointments') }}">
                             <i class="fas fa-bookmark"></i>
                             <span>Appointments</span>
                         </a>
                     </li>
                       <li>
-                        <a href="chat.html">
+                        <a href="{{ route('patient.own.prescriptions') }}">
                             <i class="fas fa-comments"></i>
-                            <span>Message</span>
+                            <span>Prescriptions</span>
                             <small class="unread-msg">23</small>
                         </a>
                     </li>

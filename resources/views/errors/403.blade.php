@@ -33,7 +33,8 @@
 			
 			<div class="error-box">
 				<h1>403</h1>
-				<h3 class="h2 mb-3"><i class="fa fa-warning"></i> Oops! Unauthorized Action!</h3>
+
+				<h3 class="h2 mb-3">Oops! Unauthorized Action!</h3>
 				<p class="h4 font-weight-normal"> You don't have permission for this Action.</p>
 				<a href="{{ route('indexPage') }}" class="btn btn-primary">Back to Home</a>
 			</div>

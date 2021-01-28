@@ -217,7 +217,7 @@
 									@endif
 								  </td>
 								</tr>
-							  </table>
+							</table>
 
 						</div>
 					</div>

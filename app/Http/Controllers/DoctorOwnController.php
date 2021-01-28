@@ -11,7 +11,7 @@ use App\Services\DoctorOwnService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use PDF;
+use Barryvdh\DomPDF\PDF;
 
 
 class DoctorOwnController extends Controller
