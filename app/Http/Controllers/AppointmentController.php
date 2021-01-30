@@ -15,7 +15,7 @@ use App\Services\AppointmentService;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Gate;
-
+use Illuminate\Support\Facades\Notification;
 class AppointmentController extends Controller
 {
     protected $appointmentService ;
@@ -51,7 +51,7 @@ class AppointmentController extends Controller
     {
        
         $data = $request->all();
-        
+       
         $appointment = $this->appointmentService->storeOrUpdate($data);
         if(isset($appointment))
         {

@@ -98,7 +98,7 @@ $prescriptionDate = \Carbon\Carbon::parse($prescription->created_at);
              </tr>
              @forelse ($prescription_medicines as $prescription_medicine)
                @php
-                   $medicine = App\Models\Medicine::find($prescription_medicine->medicine_id);
+                   $medicine = App\Models\MedicineGeneric::find($prescription_medicine->medicine_id);
                @endphp
                <tr>
                  <td class="intertable">{{ $loop->iteration	 }}</td>

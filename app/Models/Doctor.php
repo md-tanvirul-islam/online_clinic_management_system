@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\user;
+use Illuminate\Notifications\Notifiable;
 
 class Doctor extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.

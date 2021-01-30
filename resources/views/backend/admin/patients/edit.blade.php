@@ -1,6 +1,6 @@
 @extends('backend.layouts.master_tem')
 
-@section('title', 'Department Info Edit')
+@section('title', 'Patient Info Edit')
 
 @section('content')
     <div class="container">

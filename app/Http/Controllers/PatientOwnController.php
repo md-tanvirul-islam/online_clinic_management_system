@@ -92,7 +92,7 @@ class PatientOwnController extends Controller
         $doctor = Doctor::find($prescription->doctor_id);
         $patient = Patient::find($prescription->patient_id);
 
-        $pdf = PDF::loadView('frontend.doctor.doctorPrescriptionPDF',['patient'=>$patient,'doctor'=>$doctor,'prescription'=>$prescription,'prescription_medicines'=>$prescription_medicines,'prescription_tests'=>$prescription_tests]);
+        $pdf = PDF::loadView('frontend.patient.patientPrescriptionPDF',['patient'=>$patient,'doctor'=>$doctor,'prescription'=>$prescription,'prescription_medicines'=>$prescription_medicines,'prescription_tests'=>$prescription_tests]);
         return $pdf->download('Prescription.pdf');
         
         // $html = view('frontend.doctor.doctorPrescriptionPDF',compact('patient','doctor','prescription','prescription_medicines','prescription_tests'));

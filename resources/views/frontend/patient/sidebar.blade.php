@@ -25,10 +25,10 @@
                     <img src="{{ $photo }}" alt="Patient Image">
                 </a>
                 <div class="profile-det-info">
-                    <h3>{{ $patient->name }}</h3>
+                    <h3>{{ $patient->name ?? '---'}}</h3>
                     <div class="patient-details">
-                        <h5><i class="fas fa-birthday-cake"></i> {{ $birthDate->format('d F, Y') }}, {{ $birthDate->age }} years</h5>
-                        <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{ $patient->address }}</h5>
+                        <h5><i class="fas fa-birthday-cake"></i> {{ $birthDate->format('d F, Y') ?? '---' }}, {{ $birthDate->age ?? '---' }} years</h5>
+                        <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{ $patient->address ?? '---' }}</h5>
                     </div>
                 </div>
             </div>
@@ -44,15 +44,15 @@
                     </li>
                     <li>
                         <a href="{{ route('patient.own.appointments') }}">
-                            <i class="fas fa-bookmark"></i>
+                            <i class="far fa-calendar-alt"></i>
                             <span>Appointments</span>
                         </a>
                     </li>
                       <li>
                         <a href="{{ route('patient.own.prescriptions') }}">
-                            <i class="fas fa-comments"></i>
+                            <i class="fas fa-prescription"></i>
                             <span>Prescriptions</span>
-                            <small class="unread-msg">23</small>
+                            {{-- <small class="unread-msg">23</small> --}}
                         </a>
                     </li>
                    {{-- <li>

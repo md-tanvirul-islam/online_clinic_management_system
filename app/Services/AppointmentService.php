@@ -5,7 +5,9 @@ namespace App\Services;
 use App\Models\Appointment;
 use App\Models\DoctorSchedule;
 use App\Models\Doctor;
+use App\Notifications\PatientCreateAppointmentNotification;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 
 
 class AppointmentService
@@ -20,7 +22,7 @@ class AppointmentService
 
     public function storeOrUpdate($data)
     {
-       
+        // dd($data);
         $user_id = auth()->user()->id;
         // dd($data["id"]);
         if(!empty($data["appointment_id"])){
@@ -84,7 +86,14 @@ class AppointmentService
                     $appointment->patient_status = $data['patient_status'];
                     $appointment->is_paid = $data['is_paid']??null;
                     
-                    return $appointment->save() ? $appointment : null;
+                    $newAppointment = $appointment->save() ? $appointment : null;
+
+                    //notification
+                    $doctor = Doctor::find($appointment->doctor_id);
+
+                    Notification::send($doctor->user, new PatientCreateAppointmentNotification($newAppointment));
+
+                    return $newAppointment;
                 }
             else
                 {

@@ -32,11 +32,11 @@ class UpdatePatientRequest extends FormRequest
         'phone'=>[
             'required',
             'string',
-            Rule::unique('patients')->ignore(request()->route('patient')->id)],
+            // Rule::unique('patients')->ignore(request()->route('patient')->id)
+        ],
         'image'=>'image|nullable',
         'birthDate'=>'date|nullable',
         'gender'=>'required|string',
-        'age'=>'required',
         'bloodGroup'=>'required|string',
         ];
     }

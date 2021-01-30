@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patient;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Notifications\PatientCreatedNotification;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Notification;
 
 class RegisterController extends Controller
 {
@@ -64,10 +67,34 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        //initial code or default code
+        // return User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        // ]);
+
+        // customized code | the user default type will be patient for this application. 
+        $newCreatedUser = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        // dd($newCreatedUser);
+        $newCreatedUserProfile = Patient::create([
+            'name' => $newCreatedUser->name,
+            'email' => $newCreatedUser->email,
+            'user_id' => $newCreatedUser->id,
+            'gender' => $data['gender'],
+            'birthDate' => $data['birthDate'],
+            'phone' => $data['phone'],
+        ]);
+        // dd($newCreatedUserProfile);
+
+        $adminUsers = User::where('type','=','admin')->get();
+        // Send the notifications
+        Notification::send($adminUsers, new PatientCreatedNotification($newCreatedUserProfile));
+        return $newCreatedUser;
+
     }
 }

@@ -40,10 +40,12 @@
                     $patient = Patient::whereId($data["patient_id"])->first();
                     $oldFile = $patient->image;
                     $patient->updated_by = $user_id;  
+        
                     if(isset($data['image']))
                     {
-                        $patient->image = $this->fileHandelingService->uploadImage($data['image'],"uploads/patients/images/");
+                        $image = $this->fileHandelingService->uploadImage($data['image'],"uploads/patients/images/");
                     }
+                    // dd($data['image'] ,$image );
                     // $doctor->image = $this->fileHandelingService->imageUpdate($data,$folder,$oldImageName);  
                 }
                 
@@ -51,7 +53,7 @@
                 $patient->email = $data['email']??null;
                 $patient->address = $data['address']??null;
                 $patient->phone = $data['phone'];
-                $patient->age = $data['age']??null;
+                $patient->image = $image??null;
                 $patient->birthDate = $data['birthDate']??null;
                 $patient->gender = $data['gender']??null;
                 $patient->bloodGroup = $data['bloodGroup']??null;

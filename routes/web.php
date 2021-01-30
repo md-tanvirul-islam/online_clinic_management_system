@@ -201,6 +201,15 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
 
 Route::get('test',function(Request $request)
 {
-    return view('errors.403');
+    // return view('errors.403');
+    // $user = User::where('type','=','admin')->get();
+    $name = 'abdullah';
+     $data = "<a href='".route('patients.show',[4])."'>".$name." has created a profile as a patient. </a>";
+    dd($data, 'web.php');
+});
+
+Route::get('logOutTesting',function(Request $request)
+{
+    return redirect()->route('logout');
     
 });

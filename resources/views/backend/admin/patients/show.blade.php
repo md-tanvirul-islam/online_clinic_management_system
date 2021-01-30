@@ -1,108 +1,111 @@
 @extends('backend.layouts.master_tem')
-@section('title', 'Department Details')
+@section('title', 'Patient Profile')
+
+@push('css')
+    <!-- Favicons -->
+		<link type="image/x-icon" href="{{ asset('ui/frontend/img/favicon.png') }}" rel="icon">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="{{ asset('ui/frontend/css/bootstrap.min.css') }}">
+		
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="{{ asset('ui/frontend/plugins/fontawesome/css/fontawesome.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('ui/frontend/plugins/fontawesome/css/all.min.css') }}">
+		
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="{{ asset('ui/frontend/css/style.css') }}">
+
+		@stack('css')
+
+		<!-- jQuery -->
+		<script src="{{ asset('ui/frontend/js/jquery.min.js') }}"></script>
+@endpush
+
+@php
+                        if(isset($patient->image))
+                        {
+                            $photo = asset($patient->image);
+                        }
+                        else 
+                        {
+                            if($patient->gender === "male")
+                            {
+                                $photo = asset('ui/frontend/img/patients/patient_male.png');
+                            }
+                            else
+                            {
+                                $photo = asset('ui/frontend/img/patients/patient_female.png');
+                            }
+                        }
+@endphp
+
 @section('content')
     <div class="container">
-
-        <div class="container" style="margin-bottom: 20px">
-            <div style="text-align: justify">
-                <a class="btn btn-secondary" href="{{route('patients.index')}}">List of Patients</a>
-            </div>
-            <h1 style="text-align:center;margin-bottom: 40px">Details of  Patient {{ $patient->name }}</h1>
-
-            <div class="row">
-                <div class="col-4">
-                    <div>
-                            <img src='{{ asset("$patient->image") }}' style="height: 400px;width:300px" >
-                    </div>
-                </div>
-                <div class="col-8">
-                    {!! Form::model($patient) !!}
-                    <div class="form-row">
-                        <div class="col-4 text-right ">
-                            <h6> {!! Form::label('name','Doctor Name:') !!} </h6>
-                        </div>
-                        <div class="form-group col-4 text-center" >
-                            {!! Form::text('name',null,['class'=>'form-control','required']) !!}
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="col-4 text-right ">
-                            <h6> {!! Form::label('email','Email Name:') !!} </h6>
-                        </div>
-                        <div class="form-group col-4 text-center" >
-                            {!! Form::email('email',null,['class'=>'form-control','required']) !!}
-                        </div>
-                    </div>
-                    
-                    
-                    <div class="form-row">
-                        <div class="col-4 text-right ">
-                            <h6> {!! Form::label('address','Address:') !!} </h6>
-                        </div>
-                        <div class="form-group col-4 text-center" >
-                            {!! Form::text('address',null,['class'=>'form-control','required']) !!}
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="col-4 text-right ">
-                            <h6> {!! Form::label('birthDate','Date of Birth:') !!} </h6>
-                        </div>
-                        <div class="form-group col-4 text-center" >
-                            {!! Form::date('birthDate',null,['class'=>'form-control','disabled']) !!}
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="col-4 text-right ">
-                            <h6> {!! Form::label('phone','Telephone or Another Phone Number:') !!} </h6>
-                        </div>
-                        <div class="form-group col-4 text-center" >
-                            {!! Form::text('phone',null,['class'=>'form-control','required']) !!}
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="col-4 text-right">
-                            Gender: 
-                        </div>
-                    
-                        <div class="col-8">
+        @php
+            $birthDate = \Carbon\Carbon::parse($patient->birthDate);
+         @endphp
+        <!-- Doctor Widget -->
+					<div class="card">
+                        <div class="card-header">
                             <div class="row">
-                                <div class="col-2">
-                                    {!! Form::label('gender','Male:') !!}
-                                    {!! Form::radio('gender','male',['class'=>'form-control','required'] )!!}
+                                <div class="col-6">
+                                    <h1> {{ $patient->name }} Profile </h1>
                                 </div>
-                                <div class="col-2">
-                                    {!! Form::label('gender','Female:') !!}
-                                    {!! Form::radio('gender','female',['class'=>'form-control','required'] )!!}
+                                <div class="col-6 text-right" >
+                                    <a class="btn  btn-info" style="color: black" href="{{route('patients.index')}}" title="List of All Patients">
+                                        <i class="fa fa-list-ol"></i> List
+                                    </a>
+                                    <a href="{{ route('patients.edit', [$patient->id]) }}" title="Edit the profile" style="color:black;" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
                                 </div>
-                                <div class="col-2">
-                                    {!! Form::label('gender','Other:') !!}
-                                    {!! Form::radio('gender','other',['class'=>'form-control','required'] )!!}
-                                
-                                </div>
+
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-4 text-right">
-                            <h6> {!! Form::label('bloodGroup','Blood Group:') !!} </h6>
-                        </div>
-                    
-                        <div class="col-4">
-                            {!! Form::select('bloodGroup',['A+'=>'A+','A-'=>'A-','B+'=>'B+','B-'=>'B-','AB+'=>'AB+','AB-'=>'AB-','O+'=>'O+','O-'=>'O-'],Null,['placeholder'=>'Select One','class'=>'form-control','disabled'] )!!}
-                        </div>
-                    
-                    </div>
-                </div>
-                
-                {!! Form::close() !!}
-            </div>
-
+						<div class="card-body">
+							<div class="row">
+                                <div class="col-6">
+                                    <h2 class="doc-name">{{ $patient->name }}</h2>
+                                    <div class="clini-infos">
+                                        <ul style="font-size: 20px">  
+                                            <li><i class="fas fa-at"></i> Email : {{ $patient->email ?? '---'}}</li>
+                                            <li><i class="fas fa-phone"></i> Phone : {{ $patient->phone ?? '---'}}</li>
+                                            <li><i class="fas fa-running"></i> Age : {{ $birthDate->age ?? '---'}} Years Old</li>
+                                            <li><i class="fas fa-birthday-cake"></i> BirthDate : {{  $birthDate->format('d F, Y') ?? '---' }} </li>
+                                            <li><i class="fas fa-venus-mars"></i> Gender : {{  $patient->gender ?? '---'}} </li>
+                                            <li><i class="fas fa-syringe"></i> Blood Group : {{  $patient->bloodGroup ?? '---' }} </li>
+                                            <li><i class="fas fa-map-marker-alt"></i> Address : {{  $patient->address ?? '---' }} </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="doctor-img">
+                                        <img src="{{ $photo }}" class="img-fluid" style="height: 250px !important ; width: 500px !important" alt="Patient Image"> <br>
+                                        @if(!isset($patient->image))
+                                        
+                                            <p class="text-danger" > You did not add a photo yet. Please Upload A photo </p>
+                                        
+                                        @endif
+                                        
+                                    </div>
+                                </div>
+							</div>                            
+						</div>
+					</div>
+					<!-- /Doctor Widget -->
+        
     </div>
 
 @endsection
 
+@push('js')
+    <!-- Bootstrap Core JS -->
+		<script src="{{ asset('ui/frontend/js/popper.min.js') }}"></script>
+		<script src="{{ asset('ui/frontend/js/bootstrap.min.js') }}"></script>
+		
+		<!-- Slick JS -->
+		<script src="{{ asset('ui/frontend/js/slick.js') }}"></script>
+		
+		<!-- Custom JS -->
+		<script src="{{ asset('ui/frontend/js/script.js') }}"></script>
+@endpush

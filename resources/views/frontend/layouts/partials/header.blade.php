@@ -45,13 +45,13 @@
                     <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
                         @auth
-                            @if (auth()->user()->type === 'doctor' || 'admin')
+                            @if (auth()->user()->type === 'doctor')
                                 <li><a href="{{ route('doctor.own.index') }}">Doctor Dashboard</a></li>
                                 <li><a href="#">Doctor Profile</a></li>
                             @endif
                         @endauth
                         <li><a href="{{ route('doctorSearch') }}">Search Doctor</a></li>
-                        <li><a href="{{ route('doctorSearch') }}">Booking</a></li>
+                        <li><a href="{{ route('doctorSearch') }}">Make Appointment</a></li>
                         {{-- <li><a href="checkout.html">Checkout</a></li>
                         <li><a href="booking-success.html">Booking Success</a></li>
                         <li><a href="patient-dashboard.html">Patient Dashboard</a></li>
@@ -100,9 +100,50 @@
                     <p class="contact-info-header"> +88 017 134 479 20</p>
                 </div>
             </li>
-
             @auth
-                @php      
+                @php
+                    $user = App\Models\User::find(auth()->user()->id);
+                @endphp
+                <!-- Nav Item - Alerts -->
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell fa-fw"></i>
+                        <!-- Counter - Alerts -->
+                        <span class="badge badge-danger badge-counter">{{ count($user->notifications) }}</span>
+                    </a>
+                    <!-- Dropdown - Alerts -->
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                        <h6 class="dropdown-header">
+                            Alerts Center
+                        </h6>
+                        @if ($user->notifications)
+                            @foreach ($user->notifications as $notification)
+                            @php
+                                $created_at = \Carbon\Carbon::parse($notification->created_at);
+                            @endphp
+                            <a class="dropdown-item d-flex align-items-center" href="{{ $notification->data['link'] }}">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-primary">
+                                        <i class="fas fa-file-alt text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-success">{{ $created_at->diffForHumans() }}</div>
+                                        <span class="font-weight-bold"> {{ $notification->data['message'] }}</span>
+                                </div>
+                                @endforeach
+                            </a>
+                        @endif
+                        
+                        
+                        {{-- <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a> --}}
+                    </div>
+                </li>
+            @endauth
+            
+            @auth
+                @php     
+                    //for image
                     if(auth()->user()->type === 'doctor')
                     {
                         if(isset(auth()->user()->doctorProfile->image))
@@ -120,9 +161,7 @@
                                 $photo = asset('ui/frontend/img/doctors/doctor_female.png');
                             }
                         }
-                    }
-
-                    if(auth()->user()->type === 'patient')
+                    }elseif(auth()->user()->type === 'patient')
                     {
                         if(isset(auth()->user()->patientProfile->image))
                         {
@@ -139,21 +178,38 @@
                                 $photo = asset('ui/frontend/img/patients/patient_female.png');
                             }
                         }
+                    }elseif(auth()->user()->type === 'admin')
+                    {
+                        // if(isset(auth()->user()->patientProfile->image))
+                        // {
+                        //     $photo = asset(auth()->user()->patientProfile->image);
+                        // }
+                        // else 
+                        // {
+                            // if(auth()->user()->patientProfile->gender === "male")
+                            // {
+                                $photo = asset('ui/backend/images/admin.jpg');
+                            // }
+                            // else
+                            // {
+                            //     $photo = asset('ui/frontend/img/patients/patient_female.png');
+                            // }
+                        // }
                     }
 
+
+                    // for dashboard
                     if(auth()->user()->type === 'doctor')
                     {
                         $dashboardLink = route('doctor.own.index');
                     }
                     elseif(auth()->user()->type === 'patient') {
                         $dashboardLink = route('patient.own.dashboard');
+                    }elseif(auth()->user()->type === 'admin') {
+                        $dashboardLink = route('admin.index');
                     }
-
-
                 @endphp
             @endauth
-                
-           
                 @guest
                 <li class="nav-item">
                     <a class="nav-link header-login" href="{{ route('login') }}" style="margin: 5px">LogIn </a>
@@ -165,20 +221,20 @@
 						<li class="nav-item dropdown has-arrow logged-item">
 							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 								<span class="user-img">
-									<img class="rounded-circle" src="{{ $photo }}" width="31" alt=" login User Image">
+									<img class="rounded-circle" src="{{$photo ?? '---'}}" width="31" alt=" login User Image">
 								</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-right">
 								<div class="user-header">
 									<div class="avatar avatar-sm">
-										<img src="{{$photo }}" alt="User Image" class="avatar-img rounded-circle">
+										<img src="{{$photo ?? '---'}}" alt="User Image" class="avatar-img rounded-circle">
 									</div>
 									<div class="user-text">
 										<h6>{{ auth()->user()->name }}</h6>
 										<p class="text-muted mb-0">{{ auth()->user()->type }}</p>
 									</div>
 								</div>
-								<a class="dropdown-item" href="{{$dashboardLink}}">Dashboard</a>
+								<a class="dropdown-item" href="{{$dashboardLink ?? '---'}}">Dashboard</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
@@ -190,17 +246,8 @@
 							</div>
 						</li>
 						<!-- /User Menu -->
-                {{-- <a class="nav-link header-login" disabled style="margin: 5px"> </a>
-                <a class="nav-link header-login" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form> --}}
-                @endauth            
+                @endauth       
+                     
         </ul>
     </nav>
 </header>

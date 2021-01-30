@@ -1,10 +1,13 @@
 <?php
 namespace App\Services;
 
+use App\Models\Patient;
 use App\Models\Prescription;
+use App\Notifications\DoctorMakePrescriptionNotification;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class DoctorOwnService
 {
@@ -59,6 +62,9 @@ class DoctorOwnService
                 ]);
         }
         // inserting data in prescriptions_tests table
+
+        $patient = Patient::find($createdPrescription->patient_id);
+        Notification::send($patient->user, new DoctorMakePrescriptionNotification($createdPrescription));
     }
     
 
