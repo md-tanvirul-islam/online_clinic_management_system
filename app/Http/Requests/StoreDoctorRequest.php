@@ -25,7 +25,7 @@ class StoreDoctorRequest extends FormRequest
     {
         return [
         'name'=>'required|string',
-        'email'=>'required|email|unique:App\Models\Doctor,email',
+        'email'=>'required|email|unique:users,email',
         'department_id'=>'required|int',
         'address'=>'nullable|string',
         'phoneNo'=>'nullable|string',
@@ -33,7 +33,7 @@ class StoreDoctorRequest extends FormRequest
         'image'=>'nullable|image',
         'speciality'=>'nullable|string',
         'degree'=>'nullable|string',
-        'bio'=>'nullable|string',
+        'bio'=>'nullable|string|max:500',
         'birthDate'=>'nullable|date',
         'gender'=>'nullable|string',
         'bloodGroup'=>'nullable|string',

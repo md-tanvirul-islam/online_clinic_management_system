@@ -101,9 +101,9 @@
                             <td>{{$appointment->fee}}</td>
                             <td>
                                 @if($appointment->is_paid =="yes")
-                                    <i class="far fa-check-square" style="font-size:48px;color:lawngreen" aria-hidden="true"></i>
+                                    <i class="far fa-check-square" style="font-size:28px;color:lawngreen" aria-hidden="true"></i>
                                 @else
-                                    <i class="fa fa-times" style="font-size:48px;color:red" aria-hidden="true"></i>
+                                    <i class="fa fa-times" style="font-size:28px;color:red" aria-hidden="true"></i>
                                 @endif
                             </td>
                             <td >

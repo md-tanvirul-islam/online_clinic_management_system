@@ -3,8 +3,8 @@
         'daysOfTheWeek' =>
             [
                 'friday'=>'Friday',
-                'sunday'=>'Sunday',
                 'saturday'=>'Saturday',
+                'sunday'=>'Sunday',
                 'monday'=>'Monday',
                 'tuesday'=>'Tuesday',
                 'wednesday'=>'Wednesday',

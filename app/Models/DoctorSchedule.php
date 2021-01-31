@@ -18,4 +18,9 @@ class DoctorSchedule extends Model
         'ending_time',
 
     ];
+
+    public function getDayAttribute($value)
+    {
+        return ucfirst($value);
+    }
 }

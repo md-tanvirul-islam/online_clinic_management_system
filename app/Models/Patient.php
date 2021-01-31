@@ -26,6 +26,10 @@ class Patient extends Model
     ];
 
     
+    public function getGenderAttribute($value)
+    {
+        return ucfirst($value);
+    }
     
     public function tests()
     {

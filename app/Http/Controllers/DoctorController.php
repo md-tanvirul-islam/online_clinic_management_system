@@ -8,6 +8,7 @@ use App\Services\DoctorService;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
+use App\Models\DoctorSchedule;
 use Illuminate\Database\QueryException;
 
 class DoctorController extends Controller
@@ -46,7 +47,8 @@ class DoctorController extends Controller
     public function show(Doctor $doctor)
     {
         $departments = Department::pluck('name','id');
-        return view('backend/admin/doctors/show',compact('doctor','departments'));
+        $weekDays = config('constant.daysOfTheWeek');
+        return view('backend/admin/doctors/show',compact('doctor','departments','weekDays'));
     }
 
     /**

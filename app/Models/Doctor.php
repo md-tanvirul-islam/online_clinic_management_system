@@ -39,6 +39,11 @@ class Doctor extends Model
 
     ];
 
+    public function getGenderAttribute($value)
+    {
+        return ucfirst($value);
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -53,4 +58,6 @@ class Doctor extends Model
     {
         return $this->hasMany(Prescription::class);
     }
+
+    
 }
