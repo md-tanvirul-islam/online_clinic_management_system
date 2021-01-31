@@ -26,9 +26,6 @@ class AppointmentController extends Controller
 
     public function index()
     {
-        // if (Gate::denies('list', Appointment::class)) {
-        //     return view("errors.403");
-        // }
         $appointments = $this->appointmentService->list(); 
         return view('backend.admin.appointments.index',compact('appointments'));
     }
@@ -38,20 +35,22 @@ class AppointmentController extends Controller
     {
         $departments = Department::pluck('name','id');
         $patients = Patient::pluck('name','id');
-        return view('backend.admin.appointments.create',compact('departments','patients'));
+        $doctors = Doctor::pluck('name','id');
+        $selectedData = null;
+        return view('backend.admin.appointments.create',compact('departments','patients','doctors','selectedData'));
     }
 
     public function newPatientAppointmentCreate()
     {
         $departments = Department::pluck('name','id');
-        return view('backend.admin.appointments.new_patient_appointment_create',compact('departments'));
+        $doctors = Doctor::pluck('name','id');
+        $selectedData = null;
+        return view('backend.admin.appointments.new_patient_appointment_create',compact('departments','doctors','selectedData'));
     }
 
     public function store(StoreAppointmentRequest $request)
     {
-       
         $data = $request->all();
-       
         $appointment = $this->appointmentService->storeOrUpdate($data);
         if(isset($appointment))
         {
@@ -62,8 +61,21 @@ class AppointmentController extends Controller
             $date  = Carbon::createFromFormat('Y-m-d',$request->date )->isoFormat('Do MMMM,YYYY');
             session()->flash("error", "The Doctor doesn't have Schedule for $date");
             return redirect()->back();
-        }
-        
+        }  
+    }
+    public function doctorScheduleSearch(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'department_id'=> 'integer|required',
+            'doctor_id'=> 'integer|required'
+        ]);
+        $departments = Department::pluck('name','id');
+        $doctors = Doctor::pluck('name','id');
+        $selectedData = $request->all();
+        $schedules = DoctorSchedule::where('doctor_id','=',$selectedData['doctor_id'])->get();
+        return view('backend.admin.appointments.create',compact('departments','selectedData','doctors','schedules'));
+
     }
     
     public function newPatientAppointmentStore(StoreNewPatientAppointmentRequest $request)
@@ -91,9 +103,6 @@ class AppointmentController extends Controller
    
     public function edit(Appointment $appointment)
     {
-        // if (Gate::denies('edit', $patient)) {
-        //     return view("errors.403");
-        // }
         $patient = Patient::find($appointment->patient_id);
         $doctor_schedule = DoctorSchedule::find($appointment->doctor_schedule_id);
         $doctor = Doctor::find($doctor_schedule->doctor_id);

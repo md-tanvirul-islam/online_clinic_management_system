@@ -19,10 +19,10 @@
                     
                         <div class="form-row">
                             <div class="form-group col-6 text-center" >
-                                {!! Form::select('department_id',$departments,Null,['placeholder'=>"Select Depatment",'class'=>'form-control','id'=>'department_id'] )!!}
+                                {!! Form::select('department_id',$departments,{{ $selectedData?$selectedData['department_id']:Null }},['placeholder'=>"Select Depatment",'class'=>'form-control','id'=>'department_id'] )!!}
                             </div>
                             <div class="form-group col-6 text-center" >
-                                {!! Form::select('doctor_id',['Abc' => 'select Doctor'],Null,['class'=>'form-control','id'=>'doctor_id'] )!!}
+                                {!! Form::select('doctor_id',['Abc' => 'select Doctor'],{{ $selectedData?$selectedData['doctor_id']:Null }},['class'=>'form-control','id'=>'doctor_id'] )!!}
                             </div>
                         </div>
                         <div class="row"  style="height: 100px">

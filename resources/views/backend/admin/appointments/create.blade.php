@@ -3,7 +3,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
 @endpush
 
-@section('content')
+{{-- @section('content')
     <div class="container">
 
         <div class="container" style="margin-bottom: 20px">
@@ -81,7 +81,219 @@
             {!! Form::close() !!}
         </div>
 
+@endsection --}}
+
+@push('css')
+<style>
+    input, select, option, textarea{
+        color: #000000 !important;
+        font-weight: bold !important;
+        border-color: #000000  !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+    }
+    textarea:focus, input:focus {
+        color: #000000c5 !important;
+        font-weight: bold !important;
+    }
+    input::placeholder, textarea::placeholder{
+        color: #000000b2 !important;
+        /* font-weight: bold !important; */
+    }
+</style>
+@endpush
+
+@section('content')
+        <div class="container">
+            <div class="card" style="color: black; margin-top:10px; width: 100%;">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-9">
+                                    <h3 class="card-title">Make an Appointment</h3>
+                                    <p class="card-text"><small>Please add proper information to make an appointment</small></p>
+                                </div>
+                                <div class="col-3" style="text-align: right">
+                                    <a class="btn btn-warning" style="color: black" href="{{route('appointments.index')}}" title="List of all Doctors' Appointment">
+                                        <i class="fa fa-list-ol"></i> List
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm">
+                                    
+                                        <h3 >Doctor </h3>
+                                        {!! Form::open(['route' => 'appointments.doctorScheduleSearch']) !!}
+                                        <div class="form-row">
+                                            <div class="form-group col-6 text-center" >
+                                                {!! Form::select('department_id',$departments,$selectedData?$selectedData['department_id']:null,['placeholder'=>"Select Depatment",'class'=>'form-control','id'=>'department_id'] )!!}
+                                            </div>
+                                            <div class="form-group col-6 text-center" >
+                                                {!! Form::select('doctor_id',$doctors,$selectedData?$selectedData['doctor_id']:null,['placeholder'=>"Select Doctor",'class'=>'form-control','id'=>'doctor_id'] )!!}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-12 text-right" >
+                                                <button style= "color:white" class="btn btn-success" > <i class="fa fa-search" aria-hidden="true"></i> Search </button>
+                                            </div>
+                                        </div>
+                                        {!! Form::close() !!}
+                                    @if ($selectedData)
+                                        <!-- Schedule Widget -->
+							<div class="card booking-schedule schedule-widget">
+								<div class="container text-center" style='margin-top:10;margin-bottom:10px;font-weight:bolder'>
+									<div class="table table-bordered ">
+										<div class="row " style="margin-top:10px; margin-bottom:10px">
+											<div class="col   btn btn-secondary">Date </div> 
+											<div class="col   btn btn-secondary">Day </div> 
+											<div class="col   btn btn-secondary">Starting Time </div> 
+											<div class="col   btn btn-secondary">Ending Time </div>
+											<div class="col   btn btn-secondary">Remains</div>
+											<div class="col   btn btn-secondary">Type</div>
+											<div class="col   btn btn-secondary">Click to Book </div> 
+										</div> 
+										@for ($i= 1 ; $i<=7 ; $i++)
+											@php
+												$dayAfterToday = \Carbon\Carbon::now()->addDays($i);
+												$date = new DateTime($dayAfterToday);
+												$stdDate = $date->format('Y-m-d');
+											@endphp
+											<div class="row" style="margin-top:10px; margin-bottom:10px">
+												<div class="col ">{{ $date->format('d M,Y') }}</div> 
+												<div class="col ">{{ $date->format('l') }} </div> 
+													@php
+                                                        $day = strtolower($date->format('l'));
+                                                        $schedule = App\Models\DoctorSchedule::where('doctor_id','=',$selectedData['doctor_id'])->where('day','=',"$day")->first(); 
+                                                        $doctor = App\Models\Doctor::find($selectedData['doctor_id'])->first(); 
+                                                        $sTime = $schedule->starting_time??null;
+														$eTime =  $schedule->ending_time??null;
+														$noOfBookings = App\Models\Appointment::where('date','=',"$stdDate")->count();
+														$remain_booking = $doctor->max_appointment - $noOfBookings;
+                                                    @endphp
+												<div class="col ">
+													<?php
+														if ($sTime) 
+														{
+															echo $eTime;
+														}
+														else 
+														{
+															echo "<span style='color: brown'>No Schedule</span>";
+														}
+													?>
+												</div> 
+												<div class="col ">
+													<?php 
+														if ($sTime) 
+														{
+															echo $eTime;
+														}
+														else 
+														{
+															echo "<span style='color: brown'>No Schedule</span>";
+														}
+													?>
+												</div> 
+												<div class="col">
+													<?php
+														if ($sTime) 
+														{
+															echo $remain_booking ;															
+														}
+														else 
+														{
+															echo "<span style='color: brown'>NA</span>";
+														}
+													?>
+												</div>
+												<div class="col" style="padding-bottom:5px">
+													{!! Form::open(['route'=>'StoreAppointment']) !!}
+													@if ($sTime)
+														{!! Form::select('patient_status',['new'=>'Visit after 30 Days','old'=>'Visit in 30 Days','report'=>'Report'],Null,['placeholder'=>"Select",'class'=>'form-control','required']) !!}	
+													@else
+													{!! Form::select('patient_status',['new'=>'Visit after 30 Days','old'=>'Visit in 30 Days','report'=>'Report'],Null,['placeholder'=>"Select",'class'=>'form-control','disabled']) !!}	
+													@endif
+												</div>
+												<div class="col ">
+													@if ($sTime)
+														<input type="text" name=@php "scheduleId_".$schedule->id @endphp value="{{ $schedule->id }}" required hidden>
+														<input type="text" name=@php "doctorId_".$doctor->id @endphp value="{{ $doctor->id }}" required hidden>
+														{{-- <input type="text" name="patient_id" value="{{ auth()->user()->patientProfile->id }}" required hidden> --}}
+														<input type="text" name="date" value="{{ $stdDate }}" required hidden>										
+														{!! Form::submit('Book',['class'=>['btn','bg-warning'] ]) !!}
+													
+													@else
+														
+													@endif
+													{!! Form::close() !!}
+												</div> 
+											</div>
+										@endfor
+									</div>
+								</div>
+															
+							</div>
+							<!-- /Schedule Widget -->
+
+                                        {{-- {!! Form::open(['appointments.store']) !!} --}}
+                                            
+                                            {{-- @foreach ($schedules as $schedule)
+                                                {{ $schedule->day }} | 
+                                                {{ $schedule->starting_time }} |
+                                                {{ $schedule->ending_time }}<br>
+                                            @endforeach --}}
+                                            {{-- <div class="form-row">
+                                                <div class="col-md-4 mb-3" style="text-align: left"> 
+                                                    <button  style= "color:white" class="btn btn-info" > <i class="fa fa-paper-plane" aria-hidden="true"></i> Submit </button>
+                                                </div>
+                                                <div class="col-md-4 mb-3"> </div>
+                                                <div class="col-md-4 mb-3"> </div>
+                                                
+                                            </div> --}}
+                                        {{-- {!! Form::close() !!} --}}
+                                    @else
+                                        
+                                    @endif
+                                    
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @push('js')
 <script>
