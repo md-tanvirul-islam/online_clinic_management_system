@@ -166,18 +166,30 @@
 								<div role="tabpanel" id="doc_business_hours" class="tab-pane fade">
 									<div class="row">
 										<div class="col-md-6 offset-md-3">
-										
+											@php
+												$today = \Carbon\Carbon::now();
+												$todaySchedule = \App\Models\DoctorSchedule::where('day','=',strtolower($today->format('l')))->where('doctor_id','=',$doctor->id)->first();
+									
+											@endphp
 											<!-- Business Hours Widget -->
 											<div class="widget business-widget">
 												<div class="widget-content">
 													<div class="listing-hours">
+														@if ($todaySchedule)
 														<div class="listing-day current">
-															<div class="day">Today <span>5 Nov 2019</span></div>
+															<div class="day">Today <span>{{ $today->format('d F, Y') }}</span></div>
 															<div class="time-items">
-																<span class="open-status"><span class="badge bg-success-light">Open Now</span></span>
-																<span class="time">07:00 AM - 09:00 PM</span>
+																<span class="open-status"><span class="badge bg-success-light">Open Today</span></span>
+																<span class="time">{{ $todaySchedule->starting_time }} - {{ $todaySchedule->ending_time }}</span>
 															</div>
 														</div>
+														@else
+															<div class="day">Today <span>{{ $today->format('d F, Y') }}</span></div>
+															<div class="time-items">
+																<span class="open-status"><span class="badge bg-danger-light">Close Today</span></span>
+																<span class="time">{{ $todaySchedule->starting_time??'' }}  {{ $todaySchedule->ending_time??'' }}</span>
+															</div>
+														@endif
 														@foreach ($weekDays as $weekDay)
 															@php
 																$schedule = \App\Models\DoctorSchedule::where('day','=',strtolower($weekDay))->where('doctor_id','=',$doctor->id)->first();
