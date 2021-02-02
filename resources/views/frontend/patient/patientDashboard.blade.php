@@ -79,7 +79,7 @@
 																		}
 																		else 
 																		{
-																			if($doctor->gender === "male")
+																			if($doctor->gender === "Male")
 																			{
 																				$photo = asset('ui/frontend/img/doctors/doctor_male.png');
 																			}
@@ -168,7 +168,7 @@
 																		}
 																		else 
 																		{
-																			if($doctor->gender === "male")
+																			if($doctor->gender === "Male")
 																			{
 																				$photo = asset('ui/frontend/img/doctors/doctor_male.png');
 																			}

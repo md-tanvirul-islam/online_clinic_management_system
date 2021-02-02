@@ -19,7 +19,7 @@
 									<div>
 										<label class="custom_check">
                                     {!! Form::open(['route'=>'doctorSearchResult']) !!}
-                                            {!! Form::selectDepartment('department_id',Null,['placeholder'=>"Select Department",'class'=>'form-control','id'=>'department_id'] )!!}
+                                            {!! Form::selectDepartment('department_id',$department_id??null,['placeholder'=>"Select Department",'class'=>'form-control','id'=>'department_id'] )!!}
                                             
 										</label>
 									</div>
@@ -40,35 +40,41 @@
 						<div class="col-md-12 col-lg-8 col-xl-9">
 							@if ($doctors)
 								@foreach ($doctors as $doctor)
-								
+									@php
+										if(isset($doctor->image))
+										{
+											$photo = asset($doctor->image);
+										}
+										else {
+											if($doctor->gender === "Male")
+											{
+												$photo = asset('ui/frontend/img/doctors/doctor_male.png');
+											}
+											else
+											{
+												$photo = asset('ui/frontend/img/doctors/doctor_female.jpg');
+											}
+										}
+									@endphp
 									<!-- Doctor Widget -->
 									<div class="card">
 										<div class="card-body">
 											<div class="doctor-widget">
 												<div class="doc-info-left">
 													<div class="doctor-img">
-														<a href="doctor-profile.html">
-															<img src="<?php if($doctor->image){ echo asset($doctor->image);}else{  echo asset('ui/frontend/img/doctors/doctor-thumb-02.jpg'); } ?>" class="img-fluid" alt="User Image">
+														<a href="{{ route('doctorProfile',[$doctor->id]) }}">
+															<img src="{{ $photo }}" class="img-fluid" alt="Doctor Image">
 														</a>
 													</div>
 													<div class="doc-info-cont">
-														<h4 class="doc-name"><a href="doctor-profile.html">{{ $doctor->name }}</a></h4>
+														<h4 class="doc-name"><a href="{{ route('doctorProfile',[$doctor->id]) }}">{{ $doctor->name }}</a></h4>
 														<p class="doc-speciality">{{ $doctor->degree }}</p>
-														<h5 class="doc-department">{{ $doctor->speciality }}</h5>
-														<div class="rating">
-															<i class="fas fa-star filled"></i>
-															<i class="fas fa-star filled"></i>
-															<i class="fas fa-star filled"></i>
-															<i class="fas fa-star filled"></i>
-															<i class="fas fa-star"></i>
-															<span class="d-inline-block average-rating">(17)</span>
-														</div>
-														
+														<h5 class="doc-department">{{ $doctor->speciality }}</h5>														
 													</div>
 												</div>
 												<div class="doc-info-right">
 													<div class="clinic-booking">
-														<a class="view-pro-btn" href="doctor-profile.html">View Profile</a>
+														<a class="view-pro-btn" href="{{ route('doctorProfile',[$doctor->id]) }}">View Profile</a>
 														<a class="apt-btn" href="{{ route('createAppointment',[$doctor->id]) }}">Book Appointment</a>
 													</div>
 												</div>

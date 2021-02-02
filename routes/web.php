@@ -54,8 +54,9 @@ Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard')
 Route::get('/', [GeneralController::class,'index'])->name('indexPage');
 Route::get('/doctor_search', [GeneralController::class,'doctorSearch'])->name('doctorSearch');
 Route::post('/doctor_search', [GeneralController::class,'doctorSearchResult'])->name('doctorSearchResult');
+Route::get('/doctor_profile/{doctor}', [GeneralController::class,'doctorProfile'])->name('doctorProfile');
 Route::middleware(['auth'])->group(function(){
-    Route::get('/create_appointment/{id}', [GeneralController::class,'createAppointment'])->name('createAppointment');
+    Route::get('/create_appointment/{doctor}', [GeneralController::class,'createAppointment'])->name('createAppointment');
     Route::post('/store_appointment', [GeneralController::class,'storeAppointment'])->name('StoreAppointment');
 });
 

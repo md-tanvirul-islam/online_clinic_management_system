@@ -5,7 +5,7 @@
 			$photo = asset($patient->image);
 		}
 		else {
-			if($patient->gender === "male")
+			if($patient->gender === "Male")
             {
                 $photo = asset('ui/frontend/img/patients/patient_male.png');
             }

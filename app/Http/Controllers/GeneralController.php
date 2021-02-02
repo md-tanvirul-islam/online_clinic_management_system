@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use App\Services\AppointmentService;
 use App\Http\Requests\StoreAppointmentFrontend;
+use App\Models\Department;
 
 
 class GeneralController extends Controller
@@ -33,14 +34,24 @@ class GeneralController extends Controller
     public function doctorSearchResult(Request $request)
     {
         // dd($request->all());
-        $id = $request->department_id;
-        $doctors = Doctor::where('department_id','=',"$id")->get();
-        return view('frontend.general.doctor_search',compact('doctors'));
+        $request->validate([
+            'department_id'=>'required|integer',
+        ]);
+        $department_id = $request->department_id;
+        $doctors = Doctor::where('department_id','=',"$department_id")->get();
+        return view('frontend.general.doctor_search',compact('doctors','department_id'));
     }
 
-    public function createAppointment($id)
+    public function doctorProfile(Doctor $doctor)
     {
-       $doctor = Doctor::find($id);
+
+        $departments = Department::pluck('name','id');
+        $weekDays = config('constant.daysOfTheWeek');
+        return view('frontend.general.doctorProfile',compact('doctor','departments','weekDays'));
+    }
+
+    public function createAppointment(Doctor $doctor)
+    {
         return view('frontend.general.book_appointment',compact('doctor'));
     }
 
@@ -48,7 +59,7 @@ class GeneralController extends Controller
     {
        $data = $request->all();
        $this->appointmentService->storeOrUpdate($data);
-       session()->flash("success", "The Appointment has been successfully made");
+       session()->flash("success", "The Appointment has been successfully created");
         return redirect()->back();
         
     }

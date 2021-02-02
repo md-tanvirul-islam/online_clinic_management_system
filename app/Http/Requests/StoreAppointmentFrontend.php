@@ -34,7 +34,7 @@ class StoreAppointmentFrontend extends FormRequest
     {
         $formData = $this->all();
         return [
-            'patient_status'=>'string|',
+            'patient_status'=>'string|required',
             'schedule_id'=>'required|integer',
             'doctor_id'=>'integer|required',
             'date'=>'date|required',
