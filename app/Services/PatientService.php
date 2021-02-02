@@ -20,6 +20,7 @@
 
             public function storeOrUpdate($data)
             {
+                // dd($data , 'patient service');
                 $auth_user_id = auth()->user()->id;
                 if(empty($data['patient_id']))
                 {   

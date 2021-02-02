@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use App\Services\AppointmentService;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Notification;
 class AppointmentController extends Controller
@@ -48,50 +49,66 @@ class AppointmentController extends Controller
         return view('backend.admin.appointments.new_patient_appointment_create',compact('departments','doctors','selectedData'));
     }
 
+    
+    public function doctorScheduleSearch(Request $request)
+    {
+        // dd($request->all());
+        $selectedData = $request->validate([
+            'department_id'=> 'integer|nullable',
+            'doctor_id'=> 'integer|required',
+            'patient_id'=> 'integer|required',
+            'patient_status' => [
+                'required',
+                Rule::in(['new', 'old', 'report']),
+            ],
+        ]);
+        // dd($selectedData);
+        $departments = Department::pluck('name','id');
+        $doctors = Doctor::pluck('name','id');
+        $patients = Patient::pluck('name','id');
+        // $selectedData = $request->validate();
+        $schedules = DoctorSchedule::where('doctor_id','=',$selectedData['doctor_id'])->get();
+        return view('backend.admin.appointments.create',compact('departments','selectedData','doctors','schedules','patients'));
+
+    }
+
+    public function doctorScheduleSearchNewPatient(Request $request)
+    {
+        $selectedData = $request->validate([
+            'department_id'=> 'integer|nullable',
+            'doctor_id'=> 'integer|required',
+            'patient_status' => [
+                'required',
+                Rule::in(['new', 'old', 'report']),
+            ],
+        ]);
+        // dd($selectedData);
+        $departments = Department::pluck('name','id');
+        $doctors = Doctor::pluck('name','id');
+        $patients = Patient::pluck('name','id');
+        // $selectedData = $request->validate();
+        $schedules = DoctorSchedule::where('doctor_id','=',$selectedData['doctor_id'])->get();
+        return view('backend.admin.appointments.new_patient_appointment_create',compact('departments','selectedData','doctors','schedules','patients'));
+
+    }
+
     public function store(StoreAppointmentRequest $request)
     {
         $data = $request->all();
         $appointment = $this->appointmentService->storeOrUpdate($data);
-        if(isset($appointment))
-        {
-            session()->flash("success", "The Appointment has been successfully made");
-            return redirect()->route('appointments.index');
-        }
-        else{
-            $date  = Carbon::createFromFormat('Y-m-d',$request->date )->isoFormat('Do MMMM,YYYY');
-            session()->flash("error", "The Doctor doesn't have Schedule for $date");
-            return redirect()->back();
-        }  
+        dd($appointment ,'appointment store method');
+        session()->flash("success", "The Appointment has been successfully made");
+        return redirect()->route('appointments.index');
     }
-    public function doctorScheduleSearch(Request $request)
-    {
-        // dd($request->all());
-        $request->validate([
-            'department_id'=> 'integer|required',
-            'doctor_id'=> 'integer|required'
-        ]);
-        $departments = Department::pluck('name','id');
-        $doctors = Doctor::pluck('name','id');
-        $selectedData = $request->all();
-        $schedules = DoctorSchedule::where('doctor_id','=',$selectedData['doctor_id'])->get();
-        return view('backend.admin.appointments.create',compact('departments','selectedData','doctors','schedules'));
 
-    }
-    
     public function newPatientAppointmentStore(StoreNewPatientAppointmentRequest $request)
     {
         // dd($request->all());
         $data = $request->all();
         $appointment = $this->appointmentService->storeOrUpdate($data);
-        if(isset($appointment))
-        {
-            session()->flash("success", "The Appointment has been successfully made");
-            return redirect()->route('appointments.index');
-        }
-        else{
-            $date  = Carbon::createFromFormat('Y-m-d',$request->date )->isoFormat('Do MMMM,YYYY');
-            session()->flash("error", "The Doctor doesn't have Schedule for $date");
-        }
+        session()->flash("success", "The Appointment has been successfully made");
+        return redirect()->route('appointments.index');
+
         
     }
    

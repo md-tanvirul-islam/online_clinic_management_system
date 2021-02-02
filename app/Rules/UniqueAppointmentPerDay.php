@@ -6,6 +6,7 @@ use Illuminate\Contracts\Validation\Rule;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class UniqueAppointmentPerDay implements Rule
 {
@@ -19,6 +20,7 @@ class UniqueAppointmentPerDay implements Rule
     public function __construct($data)
     {
         $this->formData = $data;
+
     }
 
     /**
@@ -33,6 +35,7 @@ class UniqueAppointmentPerDay implements Rule
         $is_exist = Appointment::where('patient_id','=',$this->formData['patient_id'])->
                                  where('date','=',$this->formData['date'])->
                                  where('doctor_schedule_id','=',$this->formData['schedule_id'])->exists();
+        
         if($is_exist)
         {
             return false;
@@ -50,6 +53,13 @@ class UniqueAppointmentPerDay implements Rule
     {
         $date = Carbon::parse($this->formData['date']);
         $this->doctor = Doctor::find($this->formData['doctor_id']);
-        return "You already have an appointment with Doctor ".$this->doctor->name." on ".$date->format('d F,Y');
+        // dd($this->doctor , 'request rule class message');
+        if(Auth::user()->type === 'admin')
+        {
+            return "Patient already have an appointment with Doctor ".$this->doctor->name." on ".$date->format('d F,Y');
+
+        }else{
+            return "You already have an appointment with Doctor ".$this->doctor->name." on ".$date->format('d F,Y');
+        }
     }
 }

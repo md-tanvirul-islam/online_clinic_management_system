@@ -32,13 +32,13 @@ class StoreAppointmentFrontend extends FormRequest
      */
     public function rules()
     {
-        $formdata = $this->all();
+        $formData = $this->all();
         return [
             'patient_status'=>'string|',
             'schedule_id'=>'required|integer',
             'doctor_id'=>'integer|required',
             'date'=>'date|required',
-            'patient_id'=>['required','integer',new UniqueAppointmentPerDay($formdata) ]
+            'patient_id'=>['required','integer',new UniqueAppointmentPerDay($formData) ]
         ];
     }
 }

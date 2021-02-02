@@ -25,11 +25,12 @@ class StoreNewPatientAppointmentRequest extends FormRequest
     {
         return [
             'doctor_id'=>'required|integer',
+            'schedule_id'=>'required|integer',
             'name'=>'required|string',
-            'phone'=>'required|string',
+            'email'=>'required|email',
+            'phone'=>'required|integer',
             'address'=>'nullable|string',
-            'age'=>'nullable|string',
-            'gender'=>'nullable|string',
+            'gender'=>'required|string',
             'date'=>'required|date',
             'patient_status'=>'required|string',
         ];

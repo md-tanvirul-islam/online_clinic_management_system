@@ -152,7 +152,8 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
     Route::get('/appointments/newPatientCreate',[AppointmentController::class,'newPatientAppointmentCreate'] )->name('appointments.newPatient.create');
     Route::post('/appointments/newPatientStore',[AppointmentController::class,'newPatientAppointmentStore'] )->name('appointments.newPatient.store');
     Route::put('/appointments/pay',[AppointmentController::class,'pay'] )->name('appointments.pay');
-    Route::post('/appointments/doctorSchedule/search',[AppointmentController::class,'doctorScheduleSearch'] )->name('appointments.doctorScheduleSearch');
+    Route::get('/appointments/doctorSchedule/search',[AppointmentController::class,'doctorScheduleSearch'] )->name('appointments.doctorScheduleSearch');
+    Route::get('/appointments/doctorScheduleNewPatient/search',[AppointmentController::class,'doctorScheduleSearchNewPatient'] )->name('appointments.doctorScheduleSearch.newPatient');
   
 
     Route::get('/tests/testListByTestType/',[TestController::class,'testListByTestType'] )->name('tests.testListByTestType');
