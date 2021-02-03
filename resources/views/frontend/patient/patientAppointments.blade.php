@@ -73,20 +73,17 @@
 																			}
 																		}
 																	$appointmentDate = \Carbon\Carbon::parse($appointment->date);
-																	dd(\Carbon\Carbon::createFromFormat('Y-m-d g:ia', $appointment->date." ".$appointment->schedule->ending_time));
-																	// dd($appointment->date." ".$appointment->schedule->ending_time);
-																	$appointmentDateWithTime = \Carbon\Carbon::createFromFormat('Y-m-d g:ia', "$appointment->date $appointment->schedule->ending_time");
+																	$appointmentDateWithTime = \Carbon\Carbon::createFromFormat('Y-m-d g:ia', $appointment->date." ".$appointment->schedule->ending_time);
 																	$bookingDate = \Carbon\Carbon::parse($appointment->created_at);
-																	$today = \Carbon\Carbon::now();
-								
+																	$today = \Carbon\Carbon::now();								
 																@endphp
 																<tr>
-																	<td>
+																	<td style="text-align: left">
 																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+																			<a href="{{ route('patient.own.doctorProfile',[$appointment->doctor_id]) }}" class="avatar avatar-sm mr-2">
 																				<img class="avatar-img rounded-circle" src="{{ $photo  }}" alt="User Image">
 																			</a>
-																			<a href="#">Dr. {{ $doctor->name }} <span>{{ $doctor->speciality}}</span></a>
+																			<a href="{{ route('patient.own.doctorProfile',[$appointment->doctor_id]) }}">Dr. {{ $doctor->name }} <span>{{ $doctor->speciality}}</span></a>
 																		</h2>
 																	</td>
 																	<td>{{ $appointmentDate->format('d F, Y') }}</td>
@@ -96,10 +93,10 @@
 																	@if ($appointment->is_paid === 'yes')
 																		<td><span class="badge badge-pill bg-success-light">Done</span></td>
 																	@endif
-																	@if ($appointmentDate > $today && $appointment->is_paid === null)
+																	@if ($appointmentDateWithTime > $today && $appointment->is_paid === null)
 																		<td><span class="badge badge-pill bg-warning-light">Coming</span></td>
 																	@endif
-																	@if ($appointmentDate < $today && $appointment->is_paid === null)
+																	@if ($appointmentDateWithTime < $today && $appointment->is_paid === null)
 																		<td><span class="badge badge-pill bg-danger-light">Missed</span></td>
 																	@endif
 																	{{-- <td class="text-right">

@@ -25,9 +25,13 @@
 
 					<div class="row">
 						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-							
+                            @if(auth()->user()->type === 'doctor')
+                                @include('frontend.doctor.sidebar')
+                            @else
+                                @include('frontend.patient.sidebar')  
+                            @endif
 							<!-- Profile Sidebar -->
-							@include('frontend.doctor.sidebar')
+							
 							<!-- /Profile Sidebar -->
 							
 						</div>
@@ -46,9 +50,11 @@
                                                                 <h3> {{ $doctor->name }} Profile </h3>
                                                             </div>
                                                             <div class="col-6 text-right" >
+                                                            @if(auth()->user()->type === 'doctor')
                                                                 <a href="#" title="Edit the profile" style="color:black;" class="btn bg-primary-light">
                                                                     <i class="fas fa-edit"></i> Edit Profile
                                                                 </a>
+                                                            @endif
                                                             </div>
 
                                                         </div>
@@ -89,7 +95,7 @@
                                                             <div class="col-4">
                                                                 <div >
                                                                     <img src="{{ $photo }}" class="img-fluid" style="height: 250px !important ; width: 600px !important" alt="Patient Image"> <br>
-                                                                    @if(!isset($doctor->image))
+                                                                    @if(!isset($doctor->image) && auth()->user()->type === 'doctor')
                                                                     
                                                                         <p class="text-danger" > You did not add a photo yet. Please Upload A photo </p>
                                                                     

@@ -96,10 +96,10 @@
 																<tr>
 																	<td>
 																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+																			<a href="{{ route('patient.own.doctorProfile',[$appointment->doctor_id]) }}" class="avatar avatar-sm mr-2">
 																				<img class="avatar-img rounded-circle" src="{{ $photo  }}" alt="User Image">
 																			</a>
-																			<a href="#">Dr. {{ $doctor->name }} <span>{{ $doctor->speciality}}</span></a>
+																			<a href="{{ route('patient.own.doctorProfile',[$appointment->doctor_id]) }}">Dr. {{ $doctor->name }} <span>{{ $doctor->speciality}}</span></a>
 																		</h2>
 																	</td>
 																	<td>{{ $appointmentDate->format('d F, Y') }}</td>
@@ -184,10 +184,10 @@
 																		<td>
 																			<h2 class="table-avatar">
 
-																				<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+																				<a href="{{ route('patient.own.doctorProfile',[$appointment->doctor_id]) }}" class="avatar avatar-sm mr-2">
 																					<img class="avatar-img rounded-circle" src="{{ $photo }}" alt="User Image">
 																				</a>
-																				<a href="doctor-profile.html">Dr. {{ $doctor->name }} <span>{{ $doctor->speciality}}</span></a>
+																				<a href="{{ route('patient.own.doctorProfile',[$appointment->doctor_id]) }}">Dr. {{ $doctor->name }} <span>{{ $doctor->speciality}}</span></a>
 																			</h2>
 																		</td>
 																		<td class="text-right">

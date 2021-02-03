@@ -81,6 +81,7 @@ Route::prefix('doctor')->middleware(['auth','routesForDoctor'])->group(function(
 Route::prefix('patient')->middleware(['auth','routesForPatient'])->group(function(){
     Route::get('/dashboard',[PatientOwnController::class,'patientDashboard'])->name('patient.own.dashboard');
     Route::get('/profile',[PatientOwnController::class,'profile'])->name('patient.own.profile');
+    Route::get('/doctorProfile/{doctor}',[PatientOwnController::class,'doctorProfile'])->name('patient.own.doctorProfile');
     Route::get('/appointments',[PatientOwnController::class,'patientAppointments'])->name('patient.own.appointments');
     Route::get('/prescriptions',[PatientOwnController::class,'patientPrescriptions'])->name('patient.own.prescriptions');
     Route::get('/prescription/view/{prescriptionId}',[PatientOwnController::class,'patientPrescriptionView'])->name('patient.own.prescription.view');

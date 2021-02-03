@@ -45,11 +45,9 @@
 															<h1> {{ $patient->name }} Profile </h1>
 														</div>
 														<div class="col-6 text-right" >
-															<a class="btn  btn-info" style="color: black" href="{{route('patients.index')}}" title="List of All Patients">
-																<i class="fa fa-list-ol"></i> List
-															</a>
-															<a href="{{ route('patients.edit', [$patient->id]) }}" title="Edit the profile" style="color:black;" class="btn btn-warning">
-																<i class="fas fa-edit"></i> Edit
+															
+															<a href="#" title="Edit the profile" style="color:black;" class="btn bg-info-light">
+																<i class="fas fa-edit"></i> Edit Profile
 															</a>
 														</div>
 						
@@ -60,7 +58,7 @@
 														<div class="col-6">
 															<h2 class="doc-name">{{ $patient->name }}</h2>
 															<div class="clini-infos">
-																<ul style="font-size: 20px">  
+																<ul style="font-size: 15px">  
 																	<li><i class="fas fa-at"></i> Email : {{ $patient->email ?? '---'}}</li>
 																	<li><i class="fas fa-phone"></i> Phone : {{ $patient->phone ?? '---'}}</li>
 																	<li><i class="fas fa-running"></i> Age : {{ $birthDate->age ?? '---'}} Years Old</li>
@@ -94,7 +92,7 @@
 																<img src="{{ $photo }}" class="img-fluid" style="height: 250px !important ; width: 500px !important" alt="Patient Image"> <br>
 																@if(!isset($patient->image))
 																
-																	<p class="text-danger" > You did not add a photo yet. Please Upload A photo </p>
+																	<p class="text-danger" > You did not add a photo yet. Please Upload a Photo </p>
 																
 																@endif
 																

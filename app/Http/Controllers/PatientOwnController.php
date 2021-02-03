@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\Department;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,14 @@ class PatientOwnController extends Controller
     {
         $patient = Patient::where('user_id','=',Auth::user()->id)->first();
         return view('frontend.patient.profile',compact('patient')); 
+    }
+
+    public function doctorProfile(Doctor $doctor)
+    {
+        $departments = Department::pluck('name','id');
+        $weekDays = config('constant.daysOfTheWeek');
+        $patient = Patient::where('user_id','=',Auth::user()->id)->first();
+        return view('frontend.doctor.profile',compact('doctor','departments','weekDays','patient'));  
     }
 
     public function patientAppointments()
