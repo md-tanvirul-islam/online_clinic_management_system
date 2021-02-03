@@ -63,7 +63,7 @@
 				<td style="width: 50%" >
 					@if ($noTests)
 					<h3>Test list </h3>
-					<table class="intertable"  style="width:100%;margin-left: auto;margin-right: auto;">
+					<table class="intertable"  style="width:100%;margin-left: auto;margin-right: auto;text-align:center">
 						<tr>
 						<th class="intertable" style="width:10% ">No.</th>
 						<th class="intertable" style="width:90% ">Name</th>
@@ -89,7 +89,7 @@
 				<td>
 				@if ($noMedicines)
 					<h3> Medicine list </h3>
-					<table class="intertable" style="width:100%; margin-left: auto;margin-right: auto;">
+					<table class="intertable" style="width:100%; margin-left: auto;margin-right: auto;text-align:center">
 					<tr>
 					<th class="intertable" style="width:10% ">No.</th>
 					<th class="intertable" style="width:30% ">Medicine Name</th>

@@ -11,7 +11,7 @@ use App\Services\DoctorOwnService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Barryvdh\DomPDF\PDF;
+use PDF;
 use App\Models\Department;
 
 

@@ -120,6 +120,7 @@ class TestBillController extends Controller
        $data = $request->all();
        $data['bill_for_test_id']  = $id;
        $this->testBillService->update($data);  
+       return redirect()->route('testBills.edit',[$id]);
     }
 
     public function destroy($id)

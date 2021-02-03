@@ -10,7 +10,7 @@ use App\Models\Prescription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Barryvdh\DomPDF\Facade as PDF;
+use PDF;
 
 class PatientOwnController extends Controller
 {
@@ -107,11 +107,11 @@ class PatientOwnController extends Controller
         $doctor = Doctor::find($prescription->doctor_id);
         $patient = Patient::find($prescription->patient_id);
 
-        $pdf = PDF::loadView('frontend.patient.patientPrescriptionPDF',['patient'=>$patient,'doctor'=>$doctor,'prescription'=>$prescription,'prescription_medicines'=>$prescription_medicines,'prescription_tests'=>$prescription_tests]);
-        return $pdf->download('Prescription.pdf');
+        // $pdf = PDF::loadView('frontend.patient.patientPrescriptionPDF',['patient'=>$patient,'doctor'=>$doctor,'prescription'=>$prescription,'prescription_medicines'=>$prescription_medicines,'prescription_tests'=>$prescription_tests]);
+        // return $pdf->download('Prescription.pdf');
         
-        // $html = view('frontend.doctor.doctorPrescriptionPDF',compact('patient','doctor','prescription','prescription_medicines','prescription_tests'));
-        // $pdf = PDF::loadHTML($html);
-        // return $pdf->stream("Prescription.pdf");
+        $html = view('frontend.doctor.doctorPrescriptionPDF',compact('patient','doctor','prescription','prescription_medicines','prescription_tests'));
+        $pdf = PDF::loadHTML($html);
+        return $pdf->stream("Prescription.pdf");
     }
 }

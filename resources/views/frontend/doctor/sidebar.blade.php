@@ -44,12 +44,12 @@
                         <span>Appointments</span>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="#">
                         <i class="fas fa-user-injured"></i>
                         <span>My Patients</span>
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ route('doctor.own.schedule') }}">
                         <i class="fas fa-hourglass-start"></i>
