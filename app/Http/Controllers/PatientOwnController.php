@@ -26,6 +26,12 @@ class PatientOwnController extends Controller
         return view('frontend.patient.patientDashboard',compact('patient','appointments','prescriptions'));
     }
 
+    public function profile()
+    {
+        $patient = Patient::where('user_id','=',Auth::user()->id)->first();
+        return view('frontend.patient.profile',compact('patient')); 
+    }
+
     public function patientAppointments()
     {
         $patient_id = Auth::user()->patientProfile->id;

@@ -32,7 +32,7 @@
                                     $photo = asset($patient->image);
                                 }
                                 else {
-                                    if($patient->gender === "male")
+                                    if($patient->gender === "Male")
                                     {
                                         $photo = asset('ui/frontend/img/patients/patient_male.png');
                                     }
@@ -70,7 +70,38 @@
 										</ul>
 									</div>
 								</div>
+								<div class="dashboard-widget">
+									<nav class="dashboard-menu">
+										<ul>
+											<li >
+												<a href="{{ route('doctor.own.index') }}">
+													<i class="fas fa-columns"></i>
+													<span>Dashboard</span>
+												</a>
+											</li>
+											<li>
+												<a href="{{ route('doctor.own.appointment') }}">
+													<i class="fas fa-calendar-check"></i>
+													<span>Appointments</span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<i class="fas fa-user-injured"></i>
+													<span>My Patients</span>
+												</a>
+											</li>
+											<li>
+												<a href="{{ route('doctor.own.schedule') }}">
+													<i class="fas fa-hourglass-start"></i>
+													<span>Schedule Timings</span>
+												</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
 							</div>
+							
 							<!-- /Profile Widget -->
 						</div>
 
@@ -83,7 +114,7 @@
 												<a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" href="#pres" data-toggle="tab"><span>Prescription</span></a>
+												<a class="nav-link" href="#pat_prescriptions" data-toggle="tab"><span>Prescription</span></a>
 											</li> 
 										</ul>
 									</div>
@@ -112,7 +143,7 @@
                                                                             $photo = asset($doctor->image);
                                                                         }
                                                                         else {
-                                                                            if($doctor->gender === "male")
+                                                                            if($doctor->gender === "Male")
                                                                             {
                                                                                 $photo = asset('ui/frontend/img/doctors/doctor_male.png');
                                                                             }
@@ -123,12 +154,12 @@
                                                                         }
                                                                     @endphp 
                                                                     <tr>
-                                                                        <td>
+                                                                        <td style="text-align: left">
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                <a href="{{ route('doctor.own.profile') }}" class="avatar avatar-sm mr-2">
                                                                                     <img class="avatar-img rounded-circle" src="{{ $photo }}" alt="Doctor Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">{{ $doctor->name??'---' }} <span>{{ $doctor->speciality??'---' }}</span></a>
+                                                                                <a href="{{ route('doctor.own.profile') }}">{{ $doctor->name??'---' }} <span>{{ $doctor->speciality??'---' }}</span></a>
                                                                             </h2>
                                                                         </td>
                                                                         <td>{{ $appointment_date->format('d F, Y') }}</td>
@@ -169,246 +200,71 @@
 										<!-- /Appointment Tab -->
 										
 										<!-- Prescription Tab -->
-										<div class="tab-pane fade" id="pres">
+										<div class="tab-pane fade" id="pat_prescriptions">
 											<div class="card card-table mb-0">
 												<div class="card-body">
 													<div class="table-responsive">
-														<table class="table table-hover table-center mb-0">
+														<table class="table table-hover table-center mb-0 text-center">
 															<thead>
 																<tr>
 																	<th>Date </th>
-																	<th>Name</th>									
+																	<th>ID</th>									
 																	<th>Created by </th>
 																	<th></th>
 																</tr>     
 															</thead>
 															<tbody>
-																<tr>
-																	<td>14 Nov 2019</td>
-																	<td>Prescription 1</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
-																		</h2>
-																	</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>13 Nov 2019</td>
-																	<td>Prescription 2</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile.html">Dr. Darren Elder <span>Dental</span></a>
-																		</h2>
-																	</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="edit-prescription.html" class="btn btn-sm bg-success-light">
-																				<i class="fas fa-edit"></i> Edit
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-																				<i class="far fa-trash-alt"></i> Delete
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>12 Nov 2019</td>
-																	<td>Prescription 3</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-03.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile.html">Dr. Deborah Angel <span>Cardiology</span></a>
-																		</h2>
-																	</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>11 Nov 2019</td>
-																	<td>Prescription 4</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-04.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile.html">Dr. Sofia Brient <span>Urology</span></a>
-																		</h2>
-																	</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>10 Nov 2019</td>
-																	<td>Prescription 5</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-05.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile.html">Dr. Marvin Campbell <span>Dental</span></a>
-																		</h2>
-																	</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>9 Nov 2019</td>
-																	<td>Prescription 6</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-06.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile.html">Dr. Katharine Berthold <span>Orthopaedics</span></a>
-																		</h2>
-																	</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>8 Nov 2019</td>
-																	<td>Prescription 7</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-07.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile.html">Dr. Linda Tobin <span>Neurology</span></a>
-																		</h2>
-																	</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>7 Nov 2019</td>
-																	<td>Prescription 8</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-08.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile.html">Dr. Paul Richard <span>Dermatology</span></a>
-																		</h2>
-																	</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>6 Nov 2019</td>
-																	<td>Prescription 9</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-09.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile.html">Dr. John Gibbs <span>Dental</span></a>
-																		</h2>
-																	</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>5 Nov 2019</td>
-																	<td>Prescription 10</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-10.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile.html">Dr. Olga Barlow <span>Dental</span></a>
-																		</h2>
-																	</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																		</div>
-																	</td>
-																</tr>
+																@forelse ($prescriptions as $prescription)
+																	@php
+																		
+																		$createdDate = \Carbon\Carbon::parse($prescription->created_at);
+
+																		$doctor = $prescription->doctor;
+
+																		if(isset($doctor->image))
+																		{
+																			$photo = asset($doctor->image);
+																		}
+																		else 
+																		{
+																			if($doctor->gender === "Male")
+																			{
+																				$photo = asset('ui/frontend/img/doctors/doctor_male.png');
+																			}
+																			else
+																			{
+																				$photo = asset('ui/frontend/img/doctors/doctor_female.png');
+																			}
+																		}
+																	@endphp
+																	<tr>
+																		<td>{{ $createdDate->format('d F, Y') }}</td>
+																		<td>Prescription {{ $prescription->id }}</td>
+																		<td>
+																			<h2 class="table-avatar">
+
+																				<a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+																					<img class="avatar-img rounded-circle" src="{{ $photo }}" alt="User Image">
+																				</a>
+																				<a href="doctor-profile.html">Dr. {{ $doctor->name }} <span>{{ $doctor->speciality}}</span></a>
+																			</h2>
+																		</td>
+																		<td class="text-right">
+																			<div class="table-action">
+																				<a target="_blank" href="{{ route('doctor.own.patient.printPrescription',[$prescription->id]) }}" class="btn btn-sm bg-primary-light">
+																					<i class="fas fa-print"></i> Print
+																				</a>
+																				<a target="_blank" href="{{ route('doctor.own.patient.showPrescription',[$prescription->id]) }}" class="btn btn-sm bg-info-light">
+																					<i class="far fa-eye"></i> View
+																				</a>
+																			</div>
+																		</td>
+																	</tr>
+																@empty
+																	<tr>
+																		<td colspan="4"><p class="text-danger">You Donot have Any Prescription </p></td>
+																	</tr>
+																@endforelse
 															</tbody>	
 														</table>
 													</div>

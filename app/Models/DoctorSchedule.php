@@ -23,4 +23,9 @@ class DoctorSchedule extends Model
     {
         return ucfirst($value);
     }
+
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }

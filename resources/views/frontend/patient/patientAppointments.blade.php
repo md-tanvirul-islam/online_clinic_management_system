@@ -73,6 +73,9 @@
 																			}
 																		}
 																	$appointmentDate = \Carbon\Carbon::parse($appointment->date);
+																	dd(\Carbon\Carbon::createFromFormat('Y-m-d g:ia', $appointment->date." ".$appointment->schedule->ending_time));
+																	// dd($appointment->date." ".$appointment->schedule->ending_time);
+																	$appointmentDateWithTime = \Carbon\Carbon::createFromFormat('Y-m-d g:ia', "$appointment->date $appointment->schedule->ending_time");
 																	$bookingDate = \Carbon\Carbon::parse($appointment->created_at);
 																	$today = \Carbon\Carbon::now();
 								

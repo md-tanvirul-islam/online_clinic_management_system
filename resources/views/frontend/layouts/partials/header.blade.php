@@ -208,6 +208,18 @@
                     }elseif(auth()->user()->type === 'admin') {
                         $dashboardLink = route('admin.index');
                     }
+
+                    //for profile link
+                    if(auth()->user()->type === 'doctor')
+                    {
+                        $profileLink = route('doctor.own.profile');
+                    }
+                    elseif(auth()->user()->type === 'patient') {
+                        $profileLink = route('patient.own.profile');
+                    }elseif(auth()->user()->type === 'admin') {
+                        $profileLink = '#';
+                    }
+
                 @endphp
             @endauth
                 @guest
@@ -234,7 +246,8 @@
 										<p class="text-muted mb-0">{{ auth()->user()->type }}</p>
 									</div>
 								</div>
-								<a class="dropdown-item" href="{{$dashboardLink ?? '---'}}">Dashboard</a>
+								<a class="dropdown-item" href="{{$dashboardLink ?? '#'}}">Dashboard</a>
+								<a class="dropdown-item" href="{{$profileLink ?? '#'}}">Profile</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">

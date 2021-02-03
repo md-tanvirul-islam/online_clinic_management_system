@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\PDF;
+use App\Models\Department;
 
 
 class DoctorOwnController extends Controller
@@ -27,6 +28,14 @@ class DoctorOwnController extends Controller
         $doctor = Doctor::where('user_id','=',Auth::user()->id)->first();
         $appointments = Appointment::where('doctor_id','=',$doctor->id)->orderBy('date','desc')->get();
         return view('frontend.doctor.doctorDashboard',compact('doctor','appointments'));
+    }
+
+    public function profile()
+    {
+        $doctor = Doctor::where('user_id','=',Auth::user()->id)->first();
+        $departments = Department::pluck('name','id');
+        $weekDays = config('constant.daysOfTheWeek');
+        return view('frontend.doctor.profile',compact('doctor','departments','weekDays')); 
     }
 
     public function schedules()
@@ -59,7 +68,11 @@ class DoctorOwnController extends Controller
         $appointments = Appointment::where('doctor_id','=',$doctor->id)
                                     ->where('patient_id','=',$patient->id)
                                     ->orderBy('date','desc')->get();
-        return view('frontend.doctor.doctorPatientProfile',compact('patient','doctor','appointments'));
+        $prescriptions = Prescription::where('patient_id','=',$patient->id)
+                                    ->where('doctor_id','=',$doctor->id)
+                                    ->orderBy('created_at','Desc')
+                                    ->get();                           
+        return view('frontend.doctor.doctorPatientProfile',compact('patient','doctor','appointments','prescriptions'));
     }
 
     public function createPrescription($appointment_id,$patient_id)

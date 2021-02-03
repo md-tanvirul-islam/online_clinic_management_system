@@ -63,6 +63,7 @@ Route::middleware(['auth'])->group(function(){
 //******** Routes for Doctor
 Route::prefix('doctor')->middleware(['auth','routesForDoctor'])->group(function(){
     Route::get('/dashboard',[DoctorOwnController::class,'index'])->name('doctor.own.index');
+    Route::get('/profile',[DoctorOwnController::class,'profile'])->name('doctor.own.profile');
     Route::get('/schedule',[DoctorOwnController::class,'schedules'])->name('doctor.own.schedule');
     Route::get('/appointments',[DoctorOwnController::class,'appointments'])->name('doctor.own.appointment');
     Route::get('/appointments/today',[DoctorOwnController::class,'appointmentsToday'])->name('doctor.own.appointment.today');
@@ -79,6 +80,7 @@ Route::prefix('doctor')->middleware(['auth','routesForDoctor'])->group(function(
 //******** Routes for Patient
 Route::prefix('patient')->middleware(['auth','routesForPatient'])->group(function(){
     Route::get('/dashboard',[PatientOwnController::class,'patientDashboard'])->name('patient.own.dashboard');
+    Route::get('/profile',[PatientOwnController::class,'profile'])->name('patient.own.profile');
     Route::get('/appointments',[PatientOwnController::class,'patientAppointments'])->name('patient.own.appointments');
     Route::get('/prescriptions',[PatientOwnController::class,'patientPrescriptions'])->name('patient.own.prescriptions');
     Route::get('/prescription/view/{prescriptionId}',[PatientOwnController::class,'patientPrescriptionView'])->name('patient.own.prescription.view');

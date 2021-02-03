@@ -79,7 +79,7 @@
 																			$photo = asset($patient->image);
 																		}
 																		else {
-																			if($patient->gender === "male")
+																			if($patient->gender === "Male")
 																			{
 																				$photo = asset('ui/frontend/img/patients/patient_male.png');
 																			}
@@ -90,7 +90,7 @@
 																		}
 																		@endphp
 																		<tr>
-																			<td>
+																			<td style="text-align: left">
 																				<h2 class="table-avatar">
 																					<a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src=" {{ asset('ui/frontend/img/patients/patient.jpg') }}" alt="User Image"></a>
 																					<a href="#">{{ $patient->name }} <span>#PT{{ $patient->id }}</span></a>

@@ -44,9 +44,9 @@
 														<h4 class="card-title">Schedule Timings</h4>
 													</div>
 													<div class="col text-right" style="padding-bottom: 10px !important">  
-														<a href="#" class="btn btn-warning">
+														{{-- <a href="#" class="btn btn-warning">
 															Edit
-														</a>
+														</a> --}}
 													</div>
 												</div>
 											</div>
@@ -56,71 +56,71 @@
 													<div class="col-md-12">
 														<div class="card schedule-widget mb-0">
 																		<div class="container text-center" style='margin-top:10;margin-bottom:10px;font-weight:bolder'>
-																			<div class="table table-bordered ">
-																				<div class="row " style="margin-top:10px; margin-bottom:10px">
-																					<div class="col   btn btn-primary text-dark" style="font-weight: bold">  Date </div> 
-																					<div class="col   btn btn-primary text-dark" style="font-weight: bold">Day </div> 
-																					<div class="col   btn btn-primary text-dark" style="font-weight: bold">Starting Time </div> 
-																					<div class="col   btn btn-primary text-dark" style="font-weight: bold">Ending Time </div>
-																					<div class="col   btn btn-primary text-dark" style="font-weight: bold">Booked Number</div>
-																				</div> 
-																				@for ($i= 1 ; $i<=7 ; $i++)
-																					@php
-																						$dayAfterToday = \Carbon\Carbon::now()->addDays($i);
-																						$date = new DateTime($dayAfterToday);
-																						$stdDate = $date->format('Y-m-d');
-																					@endphp
-																					<div class="row" style="margin-top:10px; margin-bottom:10px">
-																						<div class="col ">{{ $date->format('d M,Y') }}</div> 
-																						<div class="col ">{{ $date->format('l') }} </div> 
-																							@php
-																								$day = strtolower($date->format('l'));
+																			<table class="table table-bordered " style="padding: 5px !important">
+																				<tr style="margin-top:10px; margin-bottom:10px">
+																					<th>Date </th> 
+																					<th>Day </th> 
+																					<th>Starting Time </th> 
+																					<th>Ending Time </th>
+																					<th>Remains</th>
+																				</tr> 
+																			@for ($i= 0 ; $i<=7 ; $i++)
+																				@php
+																					$today = \Carbon\Carbon::now();
+																					$dayAfterToday = \Carbon\Carbon::now()->addDays($i);
+																					$date = new DateTime($dayAfterToday);
+																					$stdDate = $date->format('Y-m-d');
+																				@endphp
+																				<tr>
+																					<td style="font-weight: normal;">{{ $date->format('d M,Y') }} <br><b><span class="text-success">{{ $today->format('d M,Y') === $date->format('d M,Y')?"Today":"" }}</span></b></td> 
+																					<td style="font-weight: normal;">{{ $date->format('l') }} </td> 
+																						@php
+																							$day = strtolower($date->format('l'));
 																								$schedule = App\Models\DoctorSchedule::where('doctor_id','=',"$doctor->id")->where('day','=',"$day")->first(); 
 																								$sTime = $schedule->starting_time??null;
 																								$eTime =  $schedule->ending_time??null;
 																								$noOfBookings = App\Models\Appointment::where('date','=',"$stdDate")->count();
 																								$remain_booking = $doctor->max_appointment - $noOfBookings;
-																							@endphp
-																						<div class="col ">
-																							<?php
-																								if ($sTime) 
-																								{
-																									echo $eTime;
-																								}
-																								else 
-																								{
-																									echo "<span style='color: brown'>No Schedule</span>";
-																								}
-																							?>
-																						</div> 
-																						<div class="col ">
-																							<?php 
-																								if ($sTime) 
-																								{
-																									echo $eTime;
-																								}
-																								else 
-																								{
-																									echo "<span style='color: brown'>No Schedule</span>";
-																								}
-																							?>
-																						</div> 
-																						<div class="col">
-																							<?php
-																								if ($sTime) 
-																								{
-																									echo $remain_booking ;															
-																								}
-																								else 
-																								{
-																									echo "<span style='color: brown'>NA</span>";
-																								}
-																							?>
-																						</div>
-														
-																					</div>
-																				@endfor
-																			</div>
+																						@endphp
+																					<td style="font-weight: normal;">
+																						<?php
+																							if ($sTime) 
+																							{
+																								echo $sTime;
+																							}
+																							else 
+																							{
+																								echo "<span style='color: brown'>No Schedule</span>";
+																							}
+																						?>
+																					</td> 
+																					<td style="font-weight: normal;">
+																						<?php 
+																							if ($sTime) 
+																							{
+																								echo $eTime;
+																							}
+																							else 
+																							{
+																								echo "<span style='color: brown'>No Schedule</span>";
+																							}
+																						?>
+																					</td> 
+																					<td style="font-weight: normal;">
+																						<?php
+																							if ($sTime) 
+																							{
+																								echo $remain_booking ;															
+																							}
+																							else 
+																							{
+																								echo "<span style='color: brown'>NA</span>";
+																							}
+																						?>
+																					</td>
+																				</tr>
+																			@endfor
+																		</table>
 																		</div>
 														</div>
 													</div>

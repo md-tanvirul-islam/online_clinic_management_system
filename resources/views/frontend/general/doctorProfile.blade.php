@@ -6,13 +6,13 @@
                         }
                         else 
                         {
-                            if($doctor->gender === "male")
+                            if($doctor->gender === "Male")
                             {
-                                $photo = asset('ui/frontend/img/patients/patient_male.png');
+                                $photo = asset('ui/frontend/img/doctors/doctor_male.png');
                             }
                             else
                             {
-                                $photo = asset('ui/frontend/img/patients/patient_female.png');
+                                $photo = asset('ui/frontend/img/doctors/doctor_female.jpg');
                             }
                         }
 @endphp
@@ -91,12 +91,6 @@
 												<div class="col-4">
 													<div class="doctor-img">
 														<img src="{{ $photo }}" class="img-fluid" style="height: 250px !important ; width: 500px !important" alt="Patient Image"> <br>
-														@if(!isset($doctor->image))
-														
-															<p class="text-danger" > You did not add a photo yet. Please Upload A photo </p>
-														
-														@endif
-														
 													</div>
 												</div>
 											</div>                            

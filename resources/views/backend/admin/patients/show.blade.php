@@ -28,7 +28,7 @@
                         }
                         else 
                         {
-                            if($patient->gender === "male")
+                            if($patient->gender === "Male")
                             {
                                 $photo = asset('ui/frontend/img/patients/patient_male.png');
                             }
@@ -92,7 +92,7 @@
 							</div>                            
 						</div>
 					</div>
-					<!-- /Doctor Widget -->
+		<!-- /Doctor Widget -->
         
     </div>
 

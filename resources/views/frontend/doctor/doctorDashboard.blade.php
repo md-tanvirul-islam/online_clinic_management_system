@@ -80,7 +80,7 @@
 																			$photo = asset($patient->image);
 																		}
 																		else {
-																			if($patient->gender === "male")
+																			if($patient->gender === "Male")
 																			{
 																				$photo = asset('ui/frontend/img/patients/patient_male.png');
 																			}
@@ -91,10 +91,10 @@
 																		}
 																		@endphp
 																		<tr>
-																			<td>
+																			<td style="text-align: left">
 																				<h2 class="table-avatar">
-																					<a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src=" {{ $photo }}" alt="User Image"></a>
-																					<a href="#">{{ $patient->name }} <span>#PT{{ $patient->id }}</span></a>
+																					<a href="{{ route('doctor.own.patient.profile',[$patient->id ]) }}" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src=" {{ $photo }}" alt="User Image"></a>
+																					<a href="{{ route('doctor.own.patient.profile',[$patient->id ]) }}">{{ $patient->name }} <span>#PT{{ $patient->id }}</span></a>
 																				</h2>
 																			</td>
 																			<td>{{ $appointment_date->format('d F,Y') }}</span></td>

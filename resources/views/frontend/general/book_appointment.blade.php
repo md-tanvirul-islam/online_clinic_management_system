@@ -11,10 +11,10 @@
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="{{ route('indexPage') }}">Home</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+								<li class="breadcrumb-item active" aria-current="page">Booking Page</li>
 							</ol>
 						</nav>
-						<h2 class="breadcrumb-title">Dashboard</h2>
+						<h2 class="breadcrumb-title">Booking Page</h2>
 					</div>
 				</div>
 			</div>
@@ -22,25 +22,92 @@
 	<!-- /Breadcrumb -->
 		
 		<!-- Page Content -->
-		<div class="content">
+		<div class="content" >
 			<div class="container-fluid">
 	
 				<div class="row">
 					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 						
+						@php
+							if(isset($doctor->image))
+								{
+									$photo = asset($doctor->image);
+								}
+								else {
+									if($doctor->gender === "Male")
+									{
+										$photo = asset('ui/frontend/img/doctors/doctor_male.png');
+									}
+									else
+									{
+										$photo = asset('ui/frontend/img/doctors/doctor_female.jpg');
+									}
+								}
+								$birthDate = \Carbon\Carbon::parse($patient->birthDate);
+						@endphp       
 						<!-- Profile Sidebar -->
-						@include('frontend.patient.sidebar')
-						<!-- /Profile Sidebar -->
+
+							<div class="profile-sidebar">
+								<div class="widget-profile pro-widget-content">
+									<div class="profile-info-widget">
+										<a href="#" class="booking-doc-img">
+											<img src="{{ $photo }}" alt="Patient Image">
+										</a>
+										<div class="profile-det-info">
+											<h3>Dr. {{ $doctor->name }}</h3>
+											<div class="patient-details">
+												<h5 class="mb-0">{{ $doctor->degree }} {{ $doctor->speciality }}</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="dashboard-widget">
+									<nav class="dashboard-menu">
+										<ul>
+											<li >
+												<a href="{{ route('patient.own.dashboard') }}">
+													<i class="fas fa-columns"></i>
+													<span>My Dashboard</span>
+												</a>
+											</li>
+											<li>
+												<a href="{{ route('patient.own.appointments') }}">
+													<i class="far fa-calendar-alt"></i>
+													<span>My Appointments</span>
+												</a>
+											</li>
+											<li>
+												<a href="{{ route('patient.own.prescriptions') }}">
+													<i class="fas fa-prescription"></i>
+													<span>My Prescriptions</span>
+													{{-- <small class="unread-msg">23</small> --}}
+												</a>
+											</li>
+											<li>
+												<a href="{{ route('doctorSearch') }}">
+													<i class="fa fa-search" aria-hidden="true"></i>
+													<span>Search Doctor</span>
+													{{-- <small class="unread-msg">23</small> --}}
+												</a>
+											</li>
+               
+										</ul>
+									</nav>
+								</div>
+
+							</div>
+
+						<!-- / Profile Sidebar -->
 						
 					</div>
 					
 					<div class="col-md-7 col-lg-8 col-xl-9">							
 						<!-- Appointment Notice -->
-						<div class="container text-center"> 
+						{{-- <div class="container text-center"> 
 							<h3> Doctor {{ $doctor->name }} takes maximum {{ $doctor->max_appointment }} appointments daily</h3>
-						</div>
+						</div> --}}
 						<!-- Schedule Widget -->
-						<div class="card-body">
+						<div class="card-body" style="padding-top: 0px !important;padding-left: 0px !important;">
 							<div class="row">
 								<div class="col-sm">
 										<div class="row text-right">
@@ -64,6 +131,9 @@
 											</div>
 										</div>
 										<hr>
+										<div class="container text-center"> 
+											<h5> Doctor {{ $doctor->name }} <b>Schedule</b>. He takes maximum <b>{{ $doctor->max_appointment }}</b> appointments daily</h5>
+										</div>
 										<!-- Schedule Widget -->
 											<table class="table table-bordered  text-center" style="padding: 5px !important">
 													<tr style="margin-top:10px; margin-bottom:10px">
@@ -87,7 +157,6 @@
 															@php
 																$day = strtolower($date->format('l'));
 																$schedule = App\Models\DoctorSchedule::where('doctor_id','=',$doctor->id)->where('day','=',"$day")->first(); 
-																$doctor = App\Models\Doctor::find($doctor->id)->first(); 
 																$sTime = $schedule->starting_time??null;
 																$eTime =  $schedule->ending_time??null;
 																$noOfBookings = App\Models\Appointment::where('date','=',"$DateForDB")->count();

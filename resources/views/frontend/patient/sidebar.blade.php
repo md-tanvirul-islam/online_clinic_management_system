@@ -39,19 +39,19 @@
                     <li >
                         <a href="{{ route('patient.own.dashboard') }}">
                             <i class="fas fa-columns"></i>
-                            <span>Dashboard</span>
+                            <span>My Dashboard</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('patient.own.appointments') }}">
                             <i class="far fa-calendar-alt"></i>
-                            <span>Appointments</span>
+                            <span>My Appointments</span>
                         </a>
                     </li>
                       <li>
                         <a href="{{ route('patient.own.prescriptions') }}">
                             <i class="fas fa-prescription"></i>
-                            <span>Prescriptions</span>
+                            <span>My Prescriptions</span>
                             {{-- <small class="unread-msg">23</small> --}}
                         </a>
                     </li>

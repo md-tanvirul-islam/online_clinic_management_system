@@ -26,4 +26,9 @@ class Appointment extends Model
     {
         return $this->hasOne(Prescription::class);
     }
+
+    public function schedule()
+    {
+        return $this->belongsTo(DoctorSchedule::class,'doctor_schedule_id','id');
+    }
 }

@@ -28,13 +28,13 @@
                         }
                         else 
                         {
-                            if($doctor->gender === "male")
+                            if($doctor->gender === "Male")
                             {
-                                $photo = asset('ui/frontend/img/patients/patient_male.png');
+                                $photo = asset('ui/frontend/img/doctors/doctor_male.png');
                             }
                             else
                             {
-                                $photo = asset('ui/frontend/img/patients/patient_female.png');
+                                $photo = asset('ui/frontend/img/doctors/doctor_female.png');
                             }
                         }
 @endphp
@@ -92,8 +92,8 @@
 							</div>                            
 						</div>
 					</div>
-                    <!-- /Doctor Widget -->
-                    <!-- Doctor Details Tab -->
+        <!-- /Doctor Widget -->
+        <!-- Doctor Details Tab -->
 					<div class="card">
 						<div class="card-body pt-0">
 						
@@ -223,7 +223,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- /Doctor Details Tab -->
+		<!-- /Doctor Details Tab -->
         
     </div>
 

@@ -52,12 +52,14 @@ class GeneralController extends Controller
 
     public function createAppointment(Doctor $doctor)
     {
+        // dd($doctor);
         return view('frontend.general.book_appointment',compact('doctor'));
     }
 
     public function storeAppointment(StoreAppointmentFrontend $request)
     {
        $data = $request->all();
+    //    dd($data);
        $this->appointmentService->storeOrUpdate($data);
        session()->flash("success", "The Appointment has been successfully created");
         return redirect()->back();
