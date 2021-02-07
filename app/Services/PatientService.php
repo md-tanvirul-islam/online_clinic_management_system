@@ -5,7 +5,7 @@
     use Illuminate\Support\Facades\Hash;
     use App\Models\User;
 
-    class patientService
+    class PatientService
         {
             protected $fileHandelingService;
             public function __construct()
