@@ -6,8 +6,8 @@
 				<div class="container-fluid">
 					<div class="banner-wrapper">
 						<div class="banner-header text-center">
-							<h1>Search Doctor, Make an Appointment</h1>
-							<p>Discover the best doctors, clinic & hospital the city nearest to you.</p>
+							<h1>{{__('index.heading1')}}</h1>
+							<p>{{__('index.heading1_small')}}</p>
 						</div>
                          
 						<!-- Search -->
@@ -35,7 +35,7 @@
 			<section class="section section-specialities">
 				<div class="container-fluid">
 					<div class="section-header text-center">
-						<h2>Clinic and Specialities</h2>
+						<h2>{{__('index.heading2')}}</h2>
 						<p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 					</div>
 					<div class="row justify-content-center">
@@ -108,7 +108,7 @@
 				   <div class="row">
 						<div class="col-lg-4">
 							<div class="section-header ">
-								<h2>Book Our Doctor</h2>
+								<h2>{{__('index.heading3')}}</h2>
 								<p>Lorem Ipsum is simply dummy text </p>
 							</div>
 							<div class="about-content">
@@ -520,7 +520,7 @@
 						</div>
 						<div class="col-md-7">
 							<div class="section-header">	
-								<h2 class="mt-2">Availabe Features in Our Clinic</h2>
+								<h2 class="mt-2">{{__('index.heading4')}}</h2>
 								<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </p>
 							</div>	
 							<div class="features-slider slider">

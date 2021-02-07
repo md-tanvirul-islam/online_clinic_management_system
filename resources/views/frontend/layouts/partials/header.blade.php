@@ -9,7 +9,7 @@
                     <span></span>
                 </span>
             </a>
-            <a href="{{ route('indexPage') }}" class="navbar-brand logo">
+            <a href="{{ route('indexPage',[$lang]) }}" class="navbar-brand logo">
                 <img src="{{ asset('ui/frontend/img/logo.png') }}" class="img-fluid" alt="Logo">
             </a>
         </div>
@@ -24,7 +24,7 @@
             </div>
             <ul class="main-nav">
                 <li class="active">
-                    <a href="{{ route('indexPage') }}">Home</a>
+                    <a href="{{ route('indexPage',[$lang]) }}">Home</a>
                 </li>
                 {{-- <li class="has-submenu">
                     <a href="#">Patient <i class="fas fa-chevron-down"></i></a>

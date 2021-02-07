@@ -51,7 +51,11 @@ Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard')
 // ******* Finish
 
 // Routes for general users
-Route::get('/', [GeneralController::class,'index'])->name('indexPage');
+Route::get('/', [GeneralController::class,'index'])->name('indexGeneral');
+Route::get('/{lang}', [GeneralController::class,'indexLang'])->name('indexPage');
+
+
+
 Route::get('/doctor_search', [GeneralController::class,'doctorSearch'])->name('doctorSearch');
 Route::post('/doctor_search', [GeneralController::class,'doctorSearchResult'])->name('doctorSearchResult');
 Route::get('/doctor_profile/{doctor}', [GeneralController::class,'doctorProfile'])->name('doctorProfile');
@@ -209,9 +213,15 @@ Route::get('test',function(Request $request)
 {
     // return view('errors.403');
     // $user = User::where('type','=','admin')->get();
-    $name = 'abdullah';
-     $data = "<a href='".route('patients.show',[4])."'>".$name." has created a profile as a patient. </a>";
-    dd($data, 'web.php');
+    // $name = 'abdullah';
+    //  $data = "<a href='".route('patients.show',[4])."'>".$name." has created a profile as a patient. </a>";
+    // dd($data, 'web.php');
+    dd(testingHelper());
+});
+
+Route::get('test1',function(Request $request)
+{
+    dd(testingHelper());
 });
 
 Route::get('logOutTesting',function(Request $request)
