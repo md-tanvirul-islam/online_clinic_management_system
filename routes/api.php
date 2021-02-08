@@ -1,6 +1,6 @@
 <?php
-
-use App\Http\Controllers\ApiDepartmentController;
+use App\Http\Controllers\Api\TokenController;
+use App\Http\Controllers\Api\ApiDepartmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,15 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
-    Route::get('/departments',[ApiDepartmentController::class,'getAllDepartments']);
 });
 
 Route::middleware('api')->get('/departments',[ApiDepartmentController::class,'getAllDepartments']);
+Route::middleware('api')->post('/generateToken',[TokenController::class,'generateToken']);
 
 
-// Route::group(['prefix' => 'api'], function () {
-       
-// });
-
+ 

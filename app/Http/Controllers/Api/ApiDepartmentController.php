@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+use App\Services\ApiResponseService;
 use App\Services\DepartmentService;
 use Illuminate\Http\Request;
 
 class ApiDepartmentController extends Controller
 {
     protected $departmentService;
+    protected $apiResponseService;
 
     public $successStatus = 200;
 
@@ -15,14 +17,13 @@ class ApiDepartmentController extends Controller
     public function __construct()
     {
         $this->departmentService = new DepartmentService();
+        $this->apiResponseService = new ApiResponseService();
     }
     public function getAllDepartments() 
     {
         $departments = $this->departmentService->allDepartments();
         // return response()->json($departments,200);
-
-
-        return $this->sendResponse(['data'=>$departments], '');
+        return $this->apiResponseService->sendResponse(['data'=>$departments], 'Department List');
        
     }
     public function createDepartment(Request $request) {
