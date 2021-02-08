@@ -9,6 +9,9 @@ class ApiDepartmentController extends Controller
 {
     protected $departmentService;
 
+    public $successStatus = 200;
+
+
     public function __construct()
     {
         $this->departmentService = new DepartmentService();
@@ -16,7 +19,10 @@ class ApiDepartmentController extends Controller
     public function getAllDepartments() 
     {
         $departments = $this->departmentService->allDepartments();
-        return response()->json($departments,200);
+        // return response()->json($departments,200);
+
+
+        return $this->sendResponse(['data'=>$departments], '');
        
     }
     public function createDepartment(Request $request) {
