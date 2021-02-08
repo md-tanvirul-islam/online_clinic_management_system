@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Services\AppointmentService;
 use App\Http\Requests\StoreAppointmentFrontend;
 use App\Models\Department;
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class GeneralController extends Controller
 {
@@ -20,17 +20,6 @@ class GeneralController extends Controller
     public function __construct()
     {
         $this->appointmentService = new AppointmentService();
-    }
-
-    public function indexLang($lang)
-    {
-        // dd(in_array($lang, ['en', 'bn']));
-        // return view('welcome');
-        if (! in_array($lang, ['en', 'bn'])) {
-            abort(400);
-        }    
-        App::setLocale($lang);
-        return view('frontend.general.index',compact('lang'));
     }
     public function index()
     {
@@ -74,7 +63,22 @@ class GeneralController extends Controller
         return redirect()->back();
         
     }
-
+    public function language(Request $request, $lang)
+    {
+        if (! in_array($lang, ['en', 'bn'])) {
+            abort(400);
+        }
+        else{
+            if (Session::has('locale_language')) {
+                Session::forget('locale_language');
+                Session::put('locale_language',$lang);
+            }
+            else{
+                Session::put('locale_language',$lang);
+            }
+            return redirect()->back();
+        }
+    }
 
 
 

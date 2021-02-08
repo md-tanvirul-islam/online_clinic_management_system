@@ -9,7 +9,7 @@
                     <span></span>
                 </span>
             </a>
-            <a href="{{ route('indexPage',[$lang]) }}" class="navbar-brand logo">
+            <a href="{{ route('indexPage') }}" class="navbar-brand logo">
                 <img src="{{ asset('ui/frontend/img/logo.png') }}" class="img-fluid" alt="Logo">
             </a>
         </div>
@@ -24,7 +24,7 @@
             </div>
             <ul class="main-nav">
                 <li class="active">
-                    <a href="{{ route('indexPage',[$lang]) }}">Home</a>
+                    <a href="{{ route('indexPage') }}">Home</a>
                 </li>
                 {{-- <li class="has-submenu">
                     <a href="#">Patient <i class="fas fa-chevron-down"></i></a>
@@ -61,27 +61,13 @@
                         <li><a href="change-password.html">Change Password</a></li> --}}
                     </ul>
                 </li>	
-                {{-- <li class="has-submenu">
-                    <a href="#">Pages <i class="fas fa-chevron-down"></i></a>
+                <li class="has-submenu">
+                    <a href="#">Language <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
-                        <li><a href="voice-call.html">Voice Call</a></li>
-                        <li><a href="video-call.html">Video Call</a></li>
-                        <li><a href="search.html">Search Doctors</a></li>
-                        <li><a href="calendar.html">Calendar</a></li>
-                        <li><a href="components.html">Components</a></li>
-                        <li class="has-submenu">
-                            <a href="invoices.html">Invoices</a>
-                            <ul class="submenu">
-                                <li><a href="invoices.html">Invoices</a></li>
-                                <li><a href="invoice-view.html">Invoice View</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="blank-page.html">Starter Page</a></li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Register</a></li>
-                        <li><a href="forgot-password.html">Forgot Password</a></li>
+                        <li><a href="{{ route('language',['bn']) }}">Bangla</a></li>
+                        <li><a href="{{ route('language',['en']) }}">English</a></li>
                     </ul>
-                </li> --}}
+                </li>
                 {{-- <li>
                     <a href="admin/index.html" target="_blank">Admin</a>
                 </li> --}}
