@@ -67,17 +67,12 @@ class GeneralController extends Controller
     {
         if (! in_array($lang, ['en', 'bn'])) {
             abort(400);
-        }
-        else{
-            if (Session::has('locale_language')) {
-                Session::forget('locale_language');
-                Session::put('locale_language',$lang);
-            }
-            else{
-                Session::put('locale_language',$lang);
-            }
-            return redirect()->back();
-        }
+        }      
+           
+          Session::put('locale_language',$lang);
+
+        return redirect()->back();
+        
     }
 
 

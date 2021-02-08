@@ -20,13 +20,10 @@ class Locale
     public function handle(Request $request, Closure $next)
     {   
 
-        if (Session::has('locale_language')) {
-            $locale_language = Session::get('locale_language');
-            App::setLocale($locale_language);
-        }
-        else{
-            App::setLocale(config('app.locale'));
-        }
+        $locale_language = Session::get('locale_language') ?? config('app.locale');
+
+             App::setLocale($locale_language);
+
         return $next($request);
     }
 }
