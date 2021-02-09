@@ -9,6 +9,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AssignPermissionForRole;
 use App\Http\Controllers\AssignRoleForUser;
+use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\AuthorizationRoleController;
 use App\Http\Controllers\AuthorizationPermissionController;
 use App\Http\Controllers\TestController;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
 
 
 /*
@@ -45,8 +47,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-//****** For Redirection according to the user type
+//****** For Login with Social media
+Route::get('/auth/redirect',[SocialAuthController::class,'googleRedirect'])->name('google_login');
 
+Route::get('/auth/callback',[SocialAuthController::class,'googleCallback'])->name('google_after_login');
+// ******* Localization Finish
+
+//****** For Redirection according to the user type
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 // ******* Finish
 
@@ -55,6 +62,13 @@ Route::get('/lang/{lang}', [GeneralController::class,'language'])->name('languag
 // ******* Localization Finish
 
 // Routes for general users
+Route::get('/', [GeneralController::class,'index'])->name('indexPage');
+Route::get('/privacy', function(){
+    return 'privacy list';
+})->name('privacy');
+Route::get('/terms', function(){
+    return 'terms list';
+})->name('terms');
 Route::get('/', [GeneralController::class,'index'])->name('indexPage');
 Route::get('/doctor_search', [GeneralController::class,'doctorSearch'])->name('doctorSearch');
 Route::post('/doctor_search', [GeneralController::class,'doctorSearchResult'])->name('doctorSearchResult');

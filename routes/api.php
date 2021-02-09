@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\Api\TokenController;
-use App\Http\Controllers\Api\ApiDepartmentController;
+use App\Http\Controllers\Api\DepartmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +19,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('api')->get('/departments',[ApiDepartmentController::class,'getAllDepartments']);
+Route::middleware('api')->get('/departments',[DepartmentController::class,'getAllDepartments']);
 Route::middleware('api')->post('/generateToken',[TokenController::class,'generateToken']);
 
 
- 

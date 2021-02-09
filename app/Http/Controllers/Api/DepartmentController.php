@@ -5,8 +5,9 @@ use App\Http\Controllers\Controller;
 use App\Services\ApiResponseService;
 use App\Services\DepartmentService;
 use Illuminate\Http\Request;
+use App\Http\Resources\DepartmentResource;
 
-class ApiDepartmentController extends Controller
+class DepartmentController extends Controller
 {
     protected $departmentService;
     protected $apiResponseService;
@@ -22,8 +23,14 @@ class ApiDepartmentController extends Controller
     public function getAllDepartments() 
     {
         $departments = $this->departmentService->allDepartments();
-        // return response()->json($departments,200);
-        return $this->apiResponseService->sendResponse(['data'=>$departments], 'Department List');
+        return response()->json([
+            'status' => 'success',
+            'code' => 200,
+            'message' => 'Department List',
+            'data' => [
+                'departments' => DepartmentResource::collection($departments)
+            ]
+        ], 200);
        
     }
     public function createDepartment(Request $request) {

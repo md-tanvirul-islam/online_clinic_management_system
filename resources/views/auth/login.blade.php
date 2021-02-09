@@ -64,10 +64,19 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group row mb-0" style="margin-top: 5px">
+                            <div class="col-md-8 offset-md-4">
+                                <a class="btn" href="{{ route('google_login') }}">
+                                    <img src="{{ asset('ui\frontend\img\google signin button\btn_google_dark_focus_ios.svg') }}"> Login With Google
+                                </a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 @endsection
