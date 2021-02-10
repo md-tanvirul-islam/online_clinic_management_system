@@ -21,7 +21,7 @@
             public function storeOrUpdate($data)
             {
                 // dd($data , 'patient service');
-                $auth_user_id = auth()->user()->id;
+                $auth_user_id = auth()->user()->id ?? null;
                 if(empty($data['patient_id']))
                 {   
                     //first created user in user table for login 
@@ -30,9 +30,11 @@
                         'email' => $data['email'],
                         'type' => 'patient',
                         'password' => Hash::make('password'),
+                        'media_id' => $data['media_id'],
+                        'media' => $data['media']??null,
                     ]);
 
-                    // now create the doctor profile and set the user_id with above variable $doctorUser
+                    // now create the patient profile and set the user_id with above variable $doctorUser
 
                     $patientProfile = new Patient();
                     $patientProfile->created_by = $auth_user_id; 
@@ -43,7 +45,7 @@
                         $patientProfile->image = $this->fileHandelingService->uploadImage($data['image'],"uploads/patients/images/");
                     }
                     else{
-                        $patientProfile->image =null;
+                        $patientProfile->image = $data['social_image']??null;
                     }
 
                     // $doctor->image = $this->fileHandelingService->imageStore($data,$folder);
@@ -65,7 +67,7 @@
                 $patientProfile->name = $data['name'];
                 $patientProfile->email = $data['email']??null;
                 $patientProfile->address = $data['address']??null;
-                $patientProfile->phone = $data['phone'];
+                $patientProfile->phone = $data['phone']??null;
                 $patientProfile->image = $patientProfile->image??null;
                 $patientProfile->birthDate = $data['birthDate']??null;
                 $patientProfile->gender = $data['gender']??null;
