@@ -9,6 +9,8 @@ class PatientTest extends Model
 {
     use HasFactory;
 
+    protected $table = 'tests_with_bills';
+
     protected $fillable = [
         'patient_id','test_id','testType_id','bill_for_test_id','invoice','created_by'
     ];

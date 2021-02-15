@@ -67,7 +67,14 @@
                         <div class="form-group row mb-0" style="margin-top: 5px">
                             <div class="col-md-8 offset-md-4">
                                 <a class="btn" href="{{ route('google_login') }}">
-                                    <img src="{{ asset('ui\frontend\img\google signin button\btn_google_dark_focus_ios.svg') }}"> Login With Google
+                                    <img src="{{ asset('ui\frontend\img\google_signin_button\btn_google_dark_focus_ios.svg') }}"> Login With Google
+                                </a>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0" style="margin-top: 5px">
+                            <div class="col-md-8 offset-md-4">
+                                <a class="btn" href="{{ route('linkedIn_login') }}">
+                                    <img style="width: 200px" src="{{ asset('ui\frontend\img\linkedin_button\Sign-In-Large---Default.png') }}">
                                 </a>
                             </div>
                         </div>

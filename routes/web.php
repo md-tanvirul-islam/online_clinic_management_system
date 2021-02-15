@@ -48,10 +48,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 //****** For Login with Social media
-Route::get('/auth/redirect',[SocialAuthController::class,'googleRedirect'])->name('google_login');
+Route::get('/auth/google/redirect',[SocialAuthController::class,'googleRedirect'])->name('google_login');
 
-Route::get('/auth/callback',[SocialAuthController::class,'googleCallback'])->name('google_after_login');
-// ******* Localization Finish
+Route::get('/auth/google/callback',[SocialAuthController::class,'googleCallback'])->name('google_after_login');
+
+Route::get('/auth/linkedIn/redirect',[SocialAuthController::class,'linkedInRedirect'])->name('linkedIn_login');
+
+Route::get('/auth/linkedIn/callback',[SocialAuthController::class,'linkedInCallback'])->name('linkedIn_after_login');
+// ******* Login with Social media Finish
 
 //****** For Redirection according to the user type
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
@@ -180,6 +184,7 @@ Route::prefix('admin')->middleware(['auth','routesForAdmin'])->group(function ()
   
 
     Route::get('/tests/testListByTestType/',[TestController::class,'testListByTestType'] )->name('tests.testListByTestType');
+    Route::get('/tests/testById/',[TestController::class,'testById'] )->name('tests.testById');
 
     Route::get('testBills/removeTest/{id}',[TestBillController::class,'removeTest'])->name('testBills.remove.test');
     Route::put('testBills/removeTest/{id}/update',[TestBillController::class,'update'])->name('testBills.update.remove.test');

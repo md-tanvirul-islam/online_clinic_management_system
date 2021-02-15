@@ -100,8 +100,20 @@ class TestController extends Controller
 
     public function testListByTestType(Request $request)
     {
+        $request->validate([
+            'testType_id' => 'required|integer'
+        ]);
         $testTypeId =$request->testType_id;
         $tests = Test::where('testType_id','=',"$testTypeId")->get();
         return response()->json($tests);
+    }
+
+    public function testById(Request $request)
+    {
+        $request->validate([
+            'test_id' => 'required|integer'
+        ]);
+        $test = Test::find($request->test_id);
+        return response()->json($test);
     }
 }
